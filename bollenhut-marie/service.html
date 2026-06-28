@@ -13,7 +13,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-romantic { font-family: 'Pinyon Script', cursive; }
-        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+        .text-glow { text-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
+        .text-glow-gold { text-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
 
         /* CUSTOM MAUSZEIGER (Nur Desktop) */
         @media (min-width: 1024px) {
@@ -31,13 +32,13 @@
 
         /* Navigations-Animationen */
         .nav-link { position: relative; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #d4af37; transition: width 0.3s ease, left 0.3s ease; }
         .nav-link:hover::after { width: 100%; left: 0; }
-        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #d4af37; }
 
         /* SEKTIONS-TRENNLINIE */
         .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
-        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.6); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
 
         /* TIMELINE HIGHLIGHTS */
         .timeline-node { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -48,21 +49,35 @@
         #mobile-menu.open { opacity: 1; pointer-events: auto; }
         #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
         #mobile-menu.open a { transform: translateY(0); }
+
+        /* GOLD TEXT GRADIENTS */
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #a16207 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-text-gradient-script {
+            background: linear-gradient(135deg, #fffbeb 0%, #fcd34d 40%, #d4af37 80%, #9a3412 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-right: 24px;
+            padding-bottom: 24px;
+            margin-bottom: -10px;
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-amber-500 selection:text-black pt-20">
 
-    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- OBERE NAVIGATIONSLEISTE (OPTIMIERT & DAUERHAFT SICHTBAR) -->
+    <!-- OBERE NAVIGATIONSLEISTE -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-900/50 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             
             <a href="index.html" class="flex flex-col text-left group z-50">
                 <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
-                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+                <span class="text-sm font-serif italic text-amber-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             
             <!-- Desktop Links -->
@@ -79,7 +94,6 @@
                 <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
             </div>
 
-            <!-- Mobile Burger Button mit Text-Hinweis -->
             <button id="mobile-menu-toggle" class="lg:hidden flex items-center gap-3 text-zinc-400 hover:text-white p-2 z-50 focus:outline-none transition-colors group" aria-label="Menü öffnen">
                 <span id="menu-text" class="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">Menü</span>
                 <i id="burger-icon" class="fas fa-bars text-base"></i>
@@ -104,65 +118,79 @@
         </div>
     </div>
 
-    <!-- HINTERGRUND GLOW EFFEKT -->
+    <!-- HINTERGRUND GLOW EFFEKT IN GOLD -->
     <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" 
-         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);">
+         style="background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, rgba(9, 9, 11, 0) 70%);">
     </div>
 
     <!-- MAIN CONTENT -->
-    <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 space-y-24">
+    <main class="relative z-10 max-w-5xl mx-auto px-6 py-24 space-y-24">
         
         <div class="text-center space-y-2 reveal">
-            <span class="font-romantic text-4xl text-red-500 block">Sorglos feiern</span>
+            <span class="font-romantic text-4xl md:text-6xl gold-text-gradient-script block text-glow-gold tracking-wide">Sorglos feiern</span>
             <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Unser Planungs-Versprechen</h1>
             
             <!-- RING-TRENNLINIE -->
             <div class="header-rings-divider">
-                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
                 <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
                     <circle cx="38" cy="30" r="22" />
                     <circle cx="62" cy="30" r="22" />
                 </svg>
-                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
             </div>
             
             <p class="text-zinc-400 text-xs md:text-sm font-light max-w-md mx-auto pt-2 leading-relaxed">Von der Idee bis zum letzten Tanz koordinieren wir alle gewählten Bausteine unsichtbar im Hintergrund.</p>
         </div>
 
-        <!-- NEUER BEREICH: WARUM UNSER VERSPRECHEN EIN ECHTES VERSPRECHEN IST -->
-        <section class="reveal max-w-3xl mx-auto bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-12 rounded-sm shadow-xl text-left space-y-8">
-            <div class="space-y-2">
-                <span class="text-[10px] uppercase tracking-[0.25em] text-red-500 font-semibold block">Felsenfestes Fundament</span>
-                <h2 class="text-xl md:text-3xl font-serif text-white tracking-wide">Was bedeutet „Versprechen“ für uns?</h2>
-            </div>
-            <div class="space-y-4 text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
-                <p>
-                    In der Hochzeitswelt wird viel über „perfekten Service“ geredet – für uns ist euer Vertrauen jedoch kein Marketing-Slogan, sondern eine persönliche Verpflichtung. Ein Versprechen ist nur so viel wert wie das Fundament, auf dem es steht. Weil wir euer Fest modular aus einer Hand auf unserem eigenen Weingut realisieren, entfallen die üblichen Schnittstellenprobleme, Missverständnisse und Abstimmungsfehler externer Agenturen.
-                </p>
-                <p>
-                    Unser Planungsversprechen bedeutet: **Verbindlichkeit ab Minute eins.** Wenn ihr einen Baustein bucht, steht dahinter ein eingespieltes Team aus der Region, das exakt weiß, wie die Zahnräder ineinandergreifen müssen. Keine versteckten Kosten, keine kurzfristigen Absagen und kein Stress für euch am großen Tag.
-                </p>
-            </div>
+        <!-- OPTIMIERTES PLANUNGS-VERSPRECHEN: JETZT MIT BILD-INTEGRATION -->
+        <section class="reveal max-w-5xl mx-auto bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-12 rounded-sm shadow-xl text-left grid md:grid-cols-12 gap-8 items-center">
             
-            <div class="grid sm:grid-cols-2 gap-6 pt-2">
-                <div class="space-y-1">
-                    <h4 class="text-zinc-200 font-serif text-sm">✓ Echte Inhaber-Garantie</h4>
-                    <p class="text-zinc-500 text-xs font-light">Wir delegieren eure Träume nicht an wechselnde Subunternehmer. Wir haften persönlich für die Qualität jedes Elements.</p>
+            <!-- TEXTSPALTE -->
+            <div class="md:col-span-7 space-y-6">
+                <div class="space-y-2">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-amber-500 font-semibold block">Felsenfestes Fundament</span>
+                    <h2 class="text-xl md:text-3xl font-serif text-white tracking-wide">Was bedeutet „Versprechen“ für uns?</h2>
                 </div>
-                <div class="space-y-1">
-                    <h4 class="text-zinc-200 font-serif text-sm">✓ Unsichtbarer Schutzschild</h4>
-                    <p class="text-zinc-500 text-xs font-light">Am Tag selbst fangen wir jede kleine Planänderung im Hintergrund ab, bevor ihr oder eure Gäste überhaupt etwas davon bemerkt.</p>
+                <div class="space-y-4 text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
+                    <p>
+                        In der Hochzeitswelt wird viel über „perfekten Service“ geredet – für uns ist euer Vertrauen jedoch kein Marketing-Slogan, sondern eine persönliche Verpflichtung. Ein Versprechen ist nur so viel wert wie das Fundament, auf dem es steht. Weil wir euer Fest modular aus einer Hand auf unserem eigenen Weingut realisieren, entfallen die üblichen Schnittstellenprobleme, Missverständnisse und Abstimmungsfehler externer Agenturen.
+                    </p>
+                    <p>
+                        Unser Planungsversprechen bedeutet: **Verbindlichkeit ab Minute eins.** Wenn ihr einen Baustein bucht, steht dahinter ein eingespieltes Team aus der Region, das exakt weiß, wie die Zahnräder ineinandergreifen müssen. Keine versteckten Kosten, keine kurzfristigen Absagen und kein Stress für euch am großen Tag.
+                    </p>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 gap-6 pt-2">
+                    <div class="space-y-1">
+                        <h4 class="text-zinc-200 font-serif text-sm">✓ Echte Inhaber-Garantie</h4>
+                        <p class="text-zinc-500 text-xs font-light">Wir delegieren eure Träume nicht an wechselnde Subunternehmer. Wir haften persönlich für die Qualität jedes Elements.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <h4 class="text-zinc-200 font-serif text-sm">✓ Unsichtbarer Schutzschild</h4>
+                        <p class="text-zinc-500 text-xs font-light">Am Tag selbst fangen wir jede kleine Planänderung im Hintergrund ab, bevor ihr oder eure Gäste überhaupt etwas davon bemerkt.</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- BILDSPALTE: HARMONISCHE VERKNÜPFUNG DES NEUEN FOTOS -->
+            <div class="md:col-span-5 w-full h-full min-h-[300px] flex justify-center items-center">
+                <div class="relative p-1 bg-gradient-to-b from-amber-300/30 to-amber-600/10 rounded-sm shadow-2xl overflow-hidden group w-full">
+                    <!-- WICHTIG: Speicher das generierte Bild unter dem Namen 'planung.jpg' im Ordner 'image' -->
+                    <img src="image/planung.jpg" alt="Detailverliebte Hochzeitsplanung im Schwarzwald-Weinberg" class="w-full h-auto object-cover max-h-[450px] rounded-xs transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/30 via-transparent to-transparent"></div>
+                </div>
+            </div>
+
         </section>
 
-        <!-- TIMELINE BEREICH -->
-        <div class="relative border-l border-zinc-900 ml-4 md:ml-32 space-y-16 reveal">
+        <!-- TIMELINE BEREICH IN GOLD -->
+        <div class="relative border-l border-zinc-900 ml-4 md:ml-32 space-y-16 reveal max-w-3xl mx-auto">
             
             <!-- PHASE 01 -->
             <div class="timeline-item relative pl-8 md:pl-12 group">
-                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
-                <div class="space-y-1.5">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <div class="space-y-1.5 text-left">
                     <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 01</span>
                     <h3 class="text-lg font-serif text-white tracking-wide">Das Baustein-Gespräch</h3>
                     <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Bei einem guten Glas Secco besprechen wir eure Wünsche. Ihr wählt eure Bausteine frei aus – maximale Flexibilität statt starrer Pakete.</p>
@@ -171,8 +199,8 @@
             
             <!-- PHASE 02 -->
             <div class="timeline-item relative pl-8 md:pl-12 group">
-                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
-                <div class="space-y-1.5">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <div class="space-y-1.5 text-left">
                     <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 02</span>
                     <h3 class="text-lg font-serif text-white tracking-wide">Die Maßarbeit</h3>
                     <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Wir stimmen das Catering ab, bereiten eure individuellen Gastpräsente vor und komponieren euren personalisierten Trausong. Alles Hand in Hand.</p>
@@ -181,8 +209,8 @@
             
             <!-- PHASE 03 -->
             <div class="timeline-item relative pl-8 md:pl-12 group">
-                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
-                <div class="space-y-1.5">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <div class="space-y-1.5 text-left">
                     <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 03</span>
                     <h3 class="text-lg font-serif text-white tracking-wide">Der große Tag</h3>
                     <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Ob Festscheune, Kinderbetreuung, Kulinarik oder Sound – am Hochzeitstag selbst koordiniert das Team das gesamte Netzwerk unsichtbar. Ihr feiert einfach.</p>

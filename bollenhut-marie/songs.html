@@ -13,7 +13,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-romantic { font-family: 'Pinyon Script', cursive; }
-        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+        .text-glow { text-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
+        .text-glow-gold { text-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
 
         /* CUSTOM MAUSZEIGER (Nur Desktop) */
         @media (min-width: 1024px) {
@@ -31,23 +32,24 @@
 
         /* Navigations-Animationen */
         .nav-link { position: relative; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #d4af37; transition: width 0.3s ease, left 0.3s ease; }
         .nav-link:hover::after { width: 100%; left: 0; }
-        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #d4af37; }
 
         /* SEKTIONS-TRENNLINIE */
         .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
-        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.6); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
 
         /* PREMIUM HOVER FOR SONG CARDS */
-        .song-container { position: relative; background-color: rgba(24, 24, 27, 0.2); border: 1px solid rgba(39, 39, 42, 0.4); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .song-container { position: relative; background-color: rgba(24, 24, 27, 0.3); border: 1px solid rgba(39, 39, 42, 0.6); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .song-card { position: relative; overflow: hidden; transition: all 0.4s ease; }
-        .song-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0) 70%); opacity: 0; mix-blend-mode: screen; transition: opacity 0.5s ease; pointer-events: none; }
+        .song-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0) 70%); opacity: 0; mix-blend-mode: screen; transition: opacity 0.5s ease; pointer-events: none; }
         .song-card:hover::before { opacity: 1; }
+        .song-card:hover { border-color: rgba(212, 175, 55, 0.3); }
         
         /* BUTTON SHINE EFFECT STYLES */
         .btn-shine-target { position: relative; overflow: hidden; }
-        .btn-shine-target::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
+        .btn-shine-target::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
         .btn-shine-target:hover::after { left: 150%; transition: left 0.75s ease-in-out; }
 
         /* MOBILE MENU OVERLAY */
@@ -55,9 +57,24 @@
         #mobile-menu.open { opacity: 1; pointer-events: auto; }
         #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
         #mobile-menu.open a { transform: translateY(0); }
+
+        /* GOLD GRADIENT DEFINITIONS */
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #a16207 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-text-gradient-script {
+            background: linear-gradient(135deg, #fffbeb 0%, #fcd34d 40%, #d4af37 80%, #9a3412 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-right: 24px;
+            padding-bottom: 24px;
+            margin-bottom: -10px;
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-amber-500 selection:text-black pt-20">
 
     <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
@@ -69,7 +86,7 @@
             
             <a href="index.html" class="flex flex-col text-left group z-50">
                 <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
-                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+                <span class="text-sm font-serif italic text-amber-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             
             <!-- Desktop Links -->
@@ -103,7 +120,7 @@
             <a href="bausteine.html" class="hover:text-white">Bausteine</a>
             <a href="service.html" class="hover:text-white">Planung & Service</a>
             <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
-            <a href="songs.html" class="hover:text-white">Hochzeitslied</a>
+            <a href="songs.html" class="text-white">Hochzeitslied</a>
             <a href="shop.html" class="hover:text-white">Präsente</a>
             <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
             <a href="bio.html" class="hover:text-white">Das Team</a>
@@ -111,87 +128,103 @@
         </div>
     </div>
 
-    <!-- HINTERGRUND GLOW EFFEKT -->
+    <!-- HINTERGRUND GLOW EFFEKT AN GOLD ANGEPASST -->
     <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" 
-         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);">
+         style="background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, rgba(9, 9, 11, 0) 70%);">
     </div>
 
     <!-- MAIN CONTENT -->
-    <main class="relative z-10 max-w-3xl mx-auto px-6 py-24 space-y-16 text-center">
+    <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 space-y-16 text-center">
         
         <div class="space-y-2 reveal">
-            <span class="font-romantic text-4xl text-red-500 block">Eure Geschichte als Melodie</span>
+            <!-- GROSSZÜGIGES PADDING GEGEN ABSCHNEIDEN UND GOLDENER GEFAERBT -->
+            <span class="font-romantic text-4xl md:text-6xl gold-text-gradient-script block text-glow-gold tracking-wide">Eure Geschichte als Melodie</span>
             <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Akustische Inspirationen</h1>
             
             <!-- RING-TRENNLINIE -->
             <div class="header-rings-divider">
-                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
                 <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
                     <circle cx="38" cy="30" r="22" />
                     <circle cx="62" cy="30" r="22" />
                 </svg>
-                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
             </div>
             
             <p class="text-zinc-400 text-xs md:text-sm font-light max-w-xl mx-auto pt-2 leading-relaxed">Hört hier in zwei exklusive Beispiele für personalisierte Trausongs rein, die mit modernster Musik-Technologie individuell für eure emotionalsten Momente komponiert werden.</p>
         </div>
 
-        <!-- EINBLICK IN DIE KI-MUSIKMANUFAKTUR -->
-        <section class="reveal text-left bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-10 rounded-sm shadow-xl space-y-6">
-            <div class="space-y-1.5">
-                <span class="text-[10px] uppercase tracking-widest text-amber-500/80 font-medium font-mono block">Technologie trifft tiefe Emotion</span>
-                <h2 class="text-xl md:text-2xl font-serif text-white tracking-wide">Euer ganz persönlicher, KI-generierter Trausong</h2>
+        <!-- EINBLICK IN DIE KI-MUSIKMANUFAKTUR MIT INTEGRATION DES STUDIOFOTOS -->
+        <section class="reveal text-left bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-10 rounded-sm shadow-xl grid md:grid-cols-12 gap-8 items-center">
+            
+            <!-- TEXTSPALTE -->
+            <div class="md:col-span-7 space-y-6">
+                <div class="space-y-1.5">
+                    <span class="text-[10px] uppercase tracking-widest text-amber-500/80 font-medium font-mono block">Technologie trifft tiefe Emotion</span>
+                    <h2 class="text-xl md:text-2xl font-serif text-white tracking-wide">Euer ganz persönlicher, KI-generierter Trausong</h2>
+                </div>
+                <div class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed space-y-4">
+                    <p>
+                        Ein eigenständiger Song für den Einzug oder den Hochzeitstanz ist ein unvergleichlicher Gänsehaut-Garant. Wir nutzen hochmoderne künstliche Intelligenz, um für euch ein maßgeschneidertes, musikalisches Kunstwerk zu erschaffen. Das Besondere daran: Der Song wird exakt auf eure Namen, eure persönlichen Meilensteine und eure ganz eigene Liebesgeschichte abgestimmt.
+                    </p>
+                    <p>
+                        Ihr liefert uns die wichtigsten Anekdoten und Details – wir formen daraus den perfekten Songtext und steuern die KI-Generierung so aus, dass ein absolutes Unikat entsteht. Stilistisch habt ihr die volle Freiheit: ob emotionale Piano-Ballade, modernes Singer-Songwriter-Arrangement oder epischer Orchestersound. Das Ergebnis klingt verblüffend echt, absolut professionell und gehört nur euch allein.
+                    </p>
+                </div>
             </div>
-            <div class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed space-y-4">
-                <p>
-                    Ein eigenständiger Song für den Einzug oder den Hochzeitstanz ist ein unvergleichlicher Gänsehaut-Garant. Wir nutzen hochmoderne künstliche Intelligenz, um für euch ein maßgeschneidertes, musikalisches Kunstwerk zu erschaffen. Das Besondere daran: Der Song wird exakt auf eure Namen, eure persönlichen Meilensteine und eure ganz eigene Liebesgeschichte abgestimmt.
-                </p>
-                <p>
-                    Ihr liefert uns die wichtigsten Anekdoten und Details – wir formen daraus den perfecten Songtext und steuern die KI-Generierung so aus, dass ein absolutes Unikat entsteht. Stilistisch habt ihr die volle Freiheit: ob emotionale Piano-Ballade, modernes Singer-Songwriter-Arrangement oder epischer Orchestersound. Das Ergebnis klingt verblüffend echt, absolut professionell und gehört nur euch allein.
-                </p>
+
+            <!-- BILDSPALTE: HARMONISCHE PLATZIERUNG DES STUDIOFOTOS -->
+            <div class="md:col-span-5 w-full h-full min-h-[300px] flex justify-center items-center">
+                <div class="relative p-1 bg-gradient-to-b from-amber-300/30 to-amber-600/10 rounded-sm shadow-2xl overflow-hidden group">
+                    <img src="image/studio.jpg" alt="Bollenhut-Marie Künstlerin im Tonstudio" class="w-full h-auto object-cover max-h-[420px] rounded-xs transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/40 via-transparent to-transparent"></div>
+                </div>
             </div>
-            <div class="grid sm:grid-cols-3 gap-6 pt-4 border-t border-zinc-900/60 text-xs">
+
+            <!-- 3-SCHRITTE-PROZESS IN GOLD OPTIMIERT -->
+            <div class="md:col-span-12 grid sm:grid-cols-3 gap-6 pt-6 border-t border-zinc-900/60 text-xs">
                 <div class="space-y-1">
-                    <h4 class="text-zinc-200 font-semibold uppercase tracking-wider text-[10px]">1. Eure Details</h4>
+                    <h4 class="text-amber-400/90 font-semibold uppercase tracking-wider text-[10px]">1. Eure Details</h4>
                     <p class="text-zinc-500 font-light leading-relaxed">Ihr teilt eure Namen, Meilensteine und euren Wunsch-Musikstil mit uns.</p>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-zinc-200 font-semibold uppercase tracking-wider text-[10px]">2. KI-Feintuning</h4>
+                    <h4 class="text-amber-400/90 font-semibold uppercase tracking-wider text-[10px]">2. KI-Feintuning</h4>
                     <p class="text-zinc-500 font-light leading-relaxed">Wir dichten den exakten Text und generieren mittels smarter KI euer Unikat.</p>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-zinc-200 font-semibold uppercase tracking-wider text-[10px]">3. Euer Moment</h4>
+                    <h4 class="text-amber-400/90 font-semibold uppercase tracking-wider text-[10px]">3. Euer Moment</h4>
                     <p class="text-zinc-500 font-light leading-relaxed">Ihr erhaltet den fertigen Song als hochwertige Audiodatei für euren großen Tag.</p>
                 </div>
             </div>
         </section>
 
-        <!-- AUDIO PLAYLIST IM PREMIUM DESIGN -->
+        <!-- AUDIO PLAYLIST IM PREMIUM DESIGN (GOLD STATT ROT) -->
         <div class="song-container border border-zinc-900/60 rounded-sm divide-y divide-zinc-900/60 shadow-2xl reveal">
             
             <!-- BEISPIEL 01 -->
             <div class="song-card p-6 md:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center text-left gap-4">
                 <div class="space-y-1">
-                    <span class="text-[10px] text-red-500 uppercase tracking-widest font-semibold block">Beispiel 01</span>
+                    <span class="text-[10px] gold-text-gradient uppercase tracking-widest font-semibold block">Beispiel 01</span>
                     <h3 class="text-base font-serif text-white tracking-wide">„Er für Sie“ – Die Überraschung</h3>
                     <p class="text-zinc-500 text-xs font-light">Eine tief berührende Ballade, auf eure Namen abgestimmt, als emotionales Geschenk während der freien Zeremonie.</p>
                     <audio id="audio-01" src="audio/er-fuer-sie.mp3" preload="none"></audio>
                 </div>
-                <button onclick="toggleAudio('audio-01', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
-                    <i class="fas fa-play mr-2 text-[9px] text-red-500"></i> Hören
+                <!-- HOVER UND ICON AUF GOLD GEÄNDERT -->
+                <button onclick="toggleAudio('audio-01', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-amber-500 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
+                    <i class="fas fa-play mr-2 text-[9px] text-amber-500"></i> Hören
                 </button>
             </div>
 
             <!-- BEISPIEL 02 -->
             <div class="song-card p-6 md:p-8 flex flex-col sm:flex-row sm:justify-between sm:items-center text-left gap-4">
                 <div class="space-y-1">
-                    <span class="text-[10px] text-red-500 uppercase tracking-widest font-semibold block">Beispiel 02</span>
+                    <span class="text-[10px] gold-text-gradient uppercase tracking-widest font-semibold block">Beispiel 02</span>
                     <h3 class="text-base font-serif text-white tracking-wide">„Sie für Ihn“ – Der Einzug zum Altar</h3>
                     <p class="text-zinc-500 text-xs font-light">Ein epischer Song mit eurer persönlichen Geschichte für den Moment, wenn sich die Scheunentore öffnen.</p>
                     <audio id="audio-02" src="audio/sie-fuer-ihn.mp3" preload="none"></audio>
                 </div>
-                <button onclick="toggleAudio('audio-02', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
-                    <i class="fas fa-play mr-2 text-[9px] text-red-500"></i> Hören
+                <button onclick="toggleAudio('audio-02', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-amber-500 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
+                    <i class="fas fa-play mr-2 text-[9px] text-amber-500"></i> Hören
                 </button>
             </div>
             
@@ -210,7 +243,7 @@
 
     <!-- SKRIPTE -->
     <script>
-        // AUDIO PLAYER STEUERUNG (KORRIGIERTE DOM-SUCHE)
+        // AUDIO PLAYER STEUERUNG (KORRIGIERTE DOM-SUCHE AUF GOLD ANGEPASST)
         function toggleAudio(audioId, button) {
             const audio = document.getElementById(audioId);
             const icon = button.querySelector('i');
@@ -220,12 +253,11 @@
                 if (track !== audio) {
                     track.pause();
                     track.currentTime = 0;
-                    // Findet den Button innerhalb derselben Kachel sauber über das übergeordnete Element
                     const parentCard = track.closest('.song-card');
                     if (parentCard) {
                         const otherBtnIcon = parentCard.querySelector('button i');
                         if (otherBtnIcon) {
-                            otherBtnIcon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+                            otherBtnIcon.className = 'fas fa-play mr-2 text-[9px] text-amber-500';
                         }
                     }
                 }
@@ -233,15 +265,14 @@
 
             if (audio.paused) {
                 audio.play();
-                icon.className = 'fas fa-pause mr-2 text-[9px] text-red-500';
+                icon.className = 'fas fa-pause mr-2 text-[9px] text-amber-500';
             } else {
                 audio.pause();
-                icon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+                icon.className = 'fas fa-play mr-2 text-[9px] text-amber-500';
             }
 
-            // Setzt das Icon zurück, wenn das Lied zu Ende ist
             audio.onended = () => {
-                icon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+                icon.className = 'fas fa-play mr-2 text-[9px] text-amber-500';
             };
         }
 

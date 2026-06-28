@@ -13,7 +13,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-romantic { font-family: 'Pinyon Script', cursive; }
-        .text-glow { text-shadow: 0 0 30px rgba(220, 38, 38, 0.3); }
+        .text-glow { text-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
+        .text-glow-gold { text-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
 
         @media (min-width: 1024px) {
             body { cursor: none; }
@@ -25,33 +26,50 @@
         }
 
         .nav-link { position: relative; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #d4af37; transition: width 0.3s ease, left 0.3s ease; }
         .nav-link:hover::after { width: 100%; left: 0; }
-        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #d4af37; }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .baustein-card { position: relative; background: rgba(24, 24, 27, 0.2); border: 1px solid rgba(39, 39, 42, 0.4); overflow: hidden; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        .baustein-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%); mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
-        .baustein-card:hover { background-color: rgba(24, 24, 27, 0.5); border-color: rgba(212, 175, 55, 0.3); transform: translateY(-2px); box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.1); }
+        .baustein-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0) 70%); mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+        .baustein-card:hover { background-color: rgba(24, 24, 27, 0.5); border-color: rgba(212, 175, 55, 0.35); transform: translateY(-2px); box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15); }
         .baustein-card:hover::before { opacity: 1; }
-        .baustein-card.selected { background-color: rgba(185, 28, 28, 0.05); border-color: rgba(212, 175, 55, 0.5); }
+        /* SELEKTIERTE KARTE NUN MIT DEZENTEM MATTGOLD-HINTERGRUND & GOLD-RAND */
+        .baustein-card.selected { background-color: rgba(212, 175, 55, 0.04); border-color: rgba(212, 175, 55, 0.5); }
 
         .btn-shine-target { position: relative; overflow: hidden; }
-        .btn-shine-target::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
+        .btn-shine-target::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); }
         .btn-shine-target:hover::after { left: 150%; transition: left 0.75s ease-in-out; }
 
         .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
-        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.6); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
 
         #mobile-menu { opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         #mobile-menu.open { opacity: 1; pointer-events: auto; }
         #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
         #mobile-menu.open a { transform: translateY(0); }
+
+        /* GOLD TEXT GRADIENT DEFINITIONS */
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #a16207 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gold-text-gradient-script {
+            background: linear-gradient(135deg, #fffbeb 0%, #fcd34d 40%, #d4af37 80%, #9a3412 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-right: 24px;
+            padding-bottom: 24px;
+            margin-bottom: -10px;
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-amber-500 selection:text-black pt-20">
 
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
@@ -60,7 +78,7 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             <a href="index.html" class="flex flex-col text-left group z-50">
                 <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
-                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+                <span class="text-sm font-serif italic text-amber-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
                 <a href="index.html" class="nav-link hover:text-white">Start</a>
@@ -96,19 +114,21 @@
         </div>
     </div>
 
-    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);"></div>
+    <!-- HINTERGRUND GRADIENT DEZENT AN GOLD ANGEPASST -->
+    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" style="background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, rgba(9, 9, 11, 0) 70%);"></div>
 
     <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 space-y-16">
         
         <div class="text-center space-y-2 reveal">
-            <span class="font-romantic text-4xl text-red-500 block">Maßgeschneidert & Transparent</span>
+            <!-- SCHRIFTZUG AUF GOLD GEÄNDERT -->
+            <span class="font-romantic text-4xl gold-text-gradient-script block text-glow-gold tracking-wide">Maßgeschneidert & Transparent</span>
             <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Eure Hochzeits-Bausteine</h1>
             <div class="header-rings-divider">
-                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
                 <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
                     <circle cx="38" cy="30" r="22" /><circle cx="62" cy="30" r="22" />
                 </svg>
-                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-amber-500/30 flex-grow max-w-[80px]"></div>
             </div>
             <p class="text-zinc-400 text-xs md:text-sm max-w-xl mx-auto font-light leading-relaxed">
                 Wählt ganz flexibel die Wunsch-Elemente für eure Feier aus. Klickt einfach auf die jeweiligen Bausteine, um sie eurer unverbindlichen Merkliste hinzuzufügen.
@@ -126,7 +146,8 @@
             <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
                 Eine freie Trauung bei uns auf dem Weingut kennt keine starren Regeln, keine unpersönlichen Texte und keine Hektik. Hier zählt nur ihr, eure ganz persönliche Geschichte und das Versprechen, das ihr euch gebt. Ob herzlich-erfrischend, tief emotional oder mit einer feinen Prise Schwarzwälder Tradition – wir schaffen den Rahmen, der zu einhundert Prozent eurer Liebe entspricht.
             </p>
-            <blockquote class="border-l-2 border-red-700 pl-4 py-1 my-4 bg-zinc-950/40">
+            <!-- BLOCKQUOTE AKZENT AUF MATTGOLD GEÄNDERT -->
+            <blockquote class="border-l-2 border-amber-500 pl-4 py-1 my-4 bg-zinc-950/40">
                 <span class="text-xs uppercase tracking-wider text-white font-medium block mb-1">Der perfekte Auftakt für euer Fest</span>
                 <p class="text-zinc-400 text-xs italic font-light leading-relaxed">
                     Nach dem emotionalen „Ja“-Wort trennen euch nur wenige Schritte von der feierlich gedeckten Festscheune. Während die ersten Freudentränen getrocknet werden, stoßen eure Gäste direkt am Ort des Geschehens mit einem prickelnden Winzersekt auf euer Glück an.
@@ -135,7 +156,7 @@
             <div class="space-y-2 pt-2">
                 <h3 class="text-sm font-serif text-zinc-200 tracking-wide">Lust auf mehr? Gestaltet euren Tag nach euren Wünschen!</h3>
                 <p class="text-zinc-400 text-xs font-light leading-relaxed">
-                    Das Schönste an unserem Konzept: Die Traumtrauung im Weinberg ist erst der Anfang. Unser modulares Baustein-System lässt euch die vollkommene Freiheit, euer Fest genau so zu erweitern, wie ihr es euch erträumt habt. Kombiniert feine Kulinarik, ein maßgeschneidertes Musikkonzept oder liebevolle Betreuung für die Kleinen ganz nach euren Vorstellungen.
+                    Das Schönste an unserem Konzept: Die Traumtrauung im Weinberg is erst der Anfang. Unser modulares Baustein-System lässt euch die vollkommene Freiheit, euer Fest genau so zu erweitern, wie ihr es euch erträumt habt. Kombiniert feine Kulinarik, ein maßgeschneidertes Musikkonzept oder liebevolle Betreuung für die Kleinen ganz nach euren Vorstellungen.
                 </p>
             </div>
         </section>
@@ -143,116 +164,119 @@
         <div class="space-y-6 reveal">
             
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b01" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <!-- CHECKBOX ACCENT FARBE ANGEPASST -->
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b01" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 01</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Festscheune & Weingut</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Exklusive Miete unserer vollständig restaurierten, historischen Festscheune, die rustikalen Schwarzwald-Charme perfekt mit modernem Loft-Design verbindet. Inklusive Hof- und Nebennutzung, stilvoller Tische und Bestuhlung sowie variablem Lichtkonzept.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 2.800,- €</span></div>
+                    <!-- PREISAUFZEICHNUNG AUF GRADIENT-GOLD GEÄNDERT -->
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 2.800,- €</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b02" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b02" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 02</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Freie Trauung im Weinberg</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Romantisches Ja-Wort inmitten unserer malerischen Rebstöcke mit unverbautem Blick ins Grüne. Inklusive festlicher, weißer Bestuhlung für eure Gäste, einem handgefertigten Traubogen aus Altholz, edlem Rednerpult sowie einer dezenten High-End-Soundanlage.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 1.450,- €</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 1.450,- €</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b03" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b03" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 03</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Sektempfang & Fingerfood</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Ein prickelnder Empfang unseres hauseigenen Winzersekts, gepaart mit badischen Tapas und unserem legendären, regional interpretierten „Schwarzwald-Sushi“ direkt nach eurer Trauzeremonie.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 24,- € <span class="text-zinc-600 text-xs font-sans">/ Gast</span></span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 24,- € <span class="text-zinc-600 text-xs font-sans">/ Gast</span></span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b04" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b04" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 04</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Live-Musik & Entertainment</h3>
-                        <p class="text-zinc-400 text-xs font-light leading-relaxed">Professionelle musikalische Begleitung für eure gesamte Hochzeitsfeier. Von dezenter instrumentaler Untermalung während des Empfangs bis hin zu erstklassigem Live-Gesang für eine gefüllte Tanzfläche am Abend.</p>
+                        <p class="text-zinc-400 text-xs font-light leading-relaxed">Professionelle musikalische Begleitung für eure gesamte Hochzeitsfeier. Von der dezenten instrumentalen Untermalung während des Empfangs bis hin zu erstklassigem Live-Gesang für eine gefüllte Tanzfläche am Abend.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">auf Anfrage</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">auf Anfrage</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b05" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b05" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 05</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Gastpräsente & Details</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Liebevoll verpackte Aufmerksamkeiten für eure Gäste direkt aus inhabergeführten Schwarzwälder Destillerien und traditionellen Handwerks-Manufakturen. Individuell personalisiert mit euren Hochzeitsdaten.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 4,50 € <span class="text-zinc-600 text-xs font-sans">/ Stk.</span></span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 4,50 € <span class="text-zinc-600 text-xs font-sans">/ Stk.</span></span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b06" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b06" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 06</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Hochzeitsfahrzeuge</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Der perfekte, stilvolle Auftritt: Eindrucksvolle Premium- und Oldtimer-Fahrzeuge für die Fahrt zur Location sowie als traumhafte Kulisse für eure Paarfotos im Weinberg.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">auf Anfrage</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">auf Anfrage</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b07" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b07" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 07</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Die Kinder-Jurte</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Liebevolle, naturpädagogische Kinderbetreuung direkt im Weinberg. Spannende Abenteuer und Spiele im Freien für die Kleinen – maximale Entlastung und unbeschwertes Feiern für die Eltern.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 350,- €</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 350,- €</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b08" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b08" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 08</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Schwarzwald-Gin-Bar</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Eine edle, handverlesene Auswahl regionaler Premium-Gins, serviert mit korrespondierenden Botanicals und Tonic-Variationen an unserer stilvollen Live-Bar direkt in der Festscheune.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 450,- €</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 450,- €</span></div>
                 </div>
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b09" class="w-4 h-4 rounded-xs border-zinc-700 text-red-600 bg-zinc-950 accent-red-700"></div>
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b09" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 09</span>
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Eigener Trausong</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Wir komponieren und produzieren im Tonstudio ein vollkommen eigenständiges, professionelles Musikstück, das exakt eure persönliche Liebesgeschichte, eure gemeinsamen Meilensteine und eure Namen transportiert.</p>
                     </div>
-                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="text-red-500 font-serif text-lg block font-medium">ab 490,- €</span></div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 490,- €</span></div>
                 </div>
             </label>
         </div>
 
+        <!-- CTA-BUTTON AUF GRADIENT-GOLD GEÄNDERT -->
         <div class="text-center reveal pt-6">
-            <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-red-700 hover:bg-red-800 text-white text-[11px] font-semibold uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300 shadow-xl border border-red-700/20 rounded-xs">
+            <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300 shadow-xl shadow-amber-950/20 rounded-xs">
                 Jetzt unverbindlich anfragen
             </a>
         </div>
