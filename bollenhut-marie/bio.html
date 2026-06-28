@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Das Team & Philosophie | Bollenhut-Marie</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Pinyon Script', cursive; }
+        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+
+        /* CUSTOM MAUSZEIGER (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, .interactive-card { cursor: none; }
+            #custom-cursor-dot {
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background-color: #d4af37;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s;
+            }
+            #custom-cursor-circle {
+                position: fixed;
+                width: 34px;
+                height: 34px;
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            }
+            body.cursor-hover #custom-cursor-circle {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(212, 175, 55, 0.06);
+                border-color: rgba(212, 175, 55, 0.7);
+            }
+            body.cursor-hover #custom-cursor-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* WEICHES EINBLENDEN */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigations-Animationen */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #dc2626;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #dc2626;
+        }
+
+        /* HEADER-RINGS/DIVIDER */
+        .rings-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .header-rings-svg {
+            width: 42px;
+            height: 28px;
+            color: rgba(212, 175, 55, 0.6);
+            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2));
+        }
+
+        /* STILVOLLES PORTRAIT HOVER */
+        .interactive-card {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(39, 39, 42, 0.6);
+        }
+        .interactive-card:hover {
+            border-color: rgba(212, 175, 55, 0.35);
+            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+
+    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+
+    <!-- KONSISTENTE NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
+            
+            <a href="index.html" class="flex flex-col text-left group">
+                <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
+                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
+                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
+                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
+                <a href="shop.html" class="nav-link hover:text-white">Shop</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="bio.html" class="text-white nav-link-active">Das Team</a>
+                <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- HINTERGRUND GLOW EFFEKT -->
+    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-30 pointer-events-none" 
+         style="background: radial-gradient(circle at 20% 30%, rgba(185, 28, 28, 0.12) 0%, rgba(9, 9, 11, 0) 70%);">
+    </div>
+
+    <!-- MAIN CONTENT MIT REVEAL ANIMATION -->
+    <main class="relative z-10 max-w-5xl mx-auto px-6 py-24 md:py-32">
+        <div class="grid md:grid-cols-12 gap-12 lg:gap-16 items-center reveal">
+            
+            <!-- PORTRAIT BILD -->
+            <div class="md:col-span-5">
+                <div class="interactive-card rounded-sm overflow-hidden bg-zinc-900 aspect-[2/3] shadow-2xl">
+                    <img src="portrait2.jpg" alt="Das Team / Porträt" class="w-full h-full object-cover opacity-90 transition-transform duration-700 hover:scale-102">
+                </div>
+            </div>
+            
+            <!-- TEXTBLOCK -->
+            <div class="md:col-span-7 space-y-8">
+                <div class="space-y-3">
+                    <span class="font-romantic text-3xl text-red-500 block">Das Team hinter den Kulissen</span>
+                    <h1 class="text-3xl md:text-4xl font-serif text-white tracking-wide">Kreative Köpfe & Experten</h1>
+                    
+                    <!-- DIE EDLE RING-TRENNLINIE -->
+                    <div class="rings-divider">
+                        <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <circle cx="38" cy="30" r="22" />
+                            <circle cx="62" cy="30" r="22" />
+                        </svg>
+                        <div class="h-[1px] bg-gradient-to-r from-red-700/40 to-transparent flex-grow max-w-[120px]"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6 text-zinc-400 font-light leading-relaxed text-sm">
+                    <p>Bollenhut-Marie ist kein schüchterner Rückblick in ein verstaubtes Heimatmuseum – sie ist der stilvolle Aufbruch in eine völlig neue Ära. Wir brechen das klassische Glasgehäuse konservativer Fest-Traditionen auf, um Platz für Individualität, High-End-Service und unvergessliche Momente zu schaffen.</p>
+                    
+                    <h2 class="text-lg font-serif text-white pt-4 tracking-wide">Der Bollenhut 2.0</h2>
+                    
+                    <p>Der Bollenhut ist für uns kein bloßes Accessoire aus der Trachtenkammer, sondern ein starkes Symbol für den Mut zur Veränderung. Wo früher strikte Regeln über die Details entschieden, wählt Marie heute den Weg freier, individueller Ausdruckskraft für eure Feste. Tradition ist nicht das Anbeten der Asche, sondern das begeisterte Weitergeben des Feuers.</p>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- KONSISTENTER FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
+        <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
+        <div class="flex justify-center space-x-6">
+            <a href="impressum.html" class="hover:text-zinc-400 transition-colors">Impressum</a>
+            <span>|</span>
+            <a href="datenschutz.html" class="hover:text-zinc-400 transition-colors">Datenschutz</a>
+        </div>
+    </footer>
+
+    <!-- SKRIPTE -->
+    <script>
+        // MAUSZEIGER-ANIMATION
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, .interactive-card');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        // INITIAL REVEAL ANIMATION
+        window.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                // Ein kleiner Timeout sorgt für einen sanften Start nach dem Rendern
+                setTimeout(() => {
+                    el.classList.add('active');
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

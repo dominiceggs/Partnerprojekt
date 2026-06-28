@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum | Bollenhut-Marie</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Pinyon Script', cursive; }
+
+        /* CUSTOM GOLD CURSOR STYLES (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button { cursor: none; }
+            #custom-cursor-dot {
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background-color: #d4af37;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s;
+            }
+            #custom-cursor-circle {
+                position: fixed;
+                width: 34px;
+                height: 34px;
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            }
+            body.cursor-hover #custom-cursor-circle {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(212, 175, 55, 0.06);
+                border-color: rgba(212, 175, 55, 0.7);
+            }
+            body.cursor-hover #custom-cursor-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* Navigations-Animationen */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #dc2626;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-red-600 selection:text-white pt-32">
+
+    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+
+    <!-- KONSISTENTE NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
+            
+            <a href="index.html" class="flex flex-col text-left group">
+                <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
+                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
+                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
+                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
+                <a href="shop.html" class="nav-link hover:text-white">Shop</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
+                <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- INHALT IM PREMIUM-LOOK -->
+    <main class="max-w-2xl mx-auto px-6 py-24 space-y-12">
+        <div class="space-y-2 border-b border-zinc-900 pb-6">
+            <span class="font-romantic text-3xl text-red-500 block">Rechtliches</span>
+            <h1 class="text-3xl font-serif text-white uppercase tracking-wide">Impressum</h1>
+        </div>
+        
+        <div class="space-y-6 text-sm font-light leading-relaxed">
+            <div class="space-y-2">
+                <p class="text-zinc-200 font-medium">Verantwortlich für den Inhalt:</p>
+                <p class="text-zinc-400">Dominic Eggs<br>Brunnenbühndstraße 23<br>77704 Oberkirch</p>
+            </div>
+            
+            <div class="space-y-2 pt-4">
+                <p class="text-zinc-200 font-medium">Kontakt:</p>
+                <p class="text-zinc-400">E-Mail: <a href="mailto:dominic.eggs@gmail.com" class="text-red-500 hover:underline">dominic.eggs@gmail.com</a></p>
+            </div>
+            
+            <div class="space-y-2 pt-4 border-t border-zinc-900/60">
+                <p class="text-zinc-200 font-medium">Wichtiger KI-Hinweis:</p>
+                <p class="text-zinc-400">Die Musik und multimedialen Inhalte von Bollenhut-Marie werden unter moderner Verwendung von KI-Technologie erstellt. Alle Rechte an den Konzepten und Kompositionen liegen beim Betreiber dieser Seite.</p>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-zinc-900 text-xs">
+            <a href="index.html" class="text-zinc-500 hover:text-red-500 transition-colors flex items-center gap-2">
+                <i class="fas fa-chevron-left text-[9px]"></i> Zurück zur Startseite
+            </a>
+        </div>
+    </main>
+
+    <!-- KONSISTENTER FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
+        <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
+        <div class="flex justify-center space-x-6">
+            <a href="impressum.html" class="text-zinc-400 hover:text-zinc-300">Impressum</a>
+            <span>|</span>
+            <a href="datenschutz.html" class="hover:text-zinc-400">Datenschutz</a>
+        </div>
+    </footer>
+
+    <script>
+        // MAUSZEIGER-ANIMATION
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+    </script>
+</body>
+</html>

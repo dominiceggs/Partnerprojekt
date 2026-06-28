@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wunschtermin anfragen | Bollenhut-Marie</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Pinyon Script', cursive; }
+        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+
+        /* CUSTOM GOLD CURSOR STYLES (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, input, textarea, label { cursor: none; }
+            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s; }
+            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
+            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
+        }
+
+        /* Navigations-Animationen */
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link:hover::after { width: 100%; left: 0; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
+
+        /* REVEAL ON SCROLL */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* FORM BLOCK WITH GOLD BLUR EFFECT */
+        .form-container {
+            position: relative;
+            background: rgba(24, 24, 27, 0.2);
+            border: 1px solid rgba(39, 39, 42, 0.4);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .form-container::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle 200px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0) 70%);
+            mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+        }
+        .form-container:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.05);
+        }
+        .form-container:hover::before { opacity: 1; }
+
+        /* BUTTON SHINE EFFECT STYLES */
+        .btn-shine-target { position: relative; overflow: hidden; }
+        .btn-shine-target::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); transition: none;
+        }
+        .btn-shine-target:hover::after { left: 150%; transition: left 0.75s ease-in-out; }
+
+        /* SEKTIONS-TRENNLINIE */
+        .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+
+    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+
+    <!-- KONSISTENTE NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
+            
+            <a href="index.html" class="flex flex-col text-left group">
+                <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
+                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
+                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
+                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
+                <a href="shop.html" class="nav-link hover:text-white">Shop</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
+                <a href="kontakt.html" class="text-white nav-link-active">Termin-Anfrage</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- HINTERGRUND GLOW EFFEKT -->
+    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" 
+         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 max-w-2xl mx-auto px-6 py-24 space-y-12">
+        
+        <div class="text-center space-y-2 reveal">
+            <span class="font-romantic text-4xl text-red-500 block">Gemeinsam planen</span>
+            <h1 class="text-3xl font-serif text-white tracking-wide uppercase">Eure Baustein-Anfrage</h1>
+            
+            <!-- RING-TRENNLINIE -->
+            <div class="header-rings-divider">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="38" cy="30" r="22" />
+                    <circle cx="62" cy="30" r="22" />
+                </svg>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+            </div>
+            
+            <p class="text-zinc-500 text-xs font-light max-w-md mx-auto pt-2 leading-relaxed">Wählt ganz unverbindlich eure Wunsch-Elemente für die Saison 2026 aus.</p>
+        </div>
+
+        <!-- FORMULAR IM PREMIUM-LOOK -->
+        <form class="form-container space-y-8 p-8 md:p-12 rounded-sm shadow-2xl reveal" style="transition-delay: 150s;">
+            <div class="grid md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Dein Name" required class="w-full bg-zinc-950/60 border border-zinc-900/60 focus:border-red-600/80 p-4 text-xs tracking-wider text-white focus:outline-none transition rounded-xs">
+                <input type="email" placeholder="Deine E-Mail" required class="w-full bg-zinc-950/60 border border-zinc-900/60 focus:border-red-600/80 p-4 text-xs tracking-wider text-white focus:outline-none transition rounded-xs">
+            </div>
+            
+            <input type="text" placeholder="Geplantes Hochzeitsdatum (z.B. Sommer 2026)" class="w-full bg-zinc-950/60 border border-zinc-900/60 focus:border-red-600/80 p-4 text-xs tracking-wider text-white focus:outline-none transition rounded-xs">
+
+            <div class="space-y-3.5 pt-6 border-t border-zinc-900/60">
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold block mb-3">Gewünschte Bausteine wählen:</span>
+                
+                <label class="flex items-center gap-3.5 text-xs tracking-wide text-zinc-400 cursor-pointer hover:text-white transition select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded-xs border-zinc-800 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0 accent-red-700"> Uriges Weingut & Festscheune
+                </label>
+                <label class="flex items-center gap-3.5 text-xs tracking-wide text-zinc-400 cursor-pointer hover:text-white transition select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded-xs border-zinc-800 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0 accent-red-700"> Freie Trauung im Weinberg
+                </label>
+                <label class="flex items-center gap-3.5 text-xs tracking-wide text-zinc-400 cursor-pointer hover:text-white transition select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded-xs border-zinc-800 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0 accent-red-700"> Sektempfang & Fingerfood
+                </label>
+                <label class="flex items-center gap-3.5 text-xs tracking-wide text-zinc-400 cursor-pointer hover:text-white transition select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded-xs border-zinc-800 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0 accent-red-700"> Gastpräsente
+                </label>
+                <label class="flex items-center gap-3.5 text-xs tracking-wide text-zinc-400 cursor-pointer hover:text-white transition select-none">
+                    <input type="checkbox" class="w-4 h-4 rounded-xs border-zinc-800 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0 accent-red-700"> Eigener, personalisierter Trausong
+                </label>
+            </div>
+
+            <textarea placeholder="Eure Wünsche oder Fragen an uns..." rows="4" class="w-full bg-zinc-950/60 border border-zinc-900/60 focus:border-red-600/80 p-4 text-xs tracking-wider text-white focus:outline-none transition rounded-xs resize-none"></textarea>
+            
+            <button type="submit" class="btn-shine-target w-full bg-red-700 hover:bg-red-800 text-white text-[11px] font-semibold uppercase tracking-[0.2em] py-4 transition-all duration-300 shadow-xl shadow-red-950/20 border border-red-700/20 rounded-xs">
+                Unverbindliche Anfrage senden
+            </button>
+        </form>
+    </main>
+
+    <!-- KONSISTENTER FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
+        <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
+        <div class="flex justify-center space-x-6">
+            <a href="impressum.html" class="hover:text-zinc-400 transition-colors">Impressum</a>
+            <span>|</span>
+            <a href="datenschutz.html" class="hover:text-zinc-400 transition-colors">Datenschutz</a>
+        </div>
+    </footer>
+
+    <!-- SKRIPTE -->
+    <script>
+        // MAUSZEIGER-ANIMATION
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, label');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        // REVEAL-ON-SCROLL
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // CONTAINER-HOVER MAUS POSITION (GOLD RADIANT BLUR)
+        window.addEventListener('mousemove', e => {
+            const container = document.querySelector('.form-container');
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                container.style.setProperty('--x', `${x}px`);
+                container.style.setProperty('--y', `${y}px`);
+            }
+        });
+    </script>
+</body>
+</html>

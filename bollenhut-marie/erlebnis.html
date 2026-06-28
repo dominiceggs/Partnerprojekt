@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schwarzwald Kulinarik | Bollenhut-Marie</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Pinyon Script', cursive; }
+        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+
+        /* CUSTOM MAUSZEIGER (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, .interactive-img { cursor: none; }
+            #custom-cursor-dot {
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background-color: #d4af37;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s;
+            }
+            #custom-cursor-circle {
+                position: fixed;
+                width: 34px;
+                height: 34px;
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            }
+            body.cursor-hover #custom-cursor-circle {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(212, 175, 55, 0.06);
+                border-color: rgba(212, 175, 55, 0.7);
+            }
+            body.cursor-hover #custom-cursor-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* STILVOLLES EINBLENDEN BEIM SCROLLEN */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigations-Animationen */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #dc2626;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #dc2626;
+        }
+
+        /* SEKTIONS-TRENNLINIE MIT TRAURINGEN */
+        .header-rings-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            margin: 16px 0;
+        }
+        .header-rings-svg {
+            width: 42px;
+            height: 28px;
+            color: rgba(212, 175, 55, 0.5);
+            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15));
+        }
+
+        /* PREMIUM IMAGE BORDER HOVER */
+        .interactive-img {
+            border: 1px solid rgba(39, 39, 42, 0.4); 
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .interactive-img:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+
+    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+
+    <!-- KONSISTENTE NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
+            
+            <a href="index.html" class="flex flex-col text-left group">
+                <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
+                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
+                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
+                <a href="erlebnis.html" class="text-white nav-link-active">Kulinarik</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
+                <a href="shop.html" class="nav-link hover:text-white">Shop</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
+                <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- HEADER MIT EDLEM GLOW UND IMAGE OVERLAY -->
+    <header class="relative h-[60vh] flex items-center justify-center bg-cover bg-center overflow-hidden" style="background-image: linear-gradient(rgba(9, 9, 11, 0.4), rgba(9, 9, 11, 0.95)), url('hochzeit_panorama.jpg');">
+        <!-- Tiefen-Glow -->
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none" 
+             style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.15) 0%, rgba(9, 9, 11, 0) 75%);">
+        </div>
+        
+        <div class="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-3 mt-12 flex flex-col items-center reveal">
+            <span class="font-romantic text-3xl md:text-4xl text-red-500 block text-glow tracking-wide">Tradition trifft High-End-Küche</span>
+            <h1 class="text-4xl md:text-6xl font-serif font-normal text-white leading-tight tracking-wide text-glow uppercase">Schwarzwald-Fusion</h1>
+            
+            <!-- RING-TRENNLINIE -->
+            <div class="header-rings-divider">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="38" cy="30" r="22" />
+                    <circle cx="62" cy="30" r="22" />
+                </svg>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN KULINARIK CONTENT -->
+    <main class="max-w-6xl mx-auto px-6 py-24 space-y-32">
+        
+        <!-- SEKTION 1: TAPAS -->
+        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
+            <div class="space-y-4">
+                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Klassiker neu interpretiert</span>
+                <h2 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Badische Tapas & Geselligkeit</h2>
+                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
+                <p class="text-zinc-400 font-light leading-relaxed text-sm">Unsere Hochzeits-Gastronomie interpretiert traditionelle Klassiker neu als eleganten Fingerfood-Häppchen auf verschiedenen Brotsorten – von Mini Strammer Max mit Wachtelei bis hin zu gebratenen Kräuterseitlingen auf Walnussbrot. Eine wunderbare, lockere Fusion für eure Hochzeitsgesellschaft.</p>
+            </div>
+            <div class="interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
+                <img src="erlebnis_tapas_main.jpg" alt="Schwarzwälder Tapas" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+            </div>
+        </section>
+
+        <!-- SEKTION 2: SCHWARZWALD SUSHI -->
+        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
+            <div class="md:order-2 space-y-4">
+                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Das absolute Highlight</span>
+                <h3 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Schwarzwald-Sushi</h3>
+                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
+                <p class="text-zinc-400 font-light leading-relaxed text-sm">Hauchdünner Schinken, zartes Forellenfilet, cremiger Meerrettich-Frischkäse, kunstvoll gerollt in Schnittlauch und serviert mit unserer dick eingekochten Dunkelbier-„Wald-Sojasauce“. Ein genialer, moderner Gesprächsstoff für jeden Sektempfang.</p>
+            </div>
+            <div class="md:order-1 interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
+                <img src="erlebnis_sushi_detail.jpg" alt="Schwarzwald Sushi" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+            </div>
+        </section>
+
+        <!-- SEKTION 3: DRINKS -->
+        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
+            <div class="space-y-4">
+                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Erfrischend & Exklusiv</span>
+                <h3 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Signature Drinks & Secco</h3>
+                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
+                <p class="text-zinc-400 font-light leading-relaxed text-sm">Prickelnder badischer Winzersekt, erfrischender Schwarzwald-Spritz mit Fichtennadel-Sirup oder unser kräftiger Bollenhut-Negroni mit einem feinen Spritzer echtem Kirschwasser. Abgerundet durch Maries hauseigenen, eiskalten Schwarzwald Secco.</p>
+            </div>
+            <div class="interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
+                <img src="maries_signature_drinks.png" alt="Signature Drinks" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+            </div>
+        </section>
+    </main>
+
+    <!-- KONSISTENTER FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
+        <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
+        <div class="flex justify-center space-x-6">
+            <a href="impressum.html" class="hover:text-zinc-400 transition-colors">Impressum</a>
+            <span>|</span>
+            <a href="datenschutz.html" class="hover:text-zinc-400 transition-colors">Datenschutz</a>
+        </div>
+    </footer>
+
+    <!-- SKRIPTE -->
+    <script>
+        // MAUSZEIGER-ANIMATION
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, .interactive-img');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        // REVEAL-ON-SCROLL OBSERVATION
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

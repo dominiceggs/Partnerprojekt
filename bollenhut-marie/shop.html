@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hochzeits-Merch & Details | Bollenhut-Marie</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Pinyon Script', cursive; }
+        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
+
+        /* CUSTOM MAUSZEIGER (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, .shop-card { cursor: none; }
+            #custom-cursor-dot {
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background-color: #d4af37;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s;
+            }
+            #custom-cursor-circle {
+                position: fixed;
+                width: 34px;
+                height: 34px;
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            }
+            body.cursor-hover #custom-cursor-circle {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(212, 175, 55, 0.06);
+                border-color: rgba(212, 175, 55, 0.7);
+            }
+            body.cursor-hover #custom-cursor-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        /* STILVOLLES EINBLENDEN BEIM LADEN */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigations-Animationen */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #dc2626;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #dc2626;
+        }
+
+        /* SEKTIONS-TRENNLINIE */
+        .header-rings-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .header-rings-svg {
+            width: 42px;
+            height: 28px;
+            color: rgba(212, 175, 55, 0.5);
+            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15));
+        }
+
+        /* PREMIUM HOVER FOR SHOP CARDS */
+        .shop-card {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(24, 24, 27, 0.2); 
+            border: 1px solid rgba(39, 39, 42, 0.4); 
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .shop-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+            opacity: 0;
+            mix-blend-mode: screen;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .shop-card:hover {
+            background-color: rgba(24, 24, 27, 0.5);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.1);
+        }
+        .shop-card:hover::before { opacity: 1; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
+
+    <!-- CUSTOM MAUSZEIGER (PUNKT & KREIS) -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+
+    <!-- KONSISTENTE NAVIGATION -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
+            
+            <a href="index.html" class="flex flex-col text-left group">
+                <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
+                <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
+                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
+                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
+                <a href="shop.html" class="text-white nav-link-active">Shop</a>
+                <span class="text-zinc-800 font-light">/</span>
+                <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
+                <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- HINTERGRUND GLOW EFFEKT -->
+    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" 
+         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 max-w-6xl mx-auto px-6 py-24 space-y-16">
+        
+        <div class="text-center space-y-2 reveal">
+            <span class="font-romantic text-4xl text-red-500 block">Liebevolle Details</span>
+            <h1 class="text-3xl md:text-4xl font-serif text-white tracking-wide uppercase">Gastgeschenke & Souvenirs</h1>
+            
+            <!-- RING-TRENNLINIE -->
+            <div class="header-rings-divider">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+                <svg class="header-rings-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="38" cy="30" r="22" />
+                    <circle cx="62" cy="30" r="22" />
+                </svg>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
+            </div>
+        </div>
+
+        <!-- PRODUCT GRID IM DESIGN DER BAUSTEINE -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto reveal" style="transition-delay: 150s;">
+            
+            <!-- KACHEL 1: GASTPRÄSENTE -->
+            <div class="shop-card p-6 md:p-8 space-y-6 rounded-sm group">
+                <div class="aspect-square bg-zinc-950/40 border border-zinc-900/60 flex items-center justify-center overflow-hidden rounded-xs">
+                    <img src="img/mariemutze.jpg" alt="Gastpräsente" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+                </div>
+                <div class="flex justify-between items-start pt-2">
+                    <div class="space-y-1">
+                        <h3 class="font-serif text-lg text-white tracking-wide">Gastpräsente</h3>
+                        <p class="text-zinc-500 text-xs font-light leading-relaxed">Individuell veredelte und liebevoll ausgewählte Präsente direkt aus der Region.</p>
+                    </div>
+                    <span class="text-red-500 font-serif text-xs uppercase tracking-widest bg-red-950/30 border border-red-900/40 px-2 py-1 rounded-xs shrink-0 whitespace-nowrap ml-4">Auf Anfrage</span>
+                </div>
+            </div>
+
+            <!-- KACHEL 2: SCHAL -->
+            <div class="shop-card p-6 md:p-8 space-y-6 rounded-sm group">
+                <div class="aspect-square bg-zinc-950/40 border border-zinc-900/60 flex items-center justify-center overflow-hidden rounded-xs">
+                    <img src="img/Schal.jpg" alt="Wander Schal Marie" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+                </div>
+                <div class="flex justify-between items-start pt-2">
+                    <div class="space-y-1">
+                        <h3 class="font-serif text-lg text-white tracking-wide">Premium Schal „Bollenhut-Marie“</h3>
+                        <p class="text-zinc-500 text-xs font-light leading-relaxed">Hochwertiger, exklusiv gewebter Schal als edles Accessoire für kühlere Abendstunden.</p>
+                    </div>
+                    <span class="text-amber-500 font-serif text-sm font-medium bg-amber-950/20 border border-amber-900/30 px-3 py-1 rounded-xs shrink-0 whitespace-nowrap ml-4">29,90 €</span>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- KONSISTENTER FOOTER -->
+    <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
+        <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
+        <div class="flex justify-center space-x-6">
+            <a href="impressum.html" class="hover:text-zinc-400 transition-colors">Impressum</a>
+            <span>|</span>
+            <a href="datenschutz.html" class="hover:text-zinc-400 transition-colors">Datenschutz</a>
+        </div>
+    </footer>
+
+    <!-- SKRIPTE -->
+    <script>
+        // MAUSZEIGER-ANIMATION
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, .shop-card');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        // INITIAL REVEAL-ON-SCROLL / INITIAL LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                setTimeout(() => {
+                    el.classList.add('active');
+                }, 150);
+            });
+        });
+
+        // KACHEL-HOVER MAUS POSITION (GOLD BLUR EFFECT)
+        window.addEventListener('mousemove', e => {
+            document.querySelectorAll('.shop-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
