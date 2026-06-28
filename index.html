@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2 family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .font-romantic { font-family: 'Pinyon Script', cursive; }
-        .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.2); }
+        .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
 
-        /* CUSTOM GOLD CURSOR STYLES (Nur Desktop) */
+        /* CUSTOM MAUSZEIGER (Nur Desktop) */
         @media (min-width: 1024px) {
             body { cursor: none; }
             a, button, .hub-card { cursor: none; }
@@ -45,61 +44,61 @@
             box-shadow: 0 20px 40px -20px rgba(212, 175, 55, 0.15);
         }
         .hub-card:hover::before { opacity: 1; }
-
-        .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
-        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-red-600 selection:text-white flex flex-col min-h-screen">
+<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-zinc-800 selection:text-white flex flex-col min-h-screen">
 
     <!-- CUSTOM MAUSZEIGER -->
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- HINTERGRUND GLOW -->
-    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-20 pointer-events-none" 
-         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.1) 0%, rgba(9, 9, 11, 0) 75%);">
-    </div>
-
     <!-- MAIN INTERFACE -->
-    <main class="relative z-10 flex-grow max-w-5xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
+    <main class="relative z-10 flex-grow max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
         
         <!-- HEADER -->
-        <div class="text-center space-y-2 max-w-2xl">
-            <span class="font-romantic text-4xl text-red-500 block">Showcase & Showcase</span>
-            <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Projekt-Portal</h1>
-            
-            
-                <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
-            </div>
-            
+        <div class="text-center space-y-4 max-w-2xl">
+            <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase text-glow">Projekt-Portal</h1>
+            <div class="w-12 h-[1px] bg-zinc-800 mx-auto"></div>
             <p class="text-zinc-500 text-xs font-light leading-relaxed">
                 Willkommen auf meiner Workspace-Plattform. Hier findest du aktuelle Web-Projekte, Musikkonzepte und interaktive Prototypen im direkten Zugriff.
             </p>
         </div>
 
         <!-- PROJEKT KACHELN -->
-        <div class="grid md:grid-cols-2 gap-8 w-full max-w-4xl">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
             
             <!-- PROJEKT 1: BOLLENHUT MARIE -->
             <a href="./bollenhut-marie/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-red-500 font-mono text-[10px] tracking-widest uppercase block">Live & Aktiv</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-red-400">Bollenhut-Marie</h2>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Exklusive Schwarzwaldhochzeiten auf dem Weingut. Ein modulares, edles Bausteinsystem mit integriertem Audioplayer.</p>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-400 group-hover:text-white transition-colors">
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
                     <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </a>
 
-            <!-- PROJEKT 2: LEERER SLOT FÜR WEITERE PROJEKTE (z.B. Polatlichter / DominiKi) -->
+            <!-- PROJEKT 2: POLARLICHTER -->
             <a href="./polarlichter/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-amber-400">Polarlichter / Audio-Projekte</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases und multimediale KI-Konzepte.</p>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Polarlichter</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                    <span>Projekt öffnen</span>
+                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- PROJEKT 3: SCHWARZWALD-POP -->
+            <a href="./schwarzwald-pop/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+                <div class="space-y-3">
+                    <span class="text-emerald-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Schwarzwald-Pop</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Moderne Heimatklänge und kreative Audioprojekte. Ein frischer Mix aus traditionellen Einflüssen und modernen Beats.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
