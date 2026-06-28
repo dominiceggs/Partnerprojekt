@@ -18,7 +18,7 @@
 
         @media (min-width: 1024px) {
             body { cursor: none; }
-            a, button, .baustein-card, label, input[type="checkbox"], #mobile-menu-toggle { cursor: none; }
+            a, button, .baustein-card, label, input[type="checkbox"], input[type="range"], #mobile-menu-toggle { cursor: none; }
             #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
             #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out; }
             body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
@@ -67,7 +67,7 @@
         }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-amber-500 selection:text-black pt-20">
+<body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-amber-500 selection:text-black pt-20 pb-32">
 
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
@@ -131,13 +131,22 @@
             </p>
         </div>
 
+        <!-- INTERAKTIVER GÄSTE-SLIDER -->
+        <section class="reveal max-w-xl mx-auto bg-zinc-900/20 border border-zinc-900/50 p-6 rounded-sm text-center space-y-4">
+            <div class="flex justify-between items-center text-xs uppercase tracking-widest text-zinc-400 font-medium">
+                <span>Geplante Gästeanzahl:</span>
+                <span class="text-amber-500 font-serif text-base font-bold" id="guest-count-display">80 Gäste</span>
+            </div>
+            <input type="range" id="guest-slider" min="20" max="150" value="80" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none accent-amber-500 cursor-pointer">
+        </section>
+
         <section class="reveal max-w-3xl mx-auto space-y-8 bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-10 rounded-sm shadow-xl text-left">
             <div class="space-y-3">
                 <span class="text-xs uppercase tracking-widest text-amber-500/80 font-medium">Inspiration & Emotion</span>
                 <h2 class="text-xl md:text-2xl font-serif text-white tracking-wide">Ein Moment für die Ewigkeit: Eure freie Trauung im Weinberg</h2>
             </div>
             <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
-                Stellt euch vor: Ein sanfter Sommerwind streift durch die grünen Rebstöcke. Vor euch öffnet sich der Blick über das malerische Tal, während die Sonne die landscape in ein goldenes, warmes Licht taucht. Ihr schreitet gemeinsam einen Pfad entlang, vorbei an euren Lieblingsmenschen, hin zu einem Altar aus charakterstarkem Altholz, der eigens für euch geschmückt wurde.
+                Stellt euch vor: Ein sanfter Sommerwind streift durch die grünen Rebstöcke. Vor euch öffnet sich der Blick über das malerische Tal, während die Sonne die Landschaft in ein goldenes, warmes Licht taucht. Ihr schreitet gemeinsam einen Pfad entlang, vorbei an euren Lieblingsmenschen, hin zu einem Altar aus charakterstarkem Altholz, der eigens für euch geschmückt wurde.
             </p>
             <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
                 Eine freie Trauung bei uns auf dem Weingut kennt keine starren Regeln, keine unpersönlichen Texte und keine Hektik. Hier zählt nur ihr, eure ganz persönliche Geschichte und das Versprechen, das ihr euch gebt. Ob herzlich-erfrischend, tief emotional oder mit einer feinen Prise Schwarzwälder Tradition – wir schaffen den Rahmen, der zu einhundert Prozent eurer Liebe entspricht.
@@ -151,15 +160,18 @@
             <div class="space-y-2 pt-2">
                 <h3 class="text-sm font-serif text-zinc-200 tracking-wide">Lust auf mehr? Gestaltet euren Tag nach euren Wünschen!</h3>
                 <p class="text-zinc-400 text-xs font-light leading-relaxed">
-                    Das Schönste an unserem Konzept: Die Traumtrauung im Weinberg is erst der Anfang. Unser modulares Baustein-System lässt euch die vollkommene Freiheit, euer Fest genau so zu erweitern, wie ihr es euch erträumt habt. Kombiniert feine Kulinarik, ein maßgeschneidertes Musikkonzept oder liebevolle Betreuung für die Kleinen ganz nach euren Vorstellungen.
+                    Das Schönste an unserem Konzept: Die Traumtrauung im Weinberg ist erst der Anfang. Unser modulares Baustein-System lässt euch die vollkommene Freiheit, euer Fest genau so zu erweitern, wie ihr es euch erträumt habt. Kombiniert feine Kulinarik, ein maßgeschneidertes Musikkonzept oder liebevolle Betreuung für die Kleinen ganz nach euren Vorstellungen.
                 </p>
             </div>
         </section>
 
+        <!-- BAUSTEINE MIT BERECHNUNGS-ATTRIBUTEN -->
         <div class="space-y-6 reveal">
             
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b01" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b01" data-type="flat" data-price="2800" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 01</span>
@@ -171,7 +183,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b02" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b02" data-type="flat" data-price="1450" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 02</span>
@@ -183,7 +197,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b03" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b03" data-type="per-guest" data-price="24" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 03</span>
@@ -195,7 +211,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b04" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b04" data-type="request" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 04</span>
@@ -207,7 +225,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b05" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b05" data-type="per-guest" data-price="4.5" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 05</span>
@@ -219,7 +239,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b06" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b06" data-type="request" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 06</span>
@@ -231,7 +253,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b07" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b07" data-type="flat" data-price="350" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 07</span>
@@ -243,7 +267,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b08" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b08" data-type="flat" data-price="450" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 08</span>
@@ -255,7 +281,9 @@
             </label>
 
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b09" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b09" data-type="flat" data-price="490" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 09</span>
@@ -266,8 +294,11 @@
                 </div>
             </label>
 
+            <!-- BAUSTEIN 10: DESIGN VON EINLADUNGSKARTEN -->
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b10" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="pt-1 shrink-0">
+                    <input type="checkbox" name="bausteine" value="b10" data-type="request" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
+                </div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
                         <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 10</span>
@@ -278,13 +309,26 @@
                 </div>
             </label>
         </div>
-
-        <div class="text-center reveal pt-6">
-            <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300 shadow-xl shadow-amber-950/20 rounded-xs">
-                Jetzt unverbindlich anfragen
-            </a>
-        </div>
     </main>
+
+    <!-- FLOATING PRICE BAR (UNTEN ANKLEBEND BEI AUSWAHL) -->
+    <div id="price-bar" class="fixed bottom-0 left-0 w-full bg-zinc-950/90 backdrop-blur-lg border-t border-zinc-900 px-6 py-4 z-40 transform translate-y-full transition-transform duration-500">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="text-left">
+                <span id="price-bar-count" class="text-[10px] text-zinc-500 uppercase tracking-widest block">0 Bausteine gewählt</span>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-zinc-400 text-xs font-light">Geschätzte Summe:</span>
+                    <span id="price-bar-sum" class="gold-text-gradient text-xl md:text-2xl font-serif font-bold">0,- €</span>
+                </div>
+                <span id="price-bar-notice" class="text-[9px] text-zinc-600 block hidden">* Beinhaltet Elemente auf Anfrage</span>
+            </div>
+            <div>
+                <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-6 py-3 shadow-xl rounded-xs">
+                    Auswahl unverbindlich anfragen
+                </a>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-black border-t border-zinc-900 py-16 px-6 text-zinc-600 text-xs tracking-widest text-center uppercase space-y-4">
         <p>&copy; 2026 Bollenhut-Marie. All rights reserved.</p>
@@ -294,6 +338,7 @@
     </footer>
 
     <script>
+        // 1. MOBILE NAVIGATION MENU
         const toggle = document.getElementById('mobile-menu-toggle');
         const menu = document.getElementById('mobile-menu');
         const icon = document.getElementById('burger-icon');
@@ -314,6 +359,7 @@
             }));
         }
 
+        // 2. CUSTOM CURSOR
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
         if(dot && circle) {
@@ -321,29 +367,20 @@
                 dot.style.left = circle.style.left = `${e.clientX}px`;
                 dot.style.top = circle.style.top = `${e.clientY}px`;
             });
-            document.querySelectorAll('a, button, .baustein-card, input[type=\"checkbox\"]').forEach(el => {
+            document.querySelectorAll('a, button, .baustein-card, input[type="checkbox"], input[type="range"]').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
             });
         }
 
-        const cards = document.querySelectorAll('.baustein-card');
-        const btn = document.getElementById('cta-button');
-
-        cards.forEach(c => {
-            const cb = c.querySelector('input[type=\"checkbox\"]');
-            cb.addEventListener('change', () => {
-                c.classList.toggle('selected', cb.checked);
-                const count = document.querySelectorAll('input[name=\"bausteine\"]:checked').length;
-                btn.innerText = count > 0 ? `${count} Bausteine jetzt anfragen` : 'Jetzt unverbindlich anfragen';
-            });
-        });
-
+        // 3. REVEAL ANIMATIONS ON SCROLL
         const observer = new IntersectionObserver((es) => es.forEach(e => {
             if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); }
         }), { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        // 4. MOUSE GRADIENT EFFECT ON CARDS
+        const cards = document.querySelectorAll('.baustein-card');
         window.addEventListener('mousemove', e => {
             cards.forEach(c => {
                 const r = c.getBoundingClientRect();
@@ -351,6 +388,90 @@
                 c.style.setProperty('--y', `${e.clientY - r.top}px`);
             });
         });
+
+        // 5. LIVE-BERECHNUNGSLOGIK & GÄSTE-SLIDER
+        const guestSlider = document.getElementById('guest-slider');
+        const guestDisplay = document.getElementById('guest-count-display');
+        const priceBar = document.getElementById('price-bar');
+        const priceBarSum = document.getElementById('price-bar-sum');
+        const priceBarCount = document.getElementById('price-bar-count');
+        const priceBarNotice = document.getElementById('price-bar-notice');
+        const ctaButton = document.getElementById('cta-button');
+
+        function updateCalculation() {
+            const guests = parseInt(guestSlider.value);
+            guestDisplay.innerText = `${guests} Gäste`;
+
+            let total = 0;
+            let checkedCount = 0;
+            let hasRequestItem = false;
+
+            document.querySelectorAll('input[name="bausteine"]:checked').forEach(cb => {
+                checkedCount++;
+                const type = cb.getAttribute('data-type');
+                const price = parseFloat(cb.getAttribute('data-price')) || 0;
+
+                if (type === 'flat') {
+                    total += price;
+                } else if (type === 'per-guest') {
+                    total += (price * guests);
+                } else if (type === 'request') {
+                    hasRequestItem = true;
+                }
+            });
+
+            if (checkedCount > 0) {
+                priceBar.classList.remove('translate-y-full');
+                priceBarCount.innerText = `${checkedCount} ${checkedCount === 1 ? 'Baustein' : 'Bausteine'} gewählt`;
+                
+                let formattedTotal = total.toLocaleString('de-DE') + ',- €';
+                if (hasRequestItem && total === 0) {
+                    priceBarSum.innerText = "auf Anfrage";
+                } else {
+                    priceBarSum.innerText = (hasRequestItem ? 'ab ' : '') + formattedTotal;
+                }
+
+                if (hasRequestItem) {
+                    priceBarNotice.classList.remove('hidden');
+                } else {
+                    priceBarNotice.classList.add('hidden');
+                }
+            } else {
+                priceBar.classList.add('translate-y-full');
+            }
+        }
+
+        // 6. SPEICHERN BEIM KLICK FÜR DIE KONTAKTSEITE
+        if (ctaButton) {
+            ctaButton.addEventListener('click', () => {
+                const selectedBausteine = [];
+                const guests = guestSlider.value;
+                const totalSum = priceBarSum.innerText;
+
+                document.querySelectorAll('input[name="bausteine"]:checked').forEach(cb => {
+                    const card = cb.closest('.baustein-card');
+                    const title = card.querySelector('h3').innerText;
+                    selectedBausteine.push(title);
+                });
+
+                localStorage.setItem('wedding_guests', guests);
+                localStorage.setItem('wedding_bausteine', JSON.stringify(selectedBausteine));
+                localStorage.setItem('wedding_total', totalSum);
+            });
+        }
+
+        // Event-Listener aktivieren
+        cards.forEach(c => {
+            const cb = c.querySelector('input[type="checkbox"]');
+            cb.addEventListener('change', () => {
+                c.classList.toggle('selected', cb.checked);
+                updateCalculation();
+            });
+        });
+
+        if (guestSlider) {
+            guestSlider.addEventListener('input', updateCalculation);
+        }
     </script>
 </body>
 </html>

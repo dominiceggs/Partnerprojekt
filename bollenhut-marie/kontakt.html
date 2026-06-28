@@ -58,7 +58,7 @@
         .btn-shine-target:hover::after { left: 150%; transition: left 0.75s ease-in-out; }
 
         /* SEKTIONS-TRENNLINIE */
-        .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; relative; z-index: 10; }
+        .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; position: relative; z-index: 10; }
         .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.6); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
 
         /* STILVOLLES STYLING FÜR DAS MOBILE OVERLAY MENÜ */
@@ -153,7 +153,6 @@
     <main class="relative z-10 max-w-2xl mx-auto px-6 py-24 space-y-12">
         
         <div class="text-center space-y-3 reveal">
-            <!-- TEXT GEGEN ABSCHNEIDEN MIT PADDING UND GOLD OPTIMIERT -->
             <span class="font-romantic text-4xl md:text-6xl gold-text-gradient-script block text-glow-gold tracking-wide">Sichert euch euren Tag</span>
             <h1 class="text-2xl md:text-3xl font-serif text-white tracking-wide uppercase">Termin-Verfügbarkeit prüfen</h1>
             
@@ -205,7 +204,7 @@
                 <!-- Ergänzungen / Nachricht -->
                 <div class="space-y-2">
                     <label for="message" class="text-[10px] uppercase tracking-wider text-zinc-400 font-medium block">Besondere Wünsche oder geplante Bausteine</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Erzählt uns ein wenig von euren Plänen für eure Traumhochzeit..." class="w-full px-4 py-3 text-xs text-white rounded-xs border resize-none"></textarea>
+                    <textarea id="message" name="message" rows="8" placeholder="Erzählt uns ein wenig von euren Plänen für eure Traumhochzeit..." class="w-full px-4 py-3 text-xs text-white rounded-xs border resize-none"></textarea>
                 </div>
 
                 <!-- Absenden Button AUF GRADIENT-GOLD GEÄNDERT -->
@@ -301,6 +300,30 @@
         }, { threshold: 0.1 });
 
         revealElements.forEach(el => revealObserver.observe(el));
+
+        // NEU: LOCALSTORAGE AUSLESEN FÜR DIE GEWÄHLTEN BAUSTEINE
+        document.addEventListener('DOMContentLoaded', () => {
+            const guests = localStorage.getItem('wedding_guests');
+            const bausteine = JSON.parse(localStorage.getItem('wedding_bausteine') || '[]');
+            const total = localStorage.getItem('wedding_total');
+            
+            // Verweist auf das Textfeld via ID "message"
+            const messageField = document.getElementById('message'); 
+            
+            if (messageField && bausteine.length > 0) {
+                messageField.value = `Hallo Bollenhut-Marie Team,\n\n` +
+                                     `Wir interessieren uns für eine Hochzeitsfeier mit ca. ${guests} Gästen.\n` +
+                                     `Folgende Bausteine haben wir uns bereits online zusammengestellt:\n` + 
+                                     `- ${bausteine.join('\n- ')}\n\n` +
+                                     `Geschätzte Vorschau: ${total}\n\n` +
+                                     `Bitte lasst uns dazu nähere Informationen und ein konkretes Angebot zukommen.`;
+                                     
+                // Bereinigt den Speicher wieder, damit bei manuellem Neuladen der Text nicht hängen bleibt
+                localStorage.removeItem('wedding_guests');
+                localStorage.removeItem('wedding_bausteine');
+                localStorage.removeItem('wedding_total');
+            }
+        });
     </script>
 </body>
 </html>
