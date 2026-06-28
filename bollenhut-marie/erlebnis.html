@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schwarzwald Kulinarik | Bollenhut-Marie</title>
+    <title>Unser Service & Planung | Bollenhut-Marie</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-romantic { font-family: 'Pinyon Script', cursive; }
         .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
@@ -18,106 +18,36 @@
         /* CUSTOM MAUSZEIGER (Nur Desktop) */
         @media (min-width: 1024px) {
             body { cursor: none; }
-            a, button, .interactive-img { cursor: none; }
-            #custom-cursor-dot {
-                position: fixed;
-                width: 6px;
-                height: 6px;
-                background-color: #d4af37;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.3s, height 0.3s, background-color 0.3s;
-            }
-            #custom-cursor-circle {
-                position: fixed;
-                width: 34px;
-                height: 34px;
-                border: 1px solid rgba(212, 175, 55, 0.35);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                transform: translate(-50%, -50%);
-                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-            }
-            body.cursor-hover #custom-cursor-circle {
-                width: 50px;
-                height: 50px;
-                background-color: rgba(212, 175, 55, 0.06);
-                border-color: rgba(212, 175, 55, 0.7);
-            }
-            body.cursor-hover #custom-cursor-dot {
-                width: 8px;
-                height: 8px;
-            }
+            a, button, .timeline-item, #mobile-menu-toggle { cursor: none; }
+            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out; }
+            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
+            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
         }
 
-        /* STILVOLLES EINBLENDEN BEIM SCROLLEN */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* STILVOLLES EINBLENDEN BEIM LADEN */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Navigations-Animationen */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background-color: #dc2626;
-            transition: width 0.3s ease, left 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-            left: 0;
-        }
-        .nav-link-active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-color: #dc2626;
-        }
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link:hover::after { width: 100%; left: 0; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
 
-        /* SEKTIONS-TRENNLINIE MIT TRAURINGEN */
-        .header-rings-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            width: 100%;
-            margin: 16px 0;
-        }
-        .header-rings-svg {
-            width: 42px;
-            height: 28px;
-            color: rgba(212, 175, 55, 0.5);
-            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15));
-        }
+        /* SEKTIONS-TRENNLINIE */
+        .header-rings-divider { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; margin: 20px 0; }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.5); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.15)); }
 
-        /* PREMIUM IMAGE BORDER HOVER */
-        .interactive-img {
-            border: 1px solid rgba(39, 39, 42, 0.4); 
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .interactive-img:hover {
-            border-color: rgba(212, 175, 55, 0.3);
-            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15);
-        }
+        /* TIMELINE HIGHLIGHTS */
+        .timeline-node { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        .timeline-item:hover .timeline-node { background-color: #d4af37; box-shadow: 0 0 12px rgba(212, 175, 55, 0.8); transform: scale(1.2); }
+
+        /* MOBILE MENU OVERLAY */
+        #mobile-menu { opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        #mobile-menu.open { opacity: 1; pointer-events: auto; }
+        #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
+        #mobile-menu.open a { transform: translateY(0); }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
@@ -126,21 +56,22 @@
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- KONSISTENTE NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+    <!-- OBERE NAVIGATIONSLEISTE (OPTIMIERT & DAUERHAFT SICHTBAR) -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-900/50 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             
-            <a href="index.html" class="flex flex-col text-left group">
+            <a href="index.html" class="flex flex-col text-left group z-50">
                 <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
                 <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             
+            <!-- Desktop Links -->
             <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
                 <a href="index.html" class="nav-link hover:text-white">Startseite</a>
                 <span class="text-zinc-800 font-light">/</span>
                 <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
-                <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
-                <a href="erlebnis.html" class="text-white nav-link-active">Kulinarik</a>
+                <a href="service.html" class="text-white nav-link-active">Planung & Service</a>
+                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
                 <span class="text-zinc-800 font-light">/</span>
                 <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
                 <a href="shop.html" class="nav-link hover:text-white">Shop</a>
@@ -148,20 +79,44 @@
                 <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
                 <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
             </div>
+
+            <!-- Mobile Burger Button mit Text-Hinweis -->
+            <button id="mobile-menu-toggle" class="lg:hidden flex items-center gap-3 text-zinc-400 hover:text-white p-2 z-50 focus:outline-none transition-colors group" aria-label="Menü öffnen">
+                <span id="menu-text" class="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">Menü</span>
+                <i id="burger-icon" class="fas fa-bars text-base"></i>
+            </button>
             
         </div>
     </nav>
 
-    <!-- HEADER MIT EDLEM GLOW UND IMAGE OVERLAY -->
-    <header class="relative h-[60vh] flex items-center justify-center bg-cover bg-center overflow-hidden" style="background-image: linear-gradient(rgba(9, 9, 11, 0.4), rgba(9, 9, 11, 0.95)), url('hochzeit_panorama.jpg');">
-        <!-- Tiefen-Glow -->
-        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none" 
-             style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.15) 0%, rgba(9, 9, 11, 0) 75%);">
+    <!-- FULLSCREEN OVERLAY FÜR MOBILE NAVIGATION -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-40 bg-zinc-950/95 backdrop-blur-lg flex flex-col justify-center items-center">
+        <div class="flex flex-col space-y-6 text-center text-xs uppercase tracking-[0.25em] font-medium text-zinc-400">
+            <a href="index.html" class="hover:text-white">Startseite</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="hochzeit.html" class="hover:text-white">Bausteine</a>
+            <a href="service.html" class="text-white">Planung & Service</a>
+            <a href="erlebnis.html" class="hover:text-white">Kulinarik</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="songs.html" class="hover:text-white">Hochzeitssongs</a>
+            <a href="shop.html" class="hover:text-white">Shop</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="bio.html" class="hover:text-white">Das Team</a>
+            <a href="kontakt.html" class="hover:text-white">Termin-Anfrage</a>
         </div>
+    </div>
+
+    <!-- HINTERGRUND GLOW EFFEKT -->
+    <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" 
+         style="background: radial-gradient(circle at center, rgba(185, 28, 28, 0.08) 0%, rgba(9, 9, 11, 0) 70%);">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 space-y-24">
         
-        <div class="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-3 mt-12 flex flex-col items-center reveal">
-            <span class="font-romantic text-3xl md:text-4xl text-red-500 block text-glow tracking-wide">Tradition trifft High-End-Küche</span>
-            <h1 class="text-4xl md:text-6xl font-serif font-normal text-white leading-tight tracking-wide text-glow uppercase">Schwarzwald-Fusion</h1>
+        <div class="text-center space-y-2 reveal">
+            <span class="font-romantic text-4xl text-red-500 block">Sorglos feiern</span>
+            <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Unser Planungs-Versprechen[cite: 4]</h1>
             
             <!-- RING-TRENNLINIE -->
             <div class="header-rings-divider">
@@ -172,50 +127,71 @@
                 </svg>
                 <div class="h-[1px] bg-gradient-to-l from-transparent to-red-700/30 flex-grow max-w-[80px]"></div>
             </div>
+            
+            <p class="text-zinc-400 text-xs md:text-sm font-light max-w-md mx-auto pt-2 leading-relaxed">Von der Idee bis zum letzten Tanz koordinieren wir alle gewählten Bausteine unsichtbar im Hintergrund.[cite: 4]</p>
         </div>
-    </header>
 
-    <!-- MAIN KULINARIK CONTENT -->
-    <main class="max-w-6xl mx-auto px-6 py-24 space-y-32">
-        
-        <!-- SEKTION 1: TAPAS -->
-        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
-            <div class="space-y-4">
-                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Klassiker neu interpretiert</span>
-                <h2 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Badische Tapas & Geselligkeit</h2>
-                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
-                <p class="text-zinc-400 font-light leading-relaxed text-sm">Unsere Hochzeits-Gastronomie interpretiert traditionelle Klassiker neu als eleganten Fingerfood-Häppchen auf verschiedenen Brotsorten – von Mini Strammer Max mit Wachtelei bis hin zu gebratenen Kräuterseitlingen auf Walnussbrot. Eine wunderbare, lockere Fusion für eure Hochzeitsgesellschaft.</p>
+        <!-- NEUER BEREICH: WARUM UNSER VERSPRECHEN EIN ECHTES VERSPRECHEN IST -->
+        <section class="reveal max-w-3xl mx-auto bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-12 rounded-sm shadow-xl text-left space-y-8">
+            <div class="space-y-2">
+                <span class="text-[10px] uppercase tracking-[0.25em] text-red-500 font-semibold block">Felsenfestes Fundament</span>
+                <h2 class="text-xl md:text-3xl font-serif text-white tracking-wide">Was bedeutet „Versprechen“ für uns?</h2>
             </div>
-            <div class="interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
-                <img src="erlebnis_tapas_main.jpg" alt="Schwarzwälder Tapas" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+            <div class="space-y-4 text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
+                <p>
+                    In der Hochzeitswelt wird viel über „perfekten Service“ geredet – für uns ist euer Vertrauen jedoch kein Marketing-Slogan, sondern eine persönliche Verpflichtung. Ein Versprechen ist nur so viel wert wie das Fundament, auf dem es steht. Weil wir euer Fest modular aus einer Hand auf unserem eigenen Weingut realisieren, entfallen die üblichen Schnittstellenprobleme, Missverständnisse und Abstimmungsfehler externer Agenturen.
+                </p>
+                <p>
+                    Unser Planungsversprechen bedeutet: **Verbindlichkeit ab Minute eins.** Wenn ihr einen Baustein bucht, steht dahinter ein eingespieltes Team aus der Region, das exakt weiß, wie die Zahnräder ineinandergreifen müssen. Keine versteckten Kosten, keine kurzfristigen Absagen und kein Stress für euch am großen Tag.
+                </p>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 gap-6 pt-2">
+                <div class="space-y-1">
+                    <h4 class="text-zinc-200 font-serif text-sm">✓ Echte Inhaber-Garantie</h4>
+                    <p class="text-zinc-500 text-xs font-light">Wir delegieren eure Träume nicht an wechselnde Subunternehmer. Wir haften persönlich für die Qualität jedes Elements.</p>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-zinc-200 font-serif text-sm">✓ Unsichtbarer Schutzschild</h4>
+                    <p class="text-zinc-500 text-xs font-light">Am Tag selbst fangen wir jede kleine Planänderung im Hintergrund ab, bevor ihr oder eure Gäste überhaupt etwas davon bemerkt.</p>
+                </div>
             </div>
         </section>
 
-        <!-- SEKTION 2: SCHWARZWALD SUSHI -->
-        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
-            <div class="md:order-2 space-y-4">
-                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Das absolute Highlight</span>
-                <h3 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Schwarzwald-Sushi</h3>
-                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
-                <p class="text-zinc-400 font-light leading-relaxed text-sm">Hauchdünner Schinken, zartes Forellenfilet, cremiger Meerrettich-Frischkäse, kunstvoll gerollt in Schnittlauch und serviert mit unserer dick eingekochten Dunkelbier-„Wald-Sojasauce“. Ein genialer, moderner Gesprächsstoff für jeden Sektempfang.</p>
+        <!-- TIMELINE BEREICH -->
+        <div class="relative border-l border-zinc-900 ml-4 md:ml-32 space-y-16 reveal">
+            
+            <!-- PHASE 01 -->
+            <div class="timeline-item relative pl-8 md:pl-12 group">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
+                <div class="space-y-1.5">
+                    <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 01[cite: 4]</span>
+                    <h3 class="text-lg font-serif text-white tracking-wide">Das Baustein-Gespräch[cite: 4]</h3>
+                    <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Bei einem guten Glas Secco besprechen wir eure Wünsche. Ihr wählt eure Bausteine frei aus – maximale Flexibilität statt starrer Pakete.[cite: 4]</p>
+                </div>
             </div>
-            <div class="md:order-1 interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
-                <img src="erlebnis_sushi_detail.jpg" alt="Schwarzwald Sushi" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
+            
+            <!-- PHASE 02 -->
+            <div class="timeline-item relative pl-8 md:pl-12 group">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
+                <div class="space-y-1.5">
+                    <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 02[cite: 4]</span>
+                    <h3 class="text-lg font-serif text-white tracking-wide">Die Maßarbeit[cite: 4]</h3>
+                    <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Wir stimmen das Catering ab, bereiten eure individuellen Gastpräsente vor und komponieren euren personalisierten Trausong. Alles Hand in Hand.[cite: 4]</p>
+                </div>
             </div>
-        </section>
-
-        <!-- SEKTION 3: DRINKS -->
-        <section class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center reveal">
-            <div class="space-y-4">
-                <span class="text-red-500 text-[10px] uppercase tracking-[0.3em] font-semibold block">Erfrischend & Exklusiv</span>
-                <h3 class="text-2xl md:text-3xl font-serif text-white tracking-wide">Signature Drinks & Secco</h3>
-                <div class="w-12 h-[1px] bg-zinc-900 my-4"></div>
-                <p class="text-zinc-400 font-light leading-relaxed text-sm">Prickelnder badischer Winzersekt, erfrischender Schwarzwald-Spritz mit Fichtennadel-Sirup oder unser kräftiger Bollenhut-Negroni mit einem feinen Spritzer echtem Kirschwasser. Abgerundet durch Maries hauseigenen, eiskalten Schwarzwald Secco.</p>
+            
+            <!-- PHASE 03 -->
+            <div class="timeline-item relative pl-8 md:pl-12 group">
+                <div class="timeline-node absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-red-700"></div>
+                <div class="space-y-1.5">
+                    <span class="text-[10px] text-zinc-600 font-mono tracking-widest block uppercase">Phase 03[cite: 4]</span>
+                    <h3 class="text-lg font-serif text-white tracking-wide">Der große Tag[cite: 4]</h3>
+                    <p class="text-zinc-400 text-xs font-light leading-relaxed max-w-xl">Ob Festscheune, Kinderbetreuung, Kulinarik oder Sound – am Hochzeitstag selbst koordiniert das Team das gesamte Netzwerk unsichtbar. Ihr feiert einfach.[cite: 4]</p>
+                </div>
             </div>
-            <div class="interactive-img rounded-sm overflow-hidden aspect-video shadow-2xl bg-zinc-900 group">
-                <img src="maries_signature_drinks.png" alt="Signature Drinks" class="w-full h-full object-cover opacity-90 group-hover:scale-103 transition duration-700">
-            </div>
-        </section>
+            
+        </div>
     </main>
 
     <!-- KONSISTENTER FOOTER -->
@@ -230,6 +206,38 @@
 
     <!-- SKRIPTE -->
     <script>
+        // NAVIGATION & MOBILE BURGER LOGIC
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerIcon = document.getElementById('burger-icon');
+        const menuText = document.getElementById('menu-text');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                
+                if (isOpen) {
+                    burgerIcon.className = 'fas fa-times text-base';
+                    menuText.innerText = "Schließen";
+                    document.body.classList.add('overflow-hidden');
+                } else {
+                    burgerIcon.className = 'fas fa-bars text-base';
+                    menuText.innerText = "Menü";
+                    document.body.classList.remove('overflow-hidden');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    burgerIcon.className = 'fas fa-bars text-base';
+                    menuText.innerText = "Menü";
+                    document.body.classList.remove('overflow-hidden');
+                });
+            });
+        }
+
         // MAUSZEIGER-ANIMATION
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
@@ -246,14 +254,14 @@
                 }, 30);
             });
 
-            const interactiveElements = document.querySelectorAll('a, button, .interactive-img');
+            const interactiveElements = document.querySelectorAll('a, button, .timeline-item');
             interactiveElements.forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
             });
         }
 
-        // REVEAL-ON-SCROLL OBSERVATION
+        // REVEAL-ON-SCROLL
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .font-romantic { font-family: 'Pinyon Script', cursive; }
         .text-glow { text-shadow: 0 0 30px rgba(230, 0, 0, 0.3); }
@@ -18,105 +18,36 @@
         /* CUSTOM MAUSZEIGER (Nur Desktop) */
         @media (min-width: 1024px) {
             body { cursor: none; }
-            a, button, .interactive-card { cursor: none; }
-            #custom-cursor-dot {
-                position: fixed;
-                width: 6px;
-                height: 6px;
-                background-color: #d4af37;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.3s, height 0.3s, background-color 0.3s;
-            }
-            #custom-cursor-circle {
-                position: fixed;
-                width: 34px;
-                height: 34px;
-                border: 1px solid rgba(212, 175, 55, 0.35);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                transform: translate(-50%, -50%);
-                transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
-            }
-            body.cursor-hover #custom-cursor-circle {
-                width: 50px;
-                height: 50px;
-                background-color: rgba(212, 175, 55, 0.06);
-                border-color: rgba(212, 175, 55, 0.7);
-            }
-            body.cursor-hover #custom-cursor-dot {
-                width: 8px;
-                height: 8px;
-            }
+            a, button, .interactive-card, #mobile-menu-toggle { cursor: none; }
+            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out; }
+            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
+            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
         }
 
         /* WEICHES EINBLENDEN */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Navigations-Animationen */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background-color: #dc2626;
-            transition: width 0.3s ease, left 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-            left: 0;
-        }
-        .nav-link-active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background-color: #dc2626;
-        }
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link:hover::after { width: 100%; left: 0; }
+        .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
 
         /* HEADER-RINGS/DIVIDER */
-        .rings-divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 16px 0;
-        }
-        .header-rings-svg {
-            width: 42px;
-            height: 28px;
-            color: rgba(212, 175, 55, 0.6);
-            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2));
-        }
+        .rings-divider { display: flex; align-items: center; gap: 16px; margin: 16px 0; }
+        .header-rings-svg { width: 42px; height: 28px; color: rgba(212, 175, 55, 0.6); filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.2)); }
 
         /* STILVOLLES PORTRAIT HOVER */
-        .interactive-card {
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            border: 1px solid rgba(39, 39, 42, 0.6);
-        }
-        .interactive-card:hover {
-            border-color: rgba(212, 175, 55, 0.35);
-            box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15);
-        }
+        .interactive-card { position: relative; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); border: 1px solid rgba(39, 39, 42, 0.6); }
+        .interactive-card:hover { border-color: rgba(212, 175, 55, 0.35); box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15); }
+
+        /* MOBILE MENU OVERLAY */
+        #mobile-menu { opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+        #mobile-menu.open { opacity: 1; pointer-events: auto; }
+        #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
+        #mobile-menu.open a { transform: translateY(0); }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-300 antialiased selection:bg-red-600 selection:text-white pt-20">
@@ -125,15 +56,16 @@
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- KONSISTENTE NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-900/40 transition-all duration-300">
+    <!-- OBERE NAVIGATIONSLEISTE (OPTIMIERT & DAUERHAFT SICHTBAR) -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-900/50 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             
-            <a href="index.html" class="flex flex-col text-left group">
+            <a href="index.html" class="flex flex-col text-left group z-50">
                 <span class="text-xs font-light tracking-[0.3em] text-zinc-400 uppercase transition-colors group-hover:text-white">Bollenhut-Marie</span>
                 <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             
+            <!-- Desktop Links -->
             <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
                 <a href="index.html" class="nav-link hover:text-white">Startseite</a>
                 <span class="text-zinc-800 font-light">/</span>
@@ -147,9 +79,32 @@
                 <a href="bio.html" class="text-white nav-link-active">Das Team</a>
                 <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
             </div>
+
+            <!-- Mobile Burger Button -->
+            <button id="mobile-menu-toggle" class="lg:hidden flex items-center gap-3 text-zinc-400 hover:text-white p-2 z-50 focus:outline-none transition-colors group" aria-label="Menü öffnen">
+                <span id="menu-text" class="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">Menü</span>
+                <i id="burger-icon" class="fas fa-bars text-base"></i>
+            </button>
             
         </div>
     </nav>
+
+    <!-- FULLSCREEN OVERLAY FÜR MOBILE NAVIGATION -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-40 bg-zinc-950/95 backdrop-blur-lg flex flex-col justify-center items-center">
+        <div class="flex flex-col space-y-6 text-center text-xs uppercase tracking-[0.25em] font-medium text-zinc-400">
+            <a href="index.html" class="hover:text-white">Startseite</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="hochzeit.html" class="hover:text-white">Bausteine</a>
+            <a href="service.html" class="hover:text-white">Planung & Service</a>
+            <a href="erlebnis.html" class="hover:text-white">Kulinarik</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="songs.html" class="hover:text-white">Hochzeitssongs</a>
+            <a href="shop.html" class="hover:text-white">Shop</a>
+            <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
+            <a href="bio.html" class="text-white">Das Team</a>
+            <a href="kontakt.html" class="hover:text-white">Termin-Anfrage</a>
+        </div>
+    </div>
 
     <!-- HINTERGRUND GLOW EFFEKT -->
     <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-30 pointer-events-none" 
@@ -171,7 +126,7 @@
             <div class="md:col-span-7 space-y-8">
                 <div class="space-y-3">
                     <span class="font-romantic text-3xl text-red-500 block">Das Team hinter den Kulissen</span>
-                    <h1 class="text-3xl md:text-4xl font-serif text-white tracking-wide">Kreative Köpfe & Experten</h1>
+                    <h1 class="text-3xl md:text-4xl font-serif text-white tracking-wide">5 Köpfe für eure Traumhochzeit</h1>
                     
                     <!-- DIE EDLE RING-TRENNLINIE -->
                     <div class="rings-divider">
@@ -184,11 +139,23 @@
                 </div>
                 
                 <div class="space-y-6 text-zinc-400 font-light leading-relaxed text-sm">
-                    <p>Bollenhut-Marie ist kein schüchterner Rückblick in ein verstaubtes Heimatmuseum – sie ist der stilvolle Aufbruch in eine völlig neue Ära. Wir brechen das klassische Glasgehäuse konservativer Fest-Traditionen auf, um Platz für Individualität, High-End-Service und unvergessliche Momente zu schaffen.</p>
+                    <p>
+                        Hinter Bollenhut-Marie steht kein unpersönliches Großunternehmen, sondern wir **fünf kreative Köpfe**, die mit Herzblut, Leidenschaft und jahrelanger Erfahrung euren großen Tag planen und gestalten[cite: 7]. Wir koordinieren eure gewählten Bausteine nahtlos und sorgen im Hintergrund dafür, dass alles perfekt ineinandergreift[cite: 1, 7].
+                    </p>
+                    <p>
+                        Unsere Philosophie verbindet das Beste aus zwei Welten: das urige, herzliche Schwarzwald-Gefühl gepaart mit einem exklusiven High-End-Service. Wir brechen das klassische, steife Korsett verstaubter Traditionen auf und schaffen stattdessen Platz für pure Individualität und unvergessliche Momente.
+                    </p>
                     
-                    <h2 class="text-lg font-serif text-white pt-4 tracking-wide">Der Bollenhut 2.0</h2>
+                    <div class="border-l-2 border-red-700 pl-4 py-2 bg-zinc-900/20 rounded-xs">
+                        <h2 class="text-base font-serif text-white tracking-wide mb-1">Einzigartig in der Region: Rednerinnen mit echtem Fundament</h2>
+                        <p class="text-xs">
+                            Ein Versprechen, auf das ihr euch verlassen könnt: Unsere freien Traurednerinnen sind nicht nur einfühlsame Geschichtenerzählerinnen, sondern gleichzeitig auch **ausgebildete Standesbeamtinnen**[cite: 7]. Diese doppelte Expertise bringt ein unbezahlbares Maß an Erfahrung, Souveränität und Sicherheit für eure Zeremonie mit sich – für ein Ja-Wort voller Tiefe, Professionalität und echten Emotionen[cite: 7].
+                        </p>
+                    </div>
                     
-                    <p>Der Bollenhut ist für uns kein bloßes Accessoire aus der Trachtenkammer, sondern ein starkes Symbol für den Mut zur Veränderung. Wo früher strikte Regeln über die Details entschieden, wählt Marie heute den Weg freier, individueller Ausdruckskraft für eure Feste. Tradition ist nicht das Anbeten der Asche, sondern das begeisterte Weitergeben des Feuers.</p>
+                    <p>
+                        Der Bollenhut ist für uns das Symbol dieses mutigen Aufbruchs in eine neue Hochzeitsära. Tradition bedeutet für uns nicht das Anbeten der Asche, sondern das begeisterte Weitergeben des Feuers. Lasst uns gemeinsam euer ganz persönliches Fest kreieren.
+                    </p>
                 </div>
             </div>
             
@@ -207,6 +174,37 @@
 
     <!-- SKRIPTE -->
     <script>
+        // NAVIGATION & MOBILE BURGER LOGIC
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerIcon = document.getElementById('burger-icon');
+        const menuText = document.getElementById('menu-text');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                if (isOpen) {
+                    burgerIcon.className = 'fas fa-times text-base';
+                    menuText.innerText = "Schließen";
+                    document.body.classList.add('overflow-hidden');
+                } else {
+                    burgerIcon.className = 'fas fa-bars text-base';
+                    menuText.innerText = "Menü";
+                    document.body.classList.remove('overflow-hidden');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    burgerIcon.className = 'fas fa-bars text-base';
+                    menuText.innerText = "Menü";
+                    document.body.classList.remove('overflow-hidden');
+                });
+            });
+        }
+
         // MAUSZEIGER-ANIMATION
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
@@ -231,15 +229,17 @@
         }
 
         // INITIAL REVEAL ANIMATION
-        window.addEventListener('DOMContentLoaded', () => {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(el => {
-                // Ein kleiner Timeout sorgt für einen sanften Start nach dem Rendern
-                setTimeout(() => {
-                    el.classList.add('active');
-                }, 150);
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
             });
-        });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
