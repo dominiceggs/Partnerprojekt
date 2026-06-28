@@ -1,662 +1,152 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bollenhut Marie | Official Site</title>
+    <title>Dominic Eggs | Creative Tech & Audio Projects</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-deep: #030704; /* Tiefstes Tannenschwarz */
-            --primary-neon: #ff0033; /* Neon-Bollenhut-Rot */
-            --accent-green: #00ff66; /* Digitales Moosgrün */
-            --text-light: #f5f7f6;
-            --glass: rgba(7, 15, 10, 0.6);
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
+
+        /* CUSTOM MAUSZEIGER (Nur Desktop) */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, .hub-card { cursor: none; }
+            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s; }
+            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
+            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-light);
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Maus-Glow Effekt */
-        #cursor-glow {
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(255, 0, 51, 0.1) 0%, transparent 75%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 999;
-        }
-
-        /* Header & Navigation */
-        nav {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .brand-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+        /* PREMIUM HOVER FOR CARDS */
+        .hub-card {
             position: relative;
+            background: rgba(24, 24, 27, 0.2);
+            border: 1px solid rgba(39, 39, 42, 0.4);
             overflow: hidden;
-            padding: 120px 10% 60px 10%;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        .hero-bg-container {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 55%;
-            height: 100%;
-            z-index: 1;
+        .hub-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle 160px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+            mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
         }
-
-        .hero-bg-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            opacity: 0.85;
+        .hub-card:hover {
+            background-color: rgba(24, 24, 27, 0.5);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -20px rgba(212, 175, 55, 0.15);
         }
-
-        .hero-bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(to right, var(--bg-deep) 0%, transparent 40%),
-                linear-gradient(to bottom, transparent 60%, var(--bg-deep) 100%);
-            pointer-events: none;
-        }
-
-        .hero-text {
-            max-width: 600px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .hero-logo-container {
-            width: 250px;
-            height: 110px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            overflow: visible;
-        }
-
-        .bollenhut-portal {
-            position: relative;
-            width: 250px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            transform-origin: center center;
-        }
-
-        .bollen-node {
-            position: absolute;
-            background: var(--primary-neon);
-            border-radius: 50%;
-            filter: drop-shadow(0 0 20px var(--primary-neon));
-            animation: float 4s infinite ease-in-out;
-        }
-        
-        .b1 { width: 80px; height: 80px; top: 0; left: 85px; animation-delay: 0s; }
-        .b2 { width: 60px; height: 60px; top: 40px; left: 30px; animation-delay: 0.5s; }
-        .b3 { width: 60px; height: 60px; top: 40px; right: 30px; animation-delay: 1s; }
-        .b4 { width: 50px; height: 50px; top: 80px; left: 70px; animation-delay: 1.5s; }
-        .b5 { width: 50px; height: 50px; top: 80px; right: 70px; animation-delay: 2s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.05); filter: drop-shadow(0 0 35px var(--primary-neon)); }
-        }
-
-        .brand-badge {
-            background: rgba(255, 0, 51, 0.15);
-            border: 1px solid var(--primary-neon);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            display: inline-block;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.2);
-        }
-
-        header h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.8rem, 7vw, 6.5rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 2.5rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-        }
-
-        .glow-trigger {
-            background: linear-gradient(90deg, var(--primary-neon), #b30022);
-            color: white;
-            border: none;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(255, 0, 51, 0.3);
-        }
-
-        .glow-trigger:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 0, 51, 0.6);
-        }
-
-        /* Content & Tracklist */
-        .content-wrapper {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1.5rem 180px 1.5rem;
-            position: relative;
-            z-index: 3;
-        }
-
-        h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .grid-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .cyber-card {
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 1.2rem 2rem;
-            display: grid;
-            grid-template-columns: auto 1fr auto auto;
-            align-items: center;
-            gap: 2rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .cyber-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            border-color: rgba(255, 0, 51, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .cover-preview {
-            width: 70px;
-            height: 70px;
-            border-radius: 12px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .track-meta h3 {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        /* Cyber-Streaming-Links innerhalb der Karten */
-        .card-streaming-links {
-            display: flex;
-            gap: 1.2rem;
-            font-size: 1.4rem;
-            z-index: 5;
-        }
-
-        .card-streaming-links a {
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Spotify Link Style */
-        .card-streaming-links a.spotify {
-            color: var(--accent-green);
-            opacity: 0.7;
-        }
-        .card-streaming-links a.spotify:hover { 
-            color: #1DB954; 
-            opacity: 1;
-            filter: drop-shadow(0 0 10px #1DB954); 
-            transform: scale(1.1);
-        }
-
-        /* YouTube Link Style */
-        .card-streaming-links a.youtube {
-            color: var(--primary-neon);
-            filter: drop-shadow(0 0 5px rgba(255, 0, 51, 0.4));
-        }
-        .card-streaming-links a.youtube:hover { 
-            color: #FF0000; 
-            filter: drop-shadow(0 0 15px #FF0000); 
-            transform: scale(1.1);
-        }
-
-        .play-trigger-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .cyber-card:hover .play-trigger-circle {
-            background: var(--primary-neon);
-            border-color: var(--primary-neon);
-            box-shadow: 0 0 20px var(--primary-neon);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        /* Player am Seitenende */
-        .neo-player {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 800px;
-            background: rgba(5, 8, 6, 0.9);
-            border: 1px solid rgba(255, 0, 51, 0.2);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 100px;
-            padding: 1.2rem 2.5rem;
-            display: grid;
-            grid-template-columns: auto auto 1fr auto;
-            align-items: center;
-            gap: 2rem;
-            z-index: 1000;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-        }
-
-        .player-cover {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: spin 12s linear infinite;
-            animation-play-state: paused;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .master-play-btn {
-            background: #fff;
-            color: var(--bg-deep);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .master-play-btn:hover {
-            transform: scale(1.1);
-            background: var(--primary-neon);
-            color: white;
-        }
-
-        .now-playing-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        #track-title-display {
-            font-size: 1.1rem;
-            font-weight: 600;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .label-tag {
-            font-size: 0.8rem;
-            color: var(--accent-green);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        .sound-wave { display: flex; align-items: center; gap: 4px; height: 25px; }
-        .wave-bar { width: 3px; height: 4px; background: var(--primary-neon); border-radius: 50px; }
-        .sound-wave.active .wave-bar { animation: waveBounce 0.5s infinite alternate ease-in-out; }
-        .sound-wave.active .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-        .sound-wave.active .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-        @keyframes waveBounce { 0% { height: 4px; } 100% { height: 28px; } }
-
-        /* --- MOBILE MEDIA QUERIES --- */
-        @media (max-width: 768px) {
-            #cursor-glow { display: none; }
-            
-            header {
-                flex-direction: column;
-                justify-content: center;
-                text-align: center;
-                padding: 140px 5% 60px 5%;
-            }
-
-            header h1 {
-                line-height: 1.2; /* Mehr Abstand zwischen Bollenhut und Marie auf Handys */
-                letter-spacing: normal;
-            }
-
-            .hero-bg-container { 
-                width: 100%; 
-                opacity: 0.3; 
-            }
-
-            .hero-bg-overlay {
-                background: linear-gradient(to bottom, var(--bg-deep) 0%, transparent 50%, var(--bg-deep) 100%);
-            }
-
-            .hero-logo-container {
-                justify-content: center;
-                margin: 0 auto 2rem auto;
-            }
-
-            .cyber-card { 
-                grid-template-columns: auto 1fr auto; 
-                gap: 1rem; 
-                padding: 1rem; 
-            }
-
-            .card-streaming-links { display: none; } 
-            
-            .neo-player { 
-                grid-template-columns: auto 1fr; 
-                border-radius: 30px; 
-                padding: 0.8rem 1.5rem;
-                gap: 1.2rem;
-                bottom: 15px;
-                width: calc(100% - 20px);
-            }
-            
-            .player-cover, .sound-wave { display: none; }
-        }
+        .hub-card:hover::before { opacity: 1; }
     </style>
 </head>
-<body>
+<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-zinc-800 selection:text-white flex flex-col min-h-screen">
 
-    <div id="cursor-glow"></div>
-    <audio id="audio-engine" src=""></audio>
+    <!-- CUSTOM MAUSZEIGER -->
+    <div id="custom-cursor-dot" class="hidden lg:block"></div>
+    <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <nav>
-        <div class="brand-title">DominiKi</div>
-    </nav>
-
-    <header>
-        <div class="hero-bg-container">
-            <img class="hero-bg-img" src="images/wald.jpeg" alt="Bollenhut Marie Hintergrund">
-            <div class="hero-bg-overlay"></div>
-        </div>
+    <!-- MAIN INTERFACE -->
+    <main class="relative z-10 flex-grow max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
         
-        <div class="hero-text">
-            <div class="hero-logo-container">
-                <div class="bollenhut-portal">
-                    <div class="bollen-node b1"></div>
-                    <div class="bollen-node b2"></div>
-                    <div class="bollen-node b3"></div>
-                    <div class="bollen-node b4"></div>
-                    <div class="bollen-node b5"></div>
-                </div>
-            </div>
+        <!-- HEADER -->
+        <div class="text-center space-y-4 max-w-2xl">
+            <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase text-glow">Projekt-Portal</h1>
+            <div class="w-12 h-[1px] bg-zinc-800 mx-auto"></div>
+            <p class="text-zinc-500 text-xs font-light leading-relaxed">
+                Willkommen auf meiner Workspace-Plattform. Hier findest du aktuelle Web-Projekte, Musikkonzepte und interaktive Prototypen im direkten Zugriff.
+            </p>
+        </div>
+
+        <!-- PROJEKT KACHELN -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
             
-            <div class="brand-badge">Schwarzwald Pop</div>
-            <h1>Bollenhut<br>Marie</h1>
-            <button class="glow-trigger" onclick="scrollToTracks()">Musik hören</button>
+            <!-- PROJEKT 1: BOLLENHUT MARIE -->
+            <a href="./bollenhut-marie/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+                <div class="space-y-3">
+                    <span class="text-red-500 font-mono text-[10px] tracking-widest uppercase block">Live & Aktiv</span>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Exklusive Schwarzwaldhochzeiten auf dem Weingut. Ein modulares, edles Bausteinsystem mit integriertem Audioplayer.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                    <span>Projekt öffnen</span>
+                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- PROJEKT 2: POLARLICHTER -->
+            <a href="./polarlichter/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+                <div class="space-y-3">
+                    <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Polarlichter</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                    <span>Projekt öffnen</span>
+                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
+            <!-- PROJEKT 3: SCHWARZWALD-POP -->
+            <a href="./schwarzwald-pop/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+                <div class="space-y-3">
+                    <span class="text-emerald-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
+                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Schwarzwald-Pop</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Moderne Heimatklänge und kreative Audioprojekte. Ein frischer Mix aus traditionellen Einflüssen und modernen Beats.</p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                    <span>Projekt öffnen</span>
+                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            </a>
+
         </div>
-    </header>
 
-    <div class="content-wrapper" id="tracks-section">
-        <h2>Meine Songs</h2>
-        
-        <div class="grid-container">
-            <div class="cyber-card" onclick="triggerAudio('Ich bin eure Marie', 'audio/ich bin eure marie.mp3', 'img/cover-ichbineuremarie.jpg')">
-                <div class="cover-preview" style="background-image: url('img/cover-ichbineuremarie.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Ich bin eure Marie</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="https://open.spotify.com/intl-de/track/2y8W1em7RqvoBAh2LuvuXN?si=2d1fec1c4ce546cc" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="https://www.youtube.com/watch?v=Z-0wE6CHdjs&list=OLAK5uy_m7akVZ1sPnVvWJRWH8Kb6YYJcEE5O8SHY" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
+    </main>
 
-            <div class="cyber-card" onclick="triggerAudio('Schwarzwaldmarie', 'audio/Schwarzwaldmarie.mp3', 'img/Cover-schwarzwaldmarie-original.jpg')">
-                <div class="cover-preview" style="background-image: url('img/Cover-schwarzwaldmarie-original.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Schwarzwaldmarie</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="https://open.spotify.com/intl-de/track/4p4BQi1QvINxN8e39lOMWl?si=faa21d29c94e4f6c" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="https://www.youtube.com/watch?v=zIaH0q0wYfU" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 py-12 text-center text-[10px] uppercase tracking-widest text-zinc-600">
+        <p>&copy; 2026 Workspace Dashboard. All rights reserved.</p>
+    </footer>
 
-            <div class="cyber-card" onclick="triggerAudio('Sonderedition SBW', 'audio/Schwarzwaldmarie-sbw.mp3', 'img/Cover-schwarzwaldmarie-sbw.jpg')">
-                <div class="cover-preview" style="background-image: url('img/Cover-schwarzwaldmarie-sbw.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Sonderedition SBW</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="https://open.spotify.com/intl-de/track/1qm7eJcmgeETLNR18MrBjG?si=554d997c20544708" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="https://www.youtube.com/watch?v=4hArfTwc5po" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
-
-            <div class="cyber-card" onclick="triggerAudio('Schwarzwaldmarie Kids', 'audio/schwarzwaldmarie-kids.mp3', 'img/Cover-marie-kids.jpg')">
-                <div class="cover-preview" style="background-image: url('img/Cover-marie-kids.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Schwarzwaldmarie Kids</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="https://open.spotify.com/intl-de/album/60kUK2VQ5xbCDcXShS8cDF?si=xRM7lIwcQHiEX2HBlzTG0g" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="https://www.youtube.com/watch?v=FmZjxqvhEcA&list=OLAK5uy_lfLyft8jgkoMjabi0YNheIf1OEGkntSwA" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
-
-            <div class="cyber-card" onclick="triggerAudio('Tannennadel-Techno', 'audio/tannennadel-techno.mp3', 'img/covertechno.jpg')">
-                <div class="cover-preview" style="background-image: url('img/covertechno.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Tannennadel-Techno</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
-
-            <div class="cyber-card" onclick="triggerAudio('Das Erwachen des Tals', 'audio/das Erwachen des Tals 118bpm.mp3', 'img/cover-erwachen.jpg')">
-                <div class="cover-preview" style="background-image: url('img/cover-erwachen.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Das Erwachen des Tals</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
-
-            <div class="cyber-card" onclick="triggerAudio('Nur Dich', 'audio/Nur_dich.mp3', 'img/cover-nurdich.jpg')">
-                <div class="cover-preview" style="background-image: url('img/cover-nurdich.jpg');"></div>
-                <div class="track-meta">
-                    <h3>Nur Dich</h3>
-                </div>
-                <div class="card-streaming-links" onclick="event.stopPropagation();">
-                    <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
-                    <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="play-trigger-circle">▶</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="neo-player">
-        <button class="master-play-btn" id="master-play" onclick="controlPlayback()">▶</button>
-        <div class="player-cover" id="player-cover-art" style="background-image: url('img/cover-ichbineuremarie.jpg');"></div>
-        <div class="now-playing-info">
-            <span id="track-title-display">Wähle einen Track</span>
-            <span class="label-tag">Bollenhut Marie</span>
-        </div>
-        <div class="sound-wave" id="wave-visuals">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-        </div>
-    </div>
-
+    <!-- INTERAKTIONS-SKRIPT -->
     <script>
-        const audioEngine = document.getElementById('audio-engine');
-        const masterPlay = document.getElementById('master-play');
-        const titleDisplay = document.getElementById('track-title-display');
-        const waveVisuals = document.getElementById('wave-visuals');
-        const playerCover = document.getElementById('player-cover-art');
-        const glow = document.getElementById('cursor-glow');
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
 
-        let currentCardBtn = null;
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                setTimeout(() => {
+                    circle.style.left = `${x}px`;
+                    circle.style.top = `${y}px`;
+                }, 30);
+            });
 
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
-        function scrollToTracks() {
-            document.getElementById('tracks-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function resetAllCardButtons() {
-            document.querySelectorAll('.play-trigger-circle').forEach(btn => {
-                btn.innerText = '▶';
+            document.querySelectorAll('a, .hub-card').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
             });
         }
 
-        function triggerAudio(title, src, coverUrl) {
-            if (audioEngine.src.includes(encodeURIComponent(src)) || audioEngine.src.endsWith(src)) {
-                controlPlayback();
-                return;
-            }
-
-            resetAllCardButtons();
-
-            titleDisplay.innerText = title;
-            audioEngine.src = src;
-            audioEngine.play();
-            
-            playerCover.style.backgroundImage = `url('${coverUrl}')`;
-            playerCover.style.animationPlayState = 'running';
-            
-            masterPlay.innerText = '⏸';
-            waveVisuals.classList.add('active');
-
-            const clickedCard = event.currentTarget;
-            currentCardBtn = clickedCard.querySelector('.play-trigger-circle');
-            if (currentCardBtn) currentCardBtn.innerText = '⏸';
-        }
-
-        function controlPlayback() {
-            if (!audioEngine.src || audioEngine.src.endsWith('/')) {
-                const firstCard = document.querySelector('.cyber-card');
-                if (firstCard) firstCard.click();
-                return;
-            }
-
-            if (audioEngine.paused) {
-                audioEngine.play();
-                masterPlay.innerText = '⏸';
-                if (currentCardBtn) currentCardBtn.innerText = '⏸';
-                waveVisuals.classList.add('active');
-                playerCover.style.animationPlayState = 'running';
-            } else {
-                audioEngine.pause();
-                masterPlay.innerText = '▶';
-                if (currentCardBtn) currentCardBtn.innerText = '▶';
-                waveVisuals.classList.remove('active');
-                playerCover.style.animationPlayState = 'paused';
-            }
-        }
-
-        audioEngine.onended = () => {
-            masterPlay.innerText = '▶';
-            resetAllCardButtons();
-            waveVisuals.classList.remove('active');
-            playerCover.style.animationPlayState = 'paused';
-        };
+        window.addEventListener('mousemove', e => {
+            document.querySelectorAll('.hub-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
     </script>
 </body>
 </html>
