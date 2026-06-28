@@ -63,7 +63,7 @@
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- OBERE NAVIGATIONSLEISTE (OPTIMIERT & DAUERHAFT SICHTBAR) -->
+    <!-- OBERE NAVIGATIONSLEISTE -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-900/50 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             
@@ -136,7 +136,7 @@
             <p class="text-zinc-400 text-xs md:text-sm font-light max-w-xl mx-auto pt-2 leading-relaxed">Hört hier in zwei exklusive Beispiele für personalisierte Trausongs rein, die mit modernster Musik-Technologie individuell für eure emotionalsten Momente komponiert werden.</p>
         </div>
 
-        <!-- ERWEITERTER INFORMATIONSTEIL: EINBLICK IN DIE KI-MUSIKMANUFAKTUR -->
+        <!-- EINBLICK IN DIE KI-MUSIKMANUFAKTUR -->
         <section class="reveal text-left bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-10 rounded-sm shadow-xl space-y-6">
             <div class="space-y-1.5">
                 <span class="text-[10px] uppercase tracking-widest text-amber-500/80 font-medium font-mono block">Technologie trifft tiefe Emotion</span>
@@ -147,7 +147,7 @@
                     Ein eigenständiger Song für den Einzug oder den Hochzeitstanz ist ein unvergleichlicher Gänsehaut-Garant. Wir nutzen hochmoderne künstliche Intelligenz, um für euch ein maßgeschneidertes, musikalisches Kunstwerk zu erschaffen. Das Besondere daran: Der Song wird exakt auf eure Namen, eure persönlichen Meilensteine und eure ganz eigene Liebesgeschichte abgestimmt.
                 </p>
                 <p>
-                    Ihr liefert uns die wichtigsten Anekdoten und Details – wir formen daraus den perfekten Songtext und steuern die KI-Generierung so aus, dass ein absolutes Unikat entsteht. Stilistisch habt ihr die volle Freiheit: ob emotionale Piano-Ballade, modernes Singer-Songwriter-Arrangement oder epischer Orchestersound. Das Ergebnis klingt verblüffend echt, absolut professionell und gehört nur euch allein.
+                    Ihr liefert uns die wichtigsten Anekdoten und Details – wir formen daraus den perfecten Songtext und steuern die KI-Generierung so aus, dass ein absolutes Unikat entsteht. Stilistisch habt ihr die volle Freiheit: ob emotionale Piano-Ballade, modernes Singer-Songwriter-Arrangement oder epischer Orchestersound. Das Ergebnis klingt verblüffend echt, absolut professionell und gehört nur euch allein.
                 </p>
             </div>
             <div class="grid sm:grid-cols-3 gap-6 pt-4 border-t border-zinc-900/60 text-xs">
@@ -175,8 +175,9 @@
                     <span class="text-[10px] text-red-500 uppercase tracking-widest font-semibold block">Beispiel 01</span>
                     <h3 class="text-base font-serif text-white tracking-wide">„Er für Sie“ – Die Überraschung</h3>
                     <p class="text-zinc-500 text-xs font-light">Eine tief berührende Ballade, auf eure Namen abgestimmt, als emotionales Geschenk während der freien Zeremonie.</p>
+                    <audio id="audio-01" src="audio/er-fuer-sie.mp3" preload="none"></audio>
                 </div>
-                <button class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
+                <button onclick="toggleAudio('audio-01', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
                     <i class="fas fa-play mr-2 text-[9px] text-red-500"></i> Hören
                 </button>
             </div>
@@ -187,8 +188,9 @@
                     <span class="text-[10px] text-red-500 uppercase tracking-widest font-semibold block">Beispiel 02</span>
                     <h3 class="text-base font-serif text-white tracking-wide">„Sie für Ihn“ – Der Einzug zum Altar</h3>
                     <p class="text-zinc-500 text-xs font-light">Ein epischer Song mit eurer persönlichen Geschichte für den Moment, wenn sich die Scheunentore öffnen.</p>
+                    <audio id="audio-02" src="audio/sie-fuer-ihn.mp3" preload="none"></audio>
                 </div>
-                <button class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
+                <button onclick="toggleAudio('audio-02', this)" class="btn-shine-target shrink-0 border border-zinc-800 hover:border-red-600 bg-zinc-950/40 hover:bg-zinc-900/40 text-white text-[10px] font-medium uppercase tracking-[0.2em] px-6 py-3.5 transition-all duration-300 rounded-xs">
                     <i class="fas fa-play mr-2 text-[9px] text-red-500"></i> Hören
                 </button>
             </div>
@@ -208,6 +210,41 @@
 
     <!-- SKRIPTE -->
     <script>
+        // AUDIO PLAYER STEUERUNG (KORRIGIERTE DOM-SUCHE)
+        function toggleAudio(audioId, button) {
+            const audio = document.getElementById(audioId);
+            const icon = button.querySelector('i');
+            
+            // Stoppt andere Tracks, wenn ein neuer gestartet wird
+            document.querySelectorAll('audio').forEach(track => {
+                if (track !== audio) {
+                    track.pause();
+                    track.currentTime = 0;
+                    // Findet den Button innerhalb derselben Kachel sauber über das übergeordnete Element
+                    const parentCard = track.closest('.song-card');
+                    if (parentCard) {
+                        const otherBtnIcon = parentCard.querySelector('button i');
+                        if (otherBtnIcon) {
+                            otherBtnIcon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+                        }
+                    }
+                }
+            });
+
+            if (audio.paused) {
+                audio.play();
+                icon.className = 'fas fa-pause mr-2 text-[9px] text-red-500';
+            } else {
+                audio.pause();
+                icon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+            }
+
+            // Setzt das Icon zurück, wenn das Lied zu Ende ist
+            audio.onended = () => {
+                icon.className = 'fas fa-play mr-2 text-[9px] text-red-500';
+            };
+        }
+
         // NAVIGATION & MOBILE BURGER LOGIC
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
