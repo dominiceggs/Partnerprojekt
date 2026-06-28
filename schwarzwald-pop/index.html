@@ -22,7 +22,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none;
         }
 
         body {
@@ -50,7 +49,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 2rem;
+            padding: 2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -66,12 +65,12 @@
         }
 
         header {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding: 0 10%;
+            padding: 120px 10% 60px 10%;
         }
 
         .hero-bg-container {
@@ -162,10 +161,10 @@
 
         header h1 {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-size: clamp(3rem, 7vw, 6.5rem);
             font-weight: 800;
             text-transform: uppercase;
-            line-height: 0.85;
+            line-height: 0.9;
             letter-spacing: -0.04em;
             margin-bottom: 2.5rem;
         }
@@ -194,7 +193,7 @@
         .content-wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 0 2rem 180px 2rem;
+            padding: 0 1.5rem 180px 1.5rem;
             position: relative;
             z-index: 3;
         }
@@ -221,7 +220,7 @@
             border-radius: 24px;
             padding: 1.2rem 2rem;
             display: grid;
-            grid-template-columns: 80px 1fr auto auto;
+            grid-template-columns: auto 1fr auto auto;
             align-items: center;
             gap: 2rem;
             cursor: pointer;
@@ -244,7 +243,7 @@
         }
 
         .track-meta h3 {
-            font-size: 1.4rem;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
             font-weight: 600;
             margin-bottom: 0.3rem;
         }
@@ -276,9 +275,9 @@
             transform: scale(1.1);
         }
 
-        /* YouTube Link Style - Jetzt standardmäßig ROT */
+        /* YouTube Link Style */
         .card-streaming-links a.youtube {
-            color: var(--primary-neon); /* Bollenhut-Rot */
+            color: var(--primary-neon);
             filter: drop-shadow(0 0 5px rgba(255, 0, 51, 0.4));
         }
         .card-streaming-links a.youtube:hover { 
@@ -366,11 +365,16 @@
         .now-playing-info {
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         #track-title-display {
             font-size: 1.1rem;
             font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .label-tag {
@@ -387,11 +391,48 @@
         .sound-wave.active .wave-bar:nth-child(3) { animation-delay: 0.2s; }
         @keyframes waveBounce { 0% { height: 4px; } 100% { height: 28px; } }
 
+        /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
-            .hero-bg-container { width: 100%; opacity: 0.4; }
-            .cyber-card { grid-template-columns: 70px 1fr auto; gap: 1rem; padding: 1rem; }
-            .card-streaming-links { display: none; } /* Auf Mobile ausblenden für Platz */
-            .neo-player { grid-template-columns: auto 1fr; border-radius: 30px; }
+            #cursor-glow { display: none; }
+            
+            header {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding: 140px 5% 60px 5%;
+            }
+
+            .hero-bg-container { 
+                width: 100%; 
+                opacity: 0.3; 
+            }
+
+            .hero-bg-overlay {
+                background: linear-gradient(to bottom, var(--bg-deep) 0%, transparent 50%, var(--bg-deep) 100%);
+            }
+
+            .hero-logo-container {
+                justify-content: center;
+                margin: 0 auto 2rem auto;
+            }
+
+            .cyber-card { 
+                grid-template-columns: auto 1fr auto; 
+                gap: 1rem; 
+                padding: 1rem; 
+            }
+
+            .card-streaming-links { display: none; } 
+            
+            .neo-player { 
+                grid-template-columns: auto 1fr; 
+                border-radius: 30px; 
+                padding: 0.8rem 1.5rem;
+                gap: 1.2rem;
+                bottom: 15px;
+                width: calc(100% - 20px);
+            }
+            
             .player-cover, .sound-wave { display: none; }
         }
     </style>
@@ -558,7 +599,6 @@
         }
 
         function triggerAudio(title, src, coverUrl) {
-            // Falls derselbe Song geklickt wird, verhalten wir uns wie Pause/Play
             if (audioEngine.src.includes(encodeURIComponent(src)) || audioEngine.src.endsWith(src)) {
                 controlPlayback();
                 return;
@@ -576,7 +616,6 @@
             masterPlay.innerText = '⏸';
             waveVisuals.classList.add('active');
 
-            // Setze das Play-Symbol auf der geklickten Karte auf Pause
             const clickedCard = event.currentTarget;
             currentCardBtn = clickedCard.querySelector('.play-trigger-circle');
             if (currentCardBtn) currentCardBtn.innerText = '⏸';
