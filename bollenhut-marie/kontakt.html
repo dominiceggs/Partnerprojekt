@@ -29,6 +29,7 @@
         .nav-link { position: relative; transition: color 0.3s ease; }
         .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 1px; background-color: #dc2626; transition: width 0.3s ease, left 0.3s ease; }
         .nav-link:hover::after { width: 100%; left: 0; }
+        .nav-link-active { position: relative; color: #fff; }
         .nav-link-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 1px; background-color: #dc2626; }
 
         /* REVEAL ON SCROLL */
@@ -85,7 +86,7 @@
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- OBERE NAVIGATIONSLEISTE -->
+    <!-- OBERE NAVIGATIONSLEISTE (OPTIMIERT & DAUERHAFT SICHTBAR) -->
     <nav class="fixed top-0 left-0 w-full z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-900/50 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-20 px-6 md:px-12">
             
@@ -94,22 +95,21 @@
                 <span class="text-sm font-serif italic text-red-500 tracking-wider">Schwarzwaldhochzeiten</span>
             </a>
             
-            <!-- Desktop Links -->
+            <!-- Desktop Links (PC: Dauerhaft sichtbar) -->
             <div class="hidden lg:flex items-center space-x-6 text-[11px] uppercase tracking-[0.18em] font-medium text-zinc-400">
-                <a href="index.html" class="nav-link hover:text-white">Startseite</a>
+                <a href="index.html" class="nav-link hover:text-white">Start</a>
                 <span class="text-zinc-800 font-light">/</span>
-                <a href="hochzeit.html" class="nav-link hover:text-white">Bausteine</a>
+                <a href="bausteine.html" class="nav-link hover:text-white">Bausteine</a>
                 <a href="service.html" class="nav-link hover:text-white">Planung & Service</a>
-                <a href="erlebnis.html" class="nav-link hover:text-white">Kulinarik</a>
                 <span class="text-zinc-800 font-light">/</span>
-                <a href="songs.html" class="nav-link hover:text-white">Hochzeitssongs</a>
-                <a href="shop.html" class="nav-link hover:text-white">Shop</a>
+                <a href="songs.html" class="nav-link hover:text-white">Hochzeitslied</a>
+                <a href="shop.html" class="nav-link hover:text-white">Präsente</a>
                 <span class="text-zinc-800 font-light">/</span>
                 <a href="bio.html" class="nav-link hover:text-white">Das Team</a>
-                <a href="kontakt.html" class="nav-link hover:text-white">Termin-Anfrage</a>
+                <a href="kontakt.html" class="nav-link-active">Termin-Anfrage</a>
             </div>
 
-            <!-- Mobile Burger Button -->
+            <!-- Mobile Burger Button mit explizitem Text-Hinweis für klare Usability -->
             <button id="mobile-menu-toggle" class="lg:hidden flex items-center gap-3 text-zinc-400 hover:text-white p-2 z-50 focus:outline-none transition-colors group" aria-label="Menü öffnen">
                 <span id="menu-text" class="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">Menü</span>
                 <i id="burger-icon" class="fas fa-bars text-base"></i>
@@ -121,17 +121,16 @@
     <!-- FULLSCREEN OVERLAY FÜR MOBILE NAVIGATION -->
     <div id="mobile-menu" class="lg:hidden fixed inset-0 z-40 bg-zinc-950/95 backdrop-blur-lg flex flex-col justify-center items-center">
         <div class="flex flex-col space-y-6 text-center text-xs uppercase tracking-[0.25em] font-medium text-zinc-400">
-            <a href="index.html" class="hover:text-white">Startseite</a>
+            <a href="index.html" class="hover:text-white">Start</a>
             <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
-            <a href="hochzeit.html" class="hover:text-white">Bausteine</a>
+            <a href="bausteine.html" class="hover:text-white">Bausteine</a>
             <a href="service.html" class="hover:text-white">Planung & Service</a>
-            <a href="erlebnis.html" class="hover:text-white">Kulinarik</a>
             <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
-            <a href="songs.html" class="hover:text-white">Hochzeitssongs</a>
-            <a href="shop.html" class="hover:text-white">Shop</a>
+            <a href="songs.html" class="hover:text-white">Hochzeitslied</a>
+            <a href="shop.html" class="hover:text-white">Präsente</a>
             <div class="h-[1px] bg-zinc-900 w-12 mx-auto"></div>
             <a href="bio.html" class="hover:text-white">Das Team</a>
-            <a href="kontakt.html" class="hover:text-white">Termin-Anfrage</a>
+            <a href="kontakt.html" class="text-white text-sm font-semibold">Termin-Anfrage</a>
         </div>
     </div>
 
