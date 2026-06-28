@@ -37,7 +37,6 @@
         .baustein-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0) 70%); mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
         .baustein-card:hover { background-color: rgba(24, 24, 27, 0.5); border-color: rgba(212, 175, 55, 0.35); transform: translateY(-2px); box-shadow: 0 15px 35px -15px rgba(212, 175, 55, 0.15); }
         .baustein-card:hover::before { opacity: 1; }
-        /* SELEKTIERTE KARTE NUN MIT DEZENTEM MATTGOLD-HINTERGRUND & GOLD-RAND */
         .baustein-card.selected { background-color: rgba(212, 175, 55, 0.04); border-color: rgba(212, 175, 55, 0.5); }
 
         .btn-shine-target { position: relative; overflow: hidden; }
@@ -52,7 +51,6 @@
         #mobile-menu a { transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease; }
         #mobile-menu.open a { transform: translateY(0); }
 
-        /* GOLD TEXT GRADIENT DEFINITIONS */
         .gold-text-gradient {
             background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #a16207 100%);
             -webkit-background-clip: text;
@@ -114,13 +112,11 @@
         </div>
     </div>
 
-    <!-- HINTERGRUND GRADIENT DEZENT AN GOLD ANGEPASST -->
     <div class="absolute top-0 left-0 w-full h-[600px] z-0 opacity-25 pointer-events-none" style="background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, rgba(9, 9, 11, 0) 70%);"></div>
 
     <main class="relative z-10 max-w-4xl mx-auto px-6 py-24 space-y-16">
         
         <div class="text-center space-y-2 reveal">
-            <!-- SCHRIFTZUG AUF GOLD GEÄNDERT -->
             <span class="font-romantic text-4xl gold-text-gradient-script block text-glow-gold tracking-wide">Maßgeschneidert & Transparent</span>
             <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase">Eure Hochzeits-Bausteine</h1>
             <div class="header-rings-divider">
@@ -146,7 +142,6 @@
             <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
                 Eine freie Trauung bei uns auf dem Weingut kennt keine starren Regeln, keine unpersönlichen Texte und keine Hektik. Hier zählt nur ihr, eure ganz persönliche Geschichte und das Versprechen, das ihr euch gebt. Ob herzlich-erfrischend, tief emotional oder mit einer feinen Prise Schwarzwälder Tradition – wir schaffen den Rahmen, der zu einhundert Prozent eurer Liebe entspricht.
             </p>
-            <!-- BLOCKQUOTE AKZENT AUF MATTGOLD GEÄNDERT -->
             <blockquote class="border-l-2 border-amber-500 pl-4 py-1 my-4 bg-zinc-950/40">
                 <span class="text-xs uppercase tracking-wider text-white font-medium block mb-1">Der perfekte Auftakt für euer Fest</span>
                 <p class="text-zinc-400 text-xs italic font-light leading-relaxed">
@@ -164,7 +159,6 @@
         <div class="space-y-6 reveal">
             
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
-                <!-- CHECKBOX ACCENT FARBE ANGEPASST -->
                 <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b01" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
                 <div class="flex-grow md:flex justify-between items-start gap-8">
                     <div class="space-y-2 text-left">
@@ -172,7 +166,6 @@
                         <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Festscheune & Weingut</h3>
                         <p class="text-zinc-400 text-xs font-light leading-relaxed">Exklusive Miete unserer vollständig restaurierten, historischen Festscheune, die rustikalen Schwarzwald-Charme perfekt mit modernem Loft-Design verbindet. Inklusive Hof- und Nebennutzung, stilvoller Tische und Bestuhlung sowie variablem Lichtkonzept.</p>
                     </div>
-                    <!-- PREISAUFZEICHNUNG AUF GRADIENT-GOLD GEÄNDERT -->
                     <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 2.800,- €</span></div>
                 </div>
             </label>
@@ -272,9 +265,20 @@
                     <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">ab 490,- €</span></div>
                 </div>
             </label>
+
+            <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
+                <div class="pt-1 shrink-0"><input type="checkbox" name="bausteine" value="b10" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500"></div>
+                <div class="flex-grow md:flex justify-between items-start gap-8">
+                    <div class="space-y-2 text-left">
+                        <span class="text-[10px] text-amber-500 tracking-wider uppercase font-mono block">Baustein 10</span>
+                        <h3 class="text-lg md:text-xl font-serif text-white tracking-wide">Papeterie & Vorfreude</h3>
+                        <p class="text-zinc-400 text-xs font-light leading-relaxed">Das erste Versprechen eures großen Tages: Individuell gestaltete Einladungskarten (und Save-the-Date-Karten), die euren persönlichen Hochzeitsstil visuell ankündigen. Von edler Typografie bis hin zu hochwertiger Papierauswahl mit dem gewissen Schwarzwälder Etwas.</p>
+                    </div>
+                    <div class="text-left md:text-right mt-4 md:mt-0 shrink-0"><span class="gold-text-gradient font-serif text-lg block font-medium">auf Anfrage</span></div>
+                </div>
+            </label>
         </div>
 
-        <!-- CTA-BUTTON AUF GRADIENT-GOLD GEÄNDERT -->
         <div class="text-center reveal pt-6">
             <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300 shadow-xl shadow-amber-950/20 rounded-xs">
                 Jetzt unverbindlich anfragen
@@ -290,7 +294,6 @@
     </footer>
 
     <script>
-        // NAVIGATION & MOBILE BURGER
         const toggle = document.getElementById('mobile-menu-toggle');
         const menu = document.getElementById('mobile-menu');
         const icon = document.getElementById('burger-icon');
@@ -311,7 +314,6 @@
             }));
         }
 
-        // CUSTOM CURSOR
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
         if(dot && circle) {
@@ -325,7 +327,6 @@
             });
         }
 
-        // SELECTION CARD LOGIC
         const cards = document.querySelectorAll('.baustein-card');
         const btn = document.getElementById('cta-button');
 
@@ -338,7 +339,6 @@
             });
         });
 
-        // REVEAL ON SCROLL & HOVER POSITION
         const observer = new IntersectionObserver((es) => es.forEach(e => {
             if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); }
         }), { threshold: 0.1 });
