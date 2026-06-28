@@ -254,22 +254,38 @@
             display: flex;
             gap: 1.2rem;
             font-size: 1.4rem;
-            z-index: 5; /* Klickbar über der Karte */
+            z-index: 5;
         }
 
         .card-streaming-links a {
-            color: var(--accent-green);
-            opacity: 0.7;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .card-streaming-links a:hover {
+        /* Spotify Link Style */
+        .card-streaming-links a.spotify {
+            color: var(--accent-green);
+            opacity: 0.7;
+        }
+        .card-streaming-links a.spotify:hover { 
+            color: #1DB954; 
             opacity: 1;
+            filter: drop-shadow(0 0 10px #1DB954); 
             transform: scale(1.1);
         }
 
-        .card-streaming-links a.spotify:hover { color: #1DB954; filter: drop-shadow(0 0 10px #1DB954); }
-        .card-streaming-links a.youtube:hover { color: #FF0000; filter: drop-shadow(0 0 10px #FF0000); }
+        /* YouTube Link Style - Jetzt standardmäßig ROT */
+        .card-streaming-links a.youtube {
+            color: var(--primary-neon); /* Bollenhut-Rot */
+            filter: drop-shadow(0 0 5px rgba(255, 0, 51, 0.4));
+        }
+        .card-streaming-links a.youtube:hover { 
+            color: #FF0000; 
+            filter: drop-shadow(0 0 15px #FF0000); 
+            transform: scale(1.1);
+        }
 
         .play-trigger-circle {
             width: 50px;
@@ -425,7 +441,7 @@
                     <a href="https://open.spotify.com/intl-de/track/2y8W1em7RqvoBAh2LuvuXN?si=2d1fec1c4ce546cc" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
                     <a href="https://www.youtube.com/watch?v=Z-0wE6CHdjs&list=OLAK5uy_m7akVZ1sPnVvWJRWH8Kb6YYJcEE5O8SHY" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="play-trigger-circle" id="btn-audio-ich-bin-eure-marie">▶</div>
+                <div class="play-trigger-circle">▶</div>
             </div>
 
             <div class="cyber-card" onclick="triggerAudio('Schwarzwaldmarie', 'audio/schwarzwaldmarie.mp3', 'img/Cover-schwarzwaldmarie-original.jpg')">
@@ -437,7 +453,7 @@
                     <a href="https://open.spotify.com/intl-de/track/4p4BQi1QvINxN8e39lOMWl?si=faa21d29c94e4f6c" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
                     <a href="https://www.youtube.com/watch?v=zIaH0q0wYfU" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="play-trigger-circle" id="btn-audio-schwarzwaldmarie">▶</div>
+                <div class="play-trigger-circle">▶</div>
             </div>
 
             <div class="cyber-card" onclick="triggerAudio('Sonderedition SBW', 'audio/schwarzwaldmarie-sbw.mp3', 'img/Cover-schwarzwaldmarie-sbw.jpg')">
@@ -449,7 +465,7 @@
                     <a href="https://open.spotify.com/intl-de/track/1qm7eJcmgeETLNR18MrBjG?si=554d997c20544708" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
                     <a href="https://www.youtube.com/watch?v=4hArfTwc5po" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="play-trigger-circle" id="btn-audio-sonderedition-sbw">▶</div>
+                <div class="play-trigger-circle">▶</div>
             </div>
 
             <div class="cyber-card" onclick="triggerAudio('Schwarzwaldmarie Kids', 'audio/schwarzwaldmarie-kids.mp3', 'img/Cover-marie-kids.jpg')">
@@ -461,7 +477,7 @@
                     <a href="https://open.spotify.com/intl-de/album/60kUK2VQ5xbCDcXShS8cDF?si=xRM7lIwcQHiEX2HBlzTG0g" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
                     <a href="https://www.youtube.com/watch?v=FmZjxqvhEcA&list=OLAK5uy_lfLyft8jgkoMjabi0YNheIf1OEGkntSwA" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="play-trigger-circle" id="btn-audio-schwarzwaldmarie-kids">▶</div>
+                <div class="play-trigger-circle">▶</div>
             </div>
 
             <div class="cyber-card" onclick="triggerAudio('Tannennadel-Techno', 'audio/tannennadel-techno.mp3', 'img/covertechno.jpg')">
@@ -473,7 +489,31 @@
                     <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
                     <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="play-trigger-circle" id="btn-audio-tannennadel-techno">▶</div>
+                <div class="play-trigger-circle">▶</div>
+            </div>
+
+            <div class="cyber-card" onclick="triggerAudio('Das Erwachen des Tals', 'audio/das erwachen des tals.mp3', 'img/cover-erwachen.jpg')">
+                <div class="cover-preview" style="background-image: url('img/cover-erwachen.jpg');"></div>
+                <div class="track-meta">
+                    <h3>Das Erwachen des Tals</h3>
+                </div>
+                <div class="card-streaming-links" onclick="event.stopPropagation();">
+                    <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="play-trigger-circle">▶</div>
+            </div>
+
+            <div class="cyber-card" onclick="triggerAudio('Nur Dich', 'audio/nur dich.mp3', 'img/cover-nurdich.jpg')">
+                <div class="cover-preview" style="background-image: url('img/cover-nurdich.jpg');"></div>
+                <div class="track-meta">
+                    <h3>Nur Dich</h3>
+                </div>
+                <div class="card-streaming-links" onclick="event.stopPropagation();">
+                    <a href="#" target="_blank" class="spotify"><i class="fab fa-spotify"></i></a>
+                    <a href="#" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="play-trigger-circle">▶</div>
             </div>
         </div>
     </div>
@@ -517,7 +557,7 @@
             });
         }
 
-        function triggerAudio(title, src, coverUrl, elementId) {
+        function triggerAudio(title, src, coverUrl) {
             // Falls derselbe Song geklickt wird, verhalten wir uns wie Pause/Play
             if (audioEngine.src.includes(encodeURIComponent(src)) || audioEngine.src.endsWith(src)) {
                 controlPlayback();
