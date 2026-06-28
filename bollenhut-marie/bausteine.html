@@ -131,41 +131,16 @@
             </p>
         </div>
 
-        <!-- INTERAKTIVER GÄSTE-SLIDER -->
         <section class="reveal max-w-xl mx-auto bg-zinc-900/20 border border-zinc-900/50 p-6 rounded-sm text-center space-y-4">
             <div class="flex justify-between items-center text-xs uppercase tracking-widest text-zinc-400 font-medium">
                 <span>Geplante Gästeanzahl:</span>
                 <span class="text-amber-500 font-serif text-base font-bold" id="guest-count-display">80 Gäste</span>
             </div>
-            <input type="range" id="guest-slider" min="20" max="150" value="80" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none accent-amber-500 cursor-pointer">
+            <input type="range" id="guest-slider" min="20" max="150" value="80" 
+                   class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer"
+                   style="-webkit-appearance: range; appearance: range; height: 8px;">
         </section>
 
-        <section class="reveal max-w-3xl mx-auto space-y-8 bg-zinc-900/10 border border-zinc-900/40 p-8 md:p-10 rounded-sm shadow-xl text-left">
-            <div class="space-y-3">
-                <span class="text-xs uppercase tracking-widest text-amber-500/80 font-medium">Inspiration & Emotion</span>
-                <h2 class="text-xl md:text-2xl font-serif text-white tracking-wide">Ein Moment für die Ewigkeit: Eure freie Trauung im Weinberg</h2>
-            </div>
-            <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
-                Stellt euch vor: Ein sanfter Sommerwind streift durch die grünen Rebstöcke. Vor euch öffnet sich der Blick über das malerische Tal, während die Sonne die Landschaft in ein goldenes, warmes Licht taucht. Ihr schreitet gemeinsam einen Pfad entlang, vorbei an euren Lieblingsmenschen, hin zu einem Altar aus charakterstarkem Altholz, der eigens für euch geschmückt wurde.
-            </p>
-            <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed">
-                Eine freie Trauung bei uns auf dem Weingut kennt keine starren Regeln, keine unpersönlichen Texte und keine Hektik. Hier zählt nur ihr, eure ganz persönliche Geschichte und das Versprechen, das ihr euch gebt. Ob herzlich-erfrischend, tief emotional oder mit einer feinen Prise Schwarzwälder Tradition – wir schaffen den Rahmen, der zu einhundert Prozent eurer Liebe entspricht.
-            </p>
-            <blockquote class="border-l-2 border-amber-500 pl-4 py-1 my-4 bg-zinc-950/40">
-                <span class="text-xs uppercase tracking-wider text-white font-medium block mb-1">Der perfekte Auftakt für euer Fest</span>
-                <p class="text-zinc-400 text-xs italic font-light leading-relaxed">
-                    Nach dem emotionalen „Ja“-Wort trennen euch nur wenige Schritte von der feierlich gedeckten Festscheune. Während die ersten Freudentränen getrocknet werden, stoßen eure Gäste direkt am Ort des Geschehens mit einem prickelnden Winzersekt auf euer Glück an.
-                </p>
-            </blockquote>
-            <div class="space-y-2 pt-2">
-                <h3 class="text-sm font-serif text-zinc-200 tracking-wide">Lust auf mehr? Gestaltet euren Tag nach euren Wünschen!</h3>
-                <p class="text-zinc-400 text-xs font-light leading-relaxed">
-                    Das Schönste an unserem Konzept: Die Traumtrauung im Weinberg ist erst der Anfang. Unser modulares Baustein-System lässt euch die vollkommene Freiheit, euer Fest genau so zu erweitern, wie ihr es euch erträumt habt. Kombiniert feine Kulinarik, ein maßgeschneidertes Musikkonzept oder liebevolle Betreuung für die Kleinen ganz nach euren Vorstellungen.
-                </p>
-            </div>
-        </section>
-
-        <!-- BAUSTEINE MIT BERECHNUNGS-ATTRIBUTEN -->
         <div class="space-y-6 reveal">
             
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
@@ -294,7 +269,6 @@
                 </div>
             </label>
 
-            <!-- BAUSTEIN 10: DESIGN VON EINLADUNGSKARTEN -->
             <label class="baustein-card p-6 md:p-8 flex items-start gap-6 rounded-sm select-none block transition-all">
                 <div class="pt-1 shrink-0">
                     <input type="checkbox" name="bausteine" value="b10" data-type="request" class="w-4 h-4 rounded-xs border-zinc-700 text-amber-500 bg-zinc-950 accent-amber-500">
@@ -311,7 +285,6 @@
         </div>
     </main>
 
-    <!-- FLOATING PRICE BAR (UNTEN ANKLEBEND BEI AUSWAHL) -->
     <div id="price-bar" class="fixed bottom-0 left-0 w-full bg-zinc-950/90 backdrop-blur-lg border-t border-zinc-900 px-6 py-4 z-40 transform translate-y-full transition-transform duration-500">
         <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="text-left">
@@ -323,9 +296,9 @@
                 <span id="price-bar-notice" class="text-[9px] text-zinc-600 block hidden">* Beinhaltet Elemente auf Anfrage</span>
             </div>
             <div>
-                <a id="cta-button" href="kontakt.html" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-6 py-3 shadow-xl rounded-xs">
-                    Auswahl unverbindlich anfragen
-                </a>
+                <button id="cta-button" class="btn-shine-target inline-block bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-zinc-950 text-[11px] font-bold uppercase tracking-[0.2em] px-6 py-3 shadow-xl rounded-xs">
+                    Auswahl jetzt anfragen
+                </button>
             </div>
         </div>
     </div>
@@ -399,6 +372,7 @@
         const ctaButton = document.getElementById('cta-button');
 
         function updateCalculation() {
+            if (!guestSlider) return;
             const guests = parseInt(guestSlider.value);
             guestDisplay.innerText = `${guests} Gäste`;
 
@@ -406,8 +380,9 @@
             let checkedCount = 0;
             let hasRequestItem = false;
 
-            document.querySelectorAll('input[name="bausteine"]:checked').forEach(cb => {
+            document.querySelectorAll('.baustein-card.selected').forEach(card => {
                 checkedCount++;
+                const cb = card.querySelector('input[type="checkbox"]');
                 const type = cb.getAttribute('data-type');
                 const price = parseFloat(cb.getAttribute('data-price')) || 0;
 
@@ -441,15 +416,16 @@
             }
         }
 
-        // 6. SPEICHERN BEIM KLICK FÜR DIE KONTAKTSEITE
+        // 6. SPEICHERN & WEITERLEITUNG
         if (ctaButton) {
-            ctaButton.addEventListener('click', () => {
+            ctaButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                
                 const selectedBausteine = [];
                 const guests = guestSlider.value;
                 const totalSum = priceBarSum.innerText;
 
-                document.querySelectorAll('input[name="bausteine"]:checked').forEach(cb => {
-                    const card = cb.closest('.baustein-card');
+                document.querySelectorAll('.baustein-card.selected').forEach(card => {
                     const title = card.querySelector('h3').innerText;
                     selectedBausteine.push(title);
                 });
@@ -457,20 +433,32 @@
                 localStorage.setItem('wedding_guests', guests);
                 localStorage.setItem('wedding_bausteine', JSON.stringify(selectedBausteine));
                 localStorage.setItem('wedding_total', totalSum);
+
+                window.location.href = "kontakt.html";
             });
         }
 
-        // Event-Listener aktivieren
+        // Klick-Handler für Desktop & Handys (Karten-Klicks reagieren auf visuelle Klasse)
         cards.forEach(c => {
             const cb = c.querySelector('input[type="checkbox"]');
-            cb.addEventListener('change', () => {
+            
+            c.addEventListener('click', (e) => {
+                if (e.target !== cb) {
+                    e.preventDefault();
+                    cb.checked = !cb.checked;
+                }
                 c.classList.toggle('selected', cb.checked);
                 updateCalculation();
             });
         });
 
+        // HANDY-OPTIMIERUNG FÜR DEN GÄSTE-SLIDER
         if (guestSlider) {
             guestSlider.addEventListener('input', updateCalculation);
+            guestSlider.addEventListener('change', updateCalculation);
+            guestSlider.addEventListener('touchmove', (e) => {
+                e.stopPropagation();
+            }, { passive: true });
         }
     </script>
 </body>
