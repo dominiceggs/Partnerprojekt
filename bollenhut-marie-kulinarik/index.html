@@ -107,7 +107,7 @@
         <!-- Dieses Element drückt den Button auf Handys ganz nach rechts weg vom Logo -->
         <div class="flex-grow lg:hidden"></div>
         <a href="#dashboard" class="bg-bollenhut hover:bg-bollenhut-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-bollenhut/20 whitespace-nowrap">
-            Rezepte ansehen
+            Rezepte 
         </a>
     </div>
 </nav>
@@ -916,54 +916,56 @@
         </div>
     </div>
 
-    <!-- FEEDBACK & CONTACT HUB -->
+    <!-- FEEDBACK & CONTACT HUB (KOMPLETT ZENTRIERT) -->
     <section id="community" class="bg-white py-24 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-16">
-            <!-- Formular Links -->
-            <div class="lg:col-span-5 space-y-10">
+        <div class="max-w-2xl mx-auto px-6 space-y-16 flex flex-col items-center">
+            
+            <!-- Linker Teil (Jetzt zentrierte Formulare) -->
+            <div class="w-full space-y-10 flex flex-col items-center text-center">
                 <div class="space-y-4">
                     <h3 class="text-2xl font-extrabold tracking-tight text-darkbase uppercase">Maries Feedback-Ecke</h3>
                     <p class="text-gray-500 text-sm">Teile deine kulinarischen Roll-Erfolge oder deine Meinung zum Sound!</p>
                 </div>
-                <form id="comment-form" onsubmit="submitComment(event)" class="space-y-4 text-sm">
-                    <input type="text" id="comment-name" placeholder="Dein Name..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase font-medium">
-                    <select id="comment-rating" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase font-bold">
+                <form id="comment-form" onsubmit="submitComment(event)" class="space-y-4 text-sm w-full max-w-md mx-auto">
+                    <input type="text" id="comment-name" placeholder="Dein Name..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase font-medium text-center">
+                    <select id="comment-rating" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase font-bold text-center">
                         <option value="5">★★★★★ (5/5)</option>
                         <option value="4">★★★★☆ (4/5)</option>
                     </select>
-                    <textarea id="comment-text" rows="3" placeholder="Wie lief das Rollen? Welcher Song pumpt am besten?..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase"></textarea>
+                    <textarea id="comment-text" rows="3" placeholder="Wie lief das Rollen? Welcher Song pumpt am besten?..." required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-bollenhut bg-[#fbfaf8] text-darkbase text-center"></textarea>
                     <button type="submit" class="w-full bg-darkbase hover:bg-bollenhut text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all shadow-lg hover:shadow-bollenhut/20">Kommentar senden</button>
                 </form>
 
                 <!-- KONTAKTBEREICH -->
-<div id="contact" class="pt-8 border-t border-gray-100 space-y-4">
-    <h4 class="text-xl font-extrabold text-darkbase uppercase">Direkter Draht zu Marie</h4>
-    <p class="text-gray-500 text-sm leading-relaxed">
-        Du hast Fragen zu den Rezepten, zum Sound oder möchtest ein Catering anfragen? Schreib mir einfach eine E-Mail – ich freue mich auf deine Nachricht!
-    </p>
-    <div class="pt-2">
-        <a href="mailto:bollenhutmarie@gmail.com" class="inline-flex items-center gap-3 bg-bollenhut hover:bg-bollenhut-dark text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all shadow-md hover:shadow-bollenhut/20 group">
-            <i class="fa-regular fa-envelope text-sm transition-transform group-hover:scale-110"></i> 
-            bollenhutmarie@gmail.com
-        </a>
-    </div>
-</div>
+                <div id="contact" class="pt-10 border-t border-gray-100 space-y-4 w-full flex flex-col items-center">
+                    <h4 class="text-xl font-extrabold text-darkbase uppercase">Direkter Draht zu Marie</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
+                        Du hast Fragen zu den Rezepten, zum Sound oder möchtest ein Catering anfragen? Schreib mir einfach eine E-Mail – ich freue mich auf deine Nachricht!
+                    </p>
+                    <div class="pt-2">
+                        <a href="mailto:bollenhutmarie@gmail.com" class="inline-flex items-center justify-center gap-3 bg-bollenhut hover:bg-bollenhut-dark text-white px-6 py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all shadow-md hover:shadow-bollenhut/20 group">
+                            <i class="fa-regular fa-envelope text-sm transition-transform group-hover:scale-110"></i> 
+                            bollenhutmarie@gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Kommentare Rechts -->
-            <div class="lg:col-span-7 space-y-6">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 flex items-center gap-2">
+            <!-- Rechter Teil (Jetzt zentrierte Kommentare) -->
+            <div class="w-full space-y-6 flex flex-col items-center text-center">
+                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 flex items-center justify-center gap-2">
                     <i class="fa-regular fa-comments text-sm text-bollenhut"></i> Live-Kommentare (<span id="comment-count">2</span>)
                 </h4>
-                <div id="comments-container" class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-                    <div class="bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm">
-                        <div class="flex justify-between items-center">
+                <div id="comments-container" class="space-y-4 max-h-[600px] overflow-y-auto w-full max-w-md mx-auto px-2">
+                    <div class="bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm text-center">
+                        <div class="flex justify-between items-center border-b border-gray-100 pb-2">
                             <span class="font-bold text-darkbase text-sm">Heiko_94</span>
                             <span class="text-amber-500 font-medium tracking-wider">★★★★★</span>
                         </div>
                         <p class="text-gray-600 leading-relaxed font-normal">Das mit den Flädle ist der absolute Gamechanger! Hatte erst Schiss, dass mir der Spargel alles einsaut, aber bombenfest beim Schneiden.</p>
                     </div>
-                    <div class="bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm">
-                        <div class="flex justify-between items-center">
+                    <div class="bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm text-center">
+                        <div class="flex justify-between items-center border-b border-gray-100 pb-2">
                             <span class="font-bold text-darkbase text-sm">Küchenfee_Schapbach</span>
                             <span class="text-amber-500 font-medium tracking-wider">★★★★☆</span>
                         </div>
@@ -971,6 +973,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </section>
 
@@ -1146,24 +1149,7 @@
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
         }
 
-        // === 4. KATEGORIEN-FILTER LOGIK (REPARIERT FÜR MOBIL & DESKTOP) ===
-        function filterRecipes(category) {
-            const items = document.querySelectorAll('.recipe-item');
-            const buttons = ['all', 'fish', 'meat', 'veggie'];
-            
-            // 1. Button-Aktivierung visuell umschalten
-            buttons.forEach(btn => {
-                const el = document.getElementById(`btn-filter-${btn}`);
-                if (el) {
-                    if (btn === category) {
-                        el.classList.add('bg-bollenhut', 'text-white');
-                        el.classList.remove('text-gray-400');
-                    } else {
-                        el.classList.remove('bg-bollenhut', 'text-white');
-                        el.classList.add('text-gray-400');
-                    }
-                }
-            });
+       
 
             // 2. Rezepte basierend auf Klassen ein- oder ausblenden
             items.forEach(item => {
