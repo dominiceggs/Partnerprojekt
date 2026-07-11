@@ -1022,7 +1022,7 @@
         </div>
     </div>
 
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+  <!-- INTERACTIVE JAVASCRIPT LOGIC (VOLLSTÄNDIG REPARIERT) -->
     <script>
         // === 1. ZUTATEN-RECHNER LOGIK ===
         let currentPortions = 2;
@@ -1060,8 +1060,10 @@
         }
 
         function triggerAudio(title, src, coverUrl) {
+            // Player einblenden
             bottomPlayer.classList.remove('opacity-0', 'pointer-events-none');
 
+            // Wenn derselbe Song geklickt wird, Play/Pause umschalten
             if (audioEngine.src.includes(encodeURIComponent(src)) || audioEngine.src.endsWith(src)) {
                 controlPlayback();
                 return;
@@ -1071,13 +1073,17 @@
 
             titleDisplay.innerText = title;
             audioEngine.src = src;
-            audioEngine.play();
             
-            masterPlay.innerText = '⏸';
-
-            const clickedCard = event.currentTarget;
-            currentCardBtn = clickedCard.querySelector('.card-play-btn');
-            if (currentCardBtn) currentCardBtn.innerText = '⏸';
+            // Wichtig: Playback starten und Fehler abfangen, falls der Browser blockiert
+            audioEngine.play().then(() => {
+                masterPlay.innerText = '⏸';
+                // Button in der angeklickten Karte finden
+                const clickedCard = event.currentTarget;
+                if (clickedCard) {
+                    currentCardBtn = clickedCard.querySelector('.card-play-btn');
+                    if (currentCardBtn) currentCardBtn.innerText = '⏸';
+                }
+            }).catch(e => console.log("Audio-Wiedergabe blockiert:", e));
         }
 
         function controlPlayback() {
@@ -1088,9 +1094,10 @@
             }
 
             if (audioEngine.paused) {
-                audioEngine.play();
-                masterPlay.innerText = '⏸';
-                if (currentCardBtn) currentCardBtn.innerText = '⏸';
+                audioEngine.play().then(() => {
+                    masterPlay.innerText = '⏸';
+                    if (currentCardBtn) currentCardBtn.innerText = '⏸';
+                }).catch(e => console.log(e));
             } else {
                 audioEngine.pause();
                 masterPlay.innerText = '▶';
@@ -1118,9 +1125,9 @@
             }
             
             const newComment = document.createElement('div');
-            newComment.className = 'bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm opacity-0 transform translate-y-4 transition-all duration-500';
+            newComment.className = 'bg-[#fbfaf8] p-5 rounded-xl border border-gray-200/80 text-xs space-y-3 shadow-sm opacity-0 transform translate-y-4 transition-all duration-500 text-center';
             newComment.innerHTML = `
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center border-b border-gray-100 pb-2">
                     <span class="font-bold text-darkbase text-sm">${escapeHTML(nameInput.value)}</span>
                     <span class="text-amber-500 font-medium tracking-wider">${stars}</span>
                 </div>
@@ -1143,28 +1150,31 @@
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
         }
 
-       
+        // === 4. KATEGORIEN-FILTER LOGIK (HIER WAR DER FEHLER BEHOBEN) ===
+        function filterRecipes(category) {
+            const items = document.querySelectorAll('.recipe-item');
+            const buttons = ['all', 'fish', 'meat', 'veggie'];
+            
+            buttons.forEach(btn => {
+                const el = document.getElementById(`btn-filter-${btn}`);
+                if (el) {
+                    if (btn === category) {
+                        el.classList.add('bg-bollenhut', 'text-white');
+                        el.classList.remove('text-gray-400');
+                    } else {
+                        el.classList.remove('bg-bollenhut', 'text-white');
+                        el.classList.add('text-gray-400');
+                    }
+                }
+            });
 
-            // 2. Rezepte basierend auf Klassen ein- oder ausblenden
             items.forEach(item => {
                 const itemCategory = item.getAttribute('data-category');
-                
                 if (category === 'all' || itemCategory === category) {
-                    // Zeigt das Element wieder als Flex-Card an und entfernt die Ausblend-Klasse
                     item.classList.remove('hidden');
                     item.style.display = 'flex';
                 } else {
-                    // Versteckt das Element bombenfest für alle Browser
                     item.classList.add('hidden');
-                    item.style.style.display = 'none';
-                }
-            });
-        }
-
-            items.forEach(item => {
-                if(category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'flex';
-                } else {
                     item.style.display = 'none';
                 }
             });
