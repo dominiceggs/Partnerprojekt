@@ -15,7 +15,7 @@
         .font-serif { font-family: 'Playfair Display', serif; }
         .text-glow { text-shadow: 0 0 40px rgba(212, 175, 55, 0.08); }
 
-        /* EDLER, MODERNER PRELOADER */
+        /* ADVANCED KINETIC PRELOADER */
         #preloader {
             position: fixed;
             inset: 0;
@@ -25,25 +25,41 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
+        
         .preloader-word {
             position: absolute;
             opacity: 0;
-            filter: blur(10px);
-            transform: scale(0.95);
-            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: blur(12px);
+            transform: translateY(20px) scale(0.95);
+            transition: 
+                opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            letter-spacing: 0.15em;
         }
+
+        /* Zustand: Wort kommt herein und glänzt */
         .preloader-word.active {
             opacity: 1;
             filter: blur(0);
-            transform: scale(1);
+            transform: translateY(0) scale(1);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
+
+        /* Zustand: Wort fliegt nach oben weg */
+        .preloader-word.exit {
+            opacity: 0;
+            filter: blur(8px);
+            transform: translateY(-20px) scale(1.02);
+        }
+
         .loader-bar-container {
-            width: 100px;
+            width: 120px;
             height: 1px;
-            background-color: rgba(39, 39, 42, 0.3);
-            margin-top: 24px;
+            background-color: rgba(39, 39, 42, 0.2);
+            margin-top: 32px;
             overflow: hidden;
             position: relative;
             border-radius: 1px;
@@ -55,7 +71,7 @@
             width: 0;
             background: linear-gradient(90deg, transparent, #d4af37, transparent);
             transform: translateX(-50%);
-            transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* CUSTOM CURSOR (LG+) */
@@ -91,23 +107,20 @@
 </head>
 <body class="bg-zinc-950 text-zinc-400 antialiased flex flex-col min-h-screen">
 
-    <!-- PRELOADER -->
     <div id="preloader">
-        <div class="relative w-full h-16 flex justify-center items-center text-center">
-            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-600 tracking-widest font-light italic">Bollenhut-Marie</span>
-            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-400 tracking-widest font-light italic">Kulinarik</span>
-            <span class="preloader-word font-serif text-2xl md:text-3xl text-white tracking-widest font-medium">Polarlichter</span>
+        <div class="relative w-full h-16 flex justify-center items-center text-center overflow-hidden">
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-500 font-light italic">Bollenhut-Marie</span>
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-400 font-light italic">Kulinarik</span>
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-white font-medium">Polarlichter</span>
         </div>
         <div class="loader-bar-container">
             <div id="loader-progress" class="loader-bar-progress"></div>
         </div>
     </div>
 
-    <!-- CURSOR -->
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
-    <!-- MAIN PORTAL -->
     <main class="relative z-10 flex-grow max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
         
         <div class="text-center space-y-4 max-w-2xl">
@@ -118,10 +131,8 @@
             </p>
         </div>
 
-        <!-- 3-Spalten-Grid für absolute Symmetrie und identische Kachelgrößen -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
             
-            <!-- Kachel 1: Bollenhut Marie -->
             <a href="./bollenhut-marie/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
                 <div class="space-y-4">
                     <span class="text-red-500 font-mono text-[9px] tracking-widest uppercase block">Live & Aktiv</span>
@@ -134,7 +145,6 @@
                 </div>
             </a>
 
-            <!-- Kachel 2: Kulinarik -->
             <a href="./bollenhut-marie-kulinarik/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
                 <div class="space-y-4">
                     <span class="text-emerald-500 font-mono text-[9px] tracking-widest uppercase block">Neu</span>
@@ -147,7 +157,6 @@
                 </div>
             </a>
 
-            <!-- Kachel 3: Polarlichter -->
             <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
                 <div class="space-y-4">
                     <span class="text-amber-500 font-mono text-[9px] tracking-widest uppercase block">In Vorbereitung</span>
@@ -169,42 +178,59 @@
     </footer>
 
     <script>
-        // IMPROVED PRELOADER TIMING & ANIMATION
+        const preloader = document.getElementById('preloader');
+        const progressBar = document.getElementById('loader-progress');
+        const words = document.querySelectorAll('.preloader-word');
+
+        // BROWSER BACK-BUTTON FIX
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.style.opacity = '1';
+                document.body.classList.add('loaded');
+                if (preloader) preloader.style.display = 'none';
+            }
+        });
+
+        // ANIMATED PRELOADER ENGINE
         window.addEventListener('DOMContentLoaded', () => {
-            const words = document.querySelectorAll('.preloader-word');
-            const preloader = document.getElementById('preloader');
-            const progressBar = document.getElementById('loader-progress');
             let currentWord = 0;
 
-            // Fortschrittsbalken startet sanft aus der Mitte
+            // Fortschrittsbalken startet
             setTimeout(() => {
                 if(progressBar) progressBar.style.width = '100%';
-            }, 100);
+            }, 50);
 
             const cycleWords = () => {
+                // Vorheriges Wort nach oben herausschieben (Exit)
                 if (currentWord > 0) {
                     words[currentWord - 1].classList.remove('active');
+                    words[currentWord - 1].classList.add('exit');
                 }
                 
+                // Neues Wort hineinschieben
                 if (currentWord < words.length) {
                     words[currentWord].classList.add('active');
                     currentWord++;
-                    setTimeout(cycleWords, 550); // Genug Zeit, um den Blur-In-Effekt zu bewundern
+                    setTimeout(cycleWords, 600); // Taktung für die flüssige Sequenz
                 } else {
+                    // Preloader verlässt das Bild edel nach oben skaliert
                     setTimeout(() => {
-                        preloader.style.opacity = '0';
+                        if (preloader) {
+                            preloader.style.opacity = '0';
+                            preloader.style.transform = 'translateY(-10px)';
+                        }
                         document.body.classList.add('loaded');
                         setTimeout(() => {
-                            preloader.style.display = 'none';
+                            if (preloader) preloader.style.display = 'none';
                         }, 800);
-                    }, 250);
+                    }, 300);
                 }
             };
 
             setTimeout(cycleWords, 200);
         });
 
-        // PAGE TRANSITION (Fadet die Seite flüssig aus beim Verlassen)
+        // PAGE TRANSITION
         document.querySelectorAll('a.hub-card').forEach(link => {
             link.addEventListener('click', function(e) {
                 const targetUrl = this.getAttribute('href');
@@ -229,7 +255,7 @@
             });
         });
 
-        // CUSTOM CURSOR SMOOTH ANIMATE
+        // CUSTOM CURSOR
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
 
