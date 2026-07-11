@@ -204,13 +204,13 @@
                     <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut mb-2">Maries Basis-Module</h2>
                     <p class="text-3xl lg:text-4xl font-extrabold tracking-tight uppercase">Die Komplett-Kollektion</p>
                 </div>
-                <!-- REZEPT FILTER SWITCH -->
-                <div class="flex bg-white/5 p-1 rounded-xl border border-white/10 text-xs font-bold uppercase tracking-wider">
-                    <button onclick="filterRecipes('all')" id="btn-filter-all" class="px-4 py-2 rounded-lg bg-bollenhut text-white transition-all">Alle</button>
-                    <button onclick="filterRecipes('fish')" id="btn-filter-fish" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white transition-all">Fisch</button>
-                    <button onclick="filterRecipes('meat')" id="btn-filter-meat" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white transition-all">Fleisch / Deftig</button>
-                    <button onclick="filterRecipes('veggie')" id="btn-filter-veggie" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white transition-all">Veggie / Dessert</button>
-                </div>
+                <!-- REZEPT FILTER SWITCH (JETZT MOBIL-OPTIMIERT) -->
+<div class="flex flex-wrap gap-2 bg-white/5 p-1.5 rounded-xl border border-white/10 text-xs font-bold uppercase tracking-wider max-w-full justify-center md:justify-start">
+    <button onclick="filterRecipes('all')" id="btn-filter-all" class="px-4 py-2.5 rounded-lg bg-bollenhut text-white transition-all cursor-pointer">Alle</button>
+    <button onclick="filterRecipes('fish')" id="btn-filter-fish" class="px-4 py-2.5 rounded-lg text-gray-400 hover:text-white transition-all cursor-pointer">Fisch</button>
+    <button onclick="filterRecipes('meat')" id="btn-filter-meat" class="px-4 py-2.5 rounded-lg text-gray-400 hover:text-white transition-all cursor-pointer">Fleisch / Deftig</button>
+    <button onclick="filterRecipes('veggie')" id="btn-filter-veggie" class="px-4 py-2.5 rounded-lg text-gray-400 hover:text-white transition-all cursor-pointer">Veggie / Dessert</button>
+</div>
             </div>
 
             <!-- Fundamente Grid -->
