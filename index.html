@@ -15,7 +15,7 @@
         .font-serif { font-family: 'Playfair Display', serif; }
         .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
 
-        /* NEUER CLEANER PRELOADER */
+        /* CLEANER PRELOADER */
         #preloader {
             position: fixed;
             inset: 0;
@@ -75,8 +75,7 @@
         <div class="relative w-full h-12 flex justify-center items-center text-center">
             <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-500 tracking-wider">Bollenhut-Marie</span>
             <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-400 tracking-wider">Kulinarik</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-300 tracking-wider">Polarlichter</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-white tracking-wider">Schwarzwald-Pop</span>
+            <span class="preloader-word font-serif text-xl md:text-2xl text-white tracking-wider">Polarlichter</span>
         </div>
         <div class="w-12 h-[1px] bg-zinc-900 mt-4 overflow-hidden relative">
             <div class="absolute inset-y-0 left-0 bg-[#d4af37] w-1/2 animate-[pulse_1.2s_infinite]"></div>
@@ -122,23 +121,11 @@
                 </div>
             </a>
 
-            <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+            <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group md:col-span-2">
                 <div class="space-y-3">
                     <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
                     <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Polarlichter</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
-                    <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </a>
-
-            <a href="./schwarzwald-pop/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Schwarzwald-Pop</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Moderne Heimatklänge und kreative Audioprojekte. Ein frischer Mix aus traditionellen Einflüssen und modernen Beats.</p>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed max-w-xl">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
@@ -169,9 +156,8 @@
                 if (currentWord < words.length) {
                     words[currentWord].classList.add('active');
                     currentWord++;
-                    setTimeout(cycleWords, 400); // Schnellerer, knackigerer Wechsel
+                    setTimeout(cycleWords, 450); 
                 } else {
-                    // Preloader ausfaden
                     setTimeout(() => {
                         preloader.style.opacity = '0';
                         preloader.style.transform = 'scale(1.01)';
@@ -186,14 +172,13 @@
             setTimeout(cycleWords, 150);
         });
 
-        // SMOOTH INTER-PAGE TRANSITION (Verhindert Hänger)
+        // SMOOTH INTER-PAGE TRANSITION (Fadet die alte Seite sauber aus)
         document.querySelectorAll('a.hub-card').forEach(link => {
             link.addEventListener('click', function(e) {
                 const targetUrl = this.getAttribute('href');
-                // Nur ausführen, wenn der Link intern ist und nicht in neuem Tab öffnet
                 if (targetUrl && !targetUrl.startsWith('http') && !e.ctrlKey && !e.metaKey) {
                     e.preventDefault();
-                    document.body.style.opacity = '0'; // Weiches Ausfaden vor dem Wechsel
+                    document.body.style.opacity = '0'; 
                     setTimeout(() => {
                         window.location.href = targetUrl;
                     }, 250);
