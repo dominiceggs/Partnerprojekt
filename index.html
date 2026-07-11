@@ -10,11 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; opacity: 0; transition: opacity 0.5s ease; }
+        body.loaded { opacity: 1; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
 
-        /* PRELOADER STYLES */
+        /* NEUER CLEANER PRELOADER */
         #preloader {
             position: fixed;
             inset: 0;
@@ -24,63 +25,61 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
         .preloader-word {
             position: absolute;
             opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            white-space: nowrap;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .preloader-word.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* CUSTOM MAUSZEIGER (Nur Desktop) */
+        /* CUSTOM CURSOR (LG+) */
         @media (min-width: 1024px) {
             body { cursor: none; }
             a, button, .hub-card { cursor: none; }
-            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; }
-            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s; }
-            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
-            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
+            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s; }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.2s, height 0.2s, background-color 0.2s; }
+            body.cursor-hover #custom-cursor-circle { width: 48px; height: 48px; background-color: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.6); }
         }
 
         /* PREMIUM HOVER FOR CARDS */
         .hub-card {
             position: relative;
-            background: rgba(24, 24, 27, 0.2);
-            border: 1px solid rgba(39, 39, 42, 0.4);
+            background: rgba(24, 24, 27, 0.25);
+            border: 1px solid rgba(39, 39, 42, 0.5);
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .hub-card::before {
             content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle 160px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
-            mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+            background: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0) 70%);
+            opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
         }
         .hub-card:hover {
-            background-color: rgba(24, 24, 27, 0.5);
-            border-color: rgba(212, 175, 55, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -20px rgba(212, 175, 55, 0.15);
+            background-color: rgba(24, 24, 27, 0.6);
+            border-color: rgba(212, 175, 55, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -15px rgba(212, 175, 55, 0.1);
         }
         .hub-card:hover::before { opacity: 1; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-zinc-800 selection:text-white flex flex-col min-h-screen">
+<body class="bg-zinc-950 text-zinc-400 antialiased flex flex-col min-h-screen">
 
     <div id="preloader">
         <div class="relative w-full h-12 flex justify-center items-center text-center">
             <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-500 tracking-wider">Bollenhut-Marie</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-400 tracking-wider">Bollenhut-Marie-Kulinarik</span>
+            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-400 tracking-wider">Kulinarik</span>
             <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-300 tracking-wider">Polarlichter</span>
             <span class="preloader-word font-serif text-xl md:text-2xl text-white tracking-wider">Schwarzwald-Pop</span>
         </div>
-        <div class="w-16 h-[1px] bg-zinc-800 mt-4 overflow-hidden relative">
-            <div class="absolute inset-y-0 left-0 bg-[#d4af37] w-1/2 animate-[pulse_1.5s_infinite]"></div>
+        <div class="w-12 h-[1px] bg-zinc-900 mt-4 overflow-hidden relative">
+            <div class="absolute inset-y-0 left-0 bg-[#d4af37] w-1/2 animate-[pulse_1.2s_infinite]"></div>
         </div>
     </div>
 
@@ -97,12 +96,12 @@
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-4xl">
+        <div class="grid md:grid-cols-2 gap-8 w-full max-w-4xl">
             
-            <a href="bollenhut-marie/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+            <a href="./bollenhut-marie/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-red-500 font-mono text-[10px] tracking-widest uppercase block">Live & Aktiv</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie</h2>
+                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Exklusive Schwarzwaldhochzeiten auf dem Weingut. Ein modulares, edles Bausteinsystem mit integriertem Audioplayer.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
@@ -111,10 +110,10 @@
                 </div>
             </a>
 
-            <a href="bollenhut-marie-kulinarik/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+            <a href="./bollenhut-marie-kulinarik/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-emerald-500 font-mono text-[10px] tracking-widest uppercase block">Neu</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie-Kulinarik</h2>
+                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie-Kulinarik</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Das kulinarische Begleitkonzept für erlesene Events, Catering-Auswahl und regionale Schwarzwald-Spezialitäten.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
@@ -123,10 +122,10 @@
                 </div>
             </a>
 
-            <a href="polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+            <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Polarlichter</h2>
+                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Polarlichter</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
@@ -135,10 +134,10 @@
                 </div>
             </a>
 
-            <a href="schwarzwald-pop/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
+            <a href="./schwarzwald-pop/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
                 <div class="space-y-3">
                     <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Schwarzwald-Pop</h2>
+                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Schwarzwald-Pop</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Moderne Heimatklänge und kreative Audioprojekte. Ein frischer Mix aus traditionellen Einflüssen und modernen Beats.</p>
                 </div>
                 <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
@@ -156,13 +155,13 @@
     </footer>
 
     <script>
-        // PRELOADER LOGIC
+        // CORE PRELOADER LOGIC
         window.addEventListener('DOMContentLoaded', () => {
             const words = document.querySelectorAll('.preloader-word');
             const preloader = document.getElementById('preloader');
             let currentWord = 0;
 
-            const showWord = () => {
+            const cycleWords = () => {
                 if (currentWord > 0) {
                     words[currentWord - 1].classList.remove('active');
                 }
@@ -170,44 +169,39 @@
                 if (currentWord < words.length) {
                     words[currentWord].classList.add('active');
                     currentWord++;
-                    setTimeout(showWord, 600);
+                    setTimeout(cycleWords, 400); // Schnellerer, knackigerer Wechsel
                 } else {
+                    // Preloader ausfaden
                     setTimeout(() => {
                         preloader.style.opacity = '0';
-                        preloader.style.transform = 'scale(1.02)';
+                        preloader.style.transform = 'scale(1.01)';
+                        document.body.classList.add('loaded');
                         setTimeout(() => {
                             preloader.style.display = 'none';
-                        }, 600);
-                    }, 400);
+                        }, 400);
+                    }, 200);
                 }
             };
 
-            setTimeout(showWord, 200);
+            setTimeout(cycleWords, 150);
         });
 
-        // CUSTOM CURSOR LOGIC
-        const dot = document.getElementById('custom-cursor-dot');
-        const circle = document.getElementById('custom-cursor-circle');
-
-        if(dot && circle) {
-            window.addEventListener('mousemove', (e) => {
-                const { clientX: x, clientY: y } = e;
-                dot.style.left = `${x}px`;
-                dot.style.top = `${y}px`;
-                
-                setTimeout(() => {
-                    circle.style.left = `${x}px`;
-                    circle.style.top = `${y}px`;
-                }, 30);
+        // SMOOTH INTER-PAGE TRANSITION (Verhindert Hänger)
+        document.querySelectorAll('a.hub-card').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetUrl = this.getAttribute('href');
+                // Nur ausführen, wenn der Link intern ist und nicht in neuem Tab öffnet
+                if (targetUrl && !targetUrl.startsWith('http') && !e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    document.body.style.opacity = '0'; // Weiches Ausfaden vor dem Wechsel
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 250);
+                }
             });
+        });
 
-            document.querySelectorAll('a, .hub-card').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-            });
-        }
-
-        // CARD HOVER GLOW EFFECT
+        // HOVER GLOW EFFECT EFFECT FOR CARDS
         window.addEventListener('mousemove', e => {
             document.querySelectorAll('.hub-card').forEach(card => {
                 const rect = card.getBoundingClientRect();
@@ -217,6 +211,28 @@
                 card.style.setProperty('--y', `${y}px`);
             });
         });
+
+        // CUSTOM CURSOR SMOOTHNESS
+        const dot = document.getElementById('custom-cursor-dot');
+        const circle = document.getElementById('custom-cursor-circle');
+
+        if(dot && circle) {
+            window.addEventListener('mousemove', (e) => {
+                const { clientX: x, clientY: y } = e;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                
+                circle.animate({
+                    left: `${x}px`,
+                    top: `${y}px`
+                }, { duration: 250, fill: "forwards" });
+            });
+
+            document.querySelectorAll('a, .hub-card').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
     </script>
 </body>
 </html>
