@@ -3,220 +3,748 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dominic Eggs | Creative Tech & Audio Projects</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Schwarzwald-Sushi x Bollenhut Marie | Das interaktive Kochbuch & Sound</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; }
-        .font-serif { font-family: 'Playfair Display', serif; }
-        .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
-
-        /* PRELOADER STYLES */
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background-color: #09090b;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        .bg-wood {
+            background-color: #1a1716;
+            background-image: linear-gradient(rgba(26, 23, 22, 0.88), rgba(26, 23, 22, 0.96)), url('img/design/wood-bg.jpg');
+            background-size: cover;
+            background-position: center;
         }
-        .preloader-word {
-            position: absolute;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            white-space: nowrap;
+        .text-bollenhut { color: #e62a3a; }
+        .bg-bollenhut { background-color: #e62a3a; }
+        .border-bollenhut { border-color: #e62a3a; }
+        
+        /* Custom Styles für den Musik-Bereich */
+        .track-card {
+            background: rgba(26, 23, 22, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .preloader-word.active {
-            opacity: 1;
-            transform: translateY(0);
+        .track-card:hover {
+            background: rgba(35, 30, 28, 0.6);
+            border-color: rgba(230, 42, 58, 0.3);
         }
-
-        /* CUSTOM MAUSZEIGER (Nur Desktop) */
-        @media (min-width: 1024px) {
-            body { cursor: none; }
-            a, button, .hub-card { cursor: none; }
-            #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; }
-            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s; }
-            body.cursor-hover #custom-cursor-circle { width: 50px; height: 50px; background-color: rgba(212, 175, 55, 0.06); border-color: rgba(212, 175, 55, 0.7); }
-            body.cursor-hover #custom-cursor-dot { width: 8px; height: 8px; }
-        }
-
-        /* PREMIUM HOVER FOR CARDS */
-        .hub-card {
-            position: relative;
-            background: rgba(24, 24, 27, 0.2);
-            border: 1px solid rgba(39, 39, 42, 0.4);
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .hub-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle 160px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
-            mix-blend-mode: screen; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
-        }
-        .hub-card:hover {
-            background-color: rgba(24, 24, 27, 0.5);
-            border-color: rgba(212, 175, 55, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -20px rgba(212, 175, 55, 0.15);
-        }
-        .hub-card:hover::before { opacity: 1; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-400 antialiased selection:bg-zinc-800 selection:text-white flex flex-col min-h-screen">
+<body class="bg-[#fcfbfa] text-[#2c2520] font-sans antialiased">
 
-    <div id="preloader">
-        <div class="relative w-full h-12 flex justify-center items-center text-center">
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-500 tracking-wider">Bollenhut-Marie</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-400 tracking-wider">Bollenhut-Marie-Kulinarik</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-300 tracking-wider">Polarlichter</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-white tracking-wider">Schwarzwald-Pop</span>
+    <!-- Zentrales Audio-Element für die Musik-Logik -->
+    <audio id="audio-engine" src=""></audio>
+
+    <!-- HERO SECTION -->
+    <header class="relative min-h-screen bg-wood flex flex-col justify-between text-white overflow-hidden">
+        <nav class="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
+            <div class="text-2xl font-black tracking-wider text-bollenhut">MARIE<span class="text-white">.AI</span></div>
+            <div class="hidden md:flex space-x-6 font-medium tracking-wide text-xs uppercase">
+                <a href="#story" class="hover:text-bollenhut transition">Die Story</a>
+                <a href="#dashboard" class="hover:text-bollenhut transition">Rezept-Zentrale</a>
+                <a href="#ideas" class="hover:text-bollenhut transition">Gourmet-Studio</a>
+                <a href="#sauces" class="hover:text-bollenhut transition">Saucen-Labor</a>
+                <a href="#sound" class="hover:text-bollenhut transition">Sound-Labor</a>
+                <a href="#community" class="hover:text-bollenhut transition">Community</a>
+            </div>
+            <a href="#dashboard" class="bg-bollenhut hover:bg-[#c51f2e] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition">Rezepte ansehen</a>
+        </nav>
+
+        <div class="w-full max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-12 items-center my-auto relative z-10">
+            <div class="space-y-6">
+                <span class="inline-block bg-bollenhut/20 text-bollenhut border border-bollenhut/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">
+                    The Ultimate Fusion Hub
+                </span>
+                <h1 class="text-5xl lg:text-7xl font-black tracking-tight leading-none uppercase">
+                    Heimat neu <br><span class="text-bollenhut">gerollt &amp; gehört.</span>
+                </h1>
+                <p class="text-gray-300 text-lg max-w-md font-light leading-relaxed">
+                    Schwarzwaldmarie präsentiert die komplette Crossover-Kollektion aus badischer Tradition und asiatischer Rollkunst. Untermalt mit modernem Schwarzwald-Pop abseits staubiger Klischees.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <a href="#dashboard" class="bg-bollenhut hover:bg-[#c51f2e] text-center text-white px-8 py-4 rounded-xl font-bold transition shadow-lg shadow-bollenhut/20">
+                        Interaktive Rezepte&nbsp;&nbsp;<i class="fa-solid fa-utensils"></i>
+                    </a>
+                    <a href="#sound" class="border border-white/20 hover:bg-white/10 text-center text-white px-8 py-4 rounded-xl font-bold transition">
+                        Sound-Labor hören&nbsp;&nbsp;<i class="fa-solid fa-music"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative flex justify-center">
+                <div class="w-80 h-80 lg:w-[400px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl relative rotate-3 group hover:rotate-0 transition-transform duration-500">
+                    <img src="img/design/marie.jpg" alt="Bollenhut Marie" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-center">
+                        <h3 class="text-xl font-bold mb-1">Bollenhut Marie</h3>
+                        <p class="text-gray-300 text-xs font-light italic">
+                            &bdquo;Warum Lachs, wenn wir Schinken haben? Und warum alte Volksmusik, wenn wir modernen Schwarzwald-Pop haben?&ldquo;
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="w-16 h-[1px] bg-zinc-800 mt-4 overflow-hidden relative">
-            <div class="absolute inset-y-0 left-0 bg-[#d4af37] w-1/2 animate-[pulse_1.5s_infinite]"></div>
+
+        <div class="w-full text-center py-6 text-gray-400 text-xs tracking-widest uppercase animate-bounce">
+            <a href="#story">Entdecken <i class="fa-solid fa-arrow-down ml-2 text-bollenhut"></i></a>
+        </div>
+    </header>
+
+    <!-- PHILOSOPHIE SECTION -->
+    <section id="story" class="py-20 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+        <div class="space-y-6">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut">Das Crossover-Prinzip</h2>
+            <p class="text-3xl md:text-4xl font-black tracking-tight leading-tight">
+                Die perfekte kulinarische Symbiose
+            </p>
+            <p class="text-gray-600 leading-relaxed font-light">
+                Der Clou hinter Schwarzwald-Sushi ist die geschmackliche Balance. Die feine, s&uuml;&szlig;-s&auml;uerliche Note des Sushireises bricht perfekt durch die schweren, rauchigen und salzigen Nuancen von Schinkenspeck und ger&auml;ucherten Flussfischen. Anstelle von scharfem Wasabi sorgt scharfer heimischer Meerrettich f&uuml;r den n&ouml;tigen Kick.
+            </p>
+        </div>
+        <div class="bg-gray-100 p-8 rounded-2xl border border-gray-200/60 space-y-4">
+            <h4 class="font-bold text-lg text-[#4a121a]"><i class="fa-solid fa-lightbulb mr-2"></i> Maries Tipp f&uuml;r Einsteiger</h4>
+            <p class="text-gray-600 text-sm font-light leading-relaxed">
+                Der wei&szlig;e Spargel aus dem Glas neigt dazu, viel Fl&uuml;ssigkeit zu halten. Tupfe ihn vor dem Einrollen unbedingt gr&uuml;ndlich ab! Kombiniert mit unseren rei&szlig;festen, abgek&uuml;hlten Fl&auml;dle-Streifen erh&auml;lt die Rolle im Handumdrehen die perfekte Stabilit&auml;t beim Schneiden.
+            </p>
+        </div>
+    </section>
+
+    <!-- PORTIONS STICKY CONTROLLER -->
+    <div class="sticky top-0 z-50 bg-[#110f0e] border-b border-white/10 text-white py-4 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="inline-block h-3 w-3 rounded-full bg-bollenhut animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Interaktiver Kalkulator</span>
+            </div>
+            <div class="bg-white/5 border border-white/10 px-4 py-1.5 rounded-xl flex items-center gap-4">
+                <span class="text-xs text-gray-300 font-medium uppercase tracking-wider">Zutaten hochrechnen f&uuml;r:</span>
+                <div class="flex items-center gap-2">
+                    <button onclick="changePortions(-1)" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-bollenhut flex items-center justify-center transition font-bold text-lg">-</button>
+                    <span id="portions-count" class="w-8 text-center font-black text-bollenhut text-xl">2</span>
+                    <button onclick="changePortions(1)" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-bollenhut flex items-center justify-center transition font-bold text-lg">+</button>
+                </div>
+                <span class="text-xs text-gray-400 font-medium uppercase">Personen</span>
+            </div>
         </div>
     </div>
 
-    <div id="custom-cursor-dot" class="hidden lg:block"></div>
-    <div id="custom-cursor-circle" class="hidden lg:block"></div>
+    <!-- MAIN DASHBOARD SECTION -->
+    <section id="dashboard" class="bg-gray-900 text-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut mb-1">Maries Basis-Module</h2>
+                <p class="text-3xl font-black tracking-tight">Schritt 1 &amp; 2: Die Fundamente</p>
+            </div>
 
-    <main class="relative z-10 flex-grow max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
-        
-        <div class="text-center space-y-4 max-w-2xl">
-            <h1 class="text-3xl md:text-5xl font-serif text-white tracking-wide uppercase text-glow">Projekt-Portal</h1>
-            <div class="w-12 h-[1px] bg-zinc-800 mx-auto"></div>
-            <p class="text-zinc-500 text-xs font-light leading-relaxed">
-                Willkommen auf meiner Workspace-Plattform. Hier findest du aktuelle Web-Projekte, Musikkonzepte und interaktive Prototypen im direkten Zugriff.
-            </p>
-        </div>
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Basis 1: Reis -->
+                <div class="bg-[#1a1716] p-6 rounded-2xl border border-white/5 space-y-4">
+                    <h3 class="text-lg font-bold text-bollenhut"><i class="fa-solid fa-circle-info mr-2"></i>Sushireis (Shari)</h3>
+                    <ul class="text-sm font-light space-y-2 text-gray-300 bg-white/5 p-4 rounded-xl">
+                        <li>• <span class="data-weight font-bold text-white" data-base="150">300</span> g Sushireis (Rundkorn)</li>
+                        <li>• <span class="data-weight font-bold text-white" data-base="180">360</span> ml Wasser</li>
+                        <li>• 4 EL Reisessig, 1.5 EL Zucker, 1 TL Salz</li>
+                    </ul>
+                </div>
+                <!-- Basis 2: Flädle -->
+                <div class="bg-[#1a1716] p-6 rounded-2xl border border-white/5 space-y-4">
+                    <h3 class="text-lg font-bold text-emerald-400"><i class="fa-solid fa-egg mr-2"></i>Feste Sushi-Fl&auml;dle</h3>
+                    <ul class="text-sm font-light space-y-2 text-gray-300 bg-white/5 p-4 rounded-xl">
+                        <li>• <span class="data-count font-bold text-white" data-base="0.5">1</span> gro&szlig;es Ei</li>
+                        <li>• <span class="data-weight font-bold text-white" data-base="1">2</span> EL Milch</li>
+                        <li>• 1 geh&auml;ufter TL Mehl (essentiell f&uuml;r die Rei&szlig;festigkeit!)</li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 w-full max-w-4xl">
+            <div class="mb-8">
+                <p class="text-2xl font-black tracking-tight">Die Schnell-Kollektion (Einfach &amp; Haltstark)</p>
+            </div>
             
-            <a href="./bollenhut-marie/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-red-500 font-mono text-[10px] tracking-widest uppercase block">Live & Aktiv</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Exklusive Schwarzwaldhochzeiten auf dem Weingut. Ein modulares, edles Bausteinsystem mit integriertem Audioplayer.</p>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Recipe 1: Spargel Flädle -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden relative">
+                        <img src="img/recipes/spargel-roll.jpg" alt="Spargel-Fl&auml;dle-Schinken Roll" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono text-emerald-400 tracking-widest">[Maki Roll]</span>
+                            <h4 class="text-xl font-black">Spargel-Fl&auml;dle-Schinken Roll</h4>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light">
+                                <div>• <span class="data-weight font-bold text-white" data-base="50">100</span> g gekochter Schinken</div>
+                                <div>• <span class="data-count font-bold text-white" data-base="3">6</span> d&uuml;nne wei&szlig;er Spargelstangen (Glas)</div>
+                                <div>• Nori-Bl&auml;tter &amp; Fl&auml;dle-Streifen</div>
+                            </div>
+                        </div>
+                        <p class="text-xs font-light text-gray-400 pt-3 border-t border-white/5"><strong class="text-white">Zubereitung:</strong> Spargel trocken tupfen. Gekochten Schinken auf Nori auslegen, Fl&auml;dle und d&uuml;nnen Spargel darauf platzieren, straff einrollen. Schnittlauch-Mantel au&szlig;en. Topping: Leichte Joghurt-Hollandaise.</p>
+                    </div>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
-                    <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </a>
 
-            <a href="./bollenhut-marie-kulinarik/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-emerald-500 font-mono text-[10px] tracking-widest uppercase block">Neu</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Bollenhut-Marie-Kulinarik</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Das kulinarische Begleitkonzept für erlesene Events, Catering-Auswahl und regionale Schwarzwald-Spezialitäten.</p>
+                <!-- Recipe 2: Vesper Roll -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden relative">
+                        <img src="img/recipes/vesper-roll.jpg" alt="Schwarzw&auml;lder Vesper Roll" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono text-bollenhut tracking-widest">[Ura-Maki]</span>
+                            <h4 class="text-xl font-black">Schwarzw&auml;lder Vesper Roll</h4>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light">
+                                <div>• <span class="data-weight font-bold text-white" data-base="40">80</span> g Schinkenspeck</div>
+                                <div>• <span class="data-count font-bold text-white" data-base="0.25">0.5</span> Gurke (entkernt)</div>
+                                <div>• R&ouml;stzwiebel-Mantel &amp; Sahnemeerrettich</div>
+                            </div>
+                        </div>
+                        <p class="text-xs font-light text-gray-400 pt-3 border-t border-white/5"><strong class="text-white">Zubereitung:</strong> Reis au&szlig;en mit R&ouml;stzwiebeln bestreuen. Umdrehen, innen mit Sahnemeerrettich, Schinkenspeck und Gurke f&uuml;llen und stramm einrollen. Perfekt zum Dippen im Universal-Sauerrahm-Dip.</p>
+                    </div>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
-                    <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </a>
 
-            <a href="./polarlichter/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Polarlichter</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
+                <!-- Recipe 3: Forellen Maki -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden relative">
+                        <img src="img/recipes/forellen-maki.jpg" alt="Schwarzw&auml;lder Fluss-Maki" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono text-blue-400 tracking-widest">[Hosomaki]</span>
+                            <h4 class="text-xl font-black">Schwarzw&auml;lder Fluss-Maki</h4>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light">
+                                <div>• <span class="data-weight font-bold text-white" data-base="50">100</span> g Forellenfilet (ger&auml;uchert)</div>
+                                <div>• <span class="data-count font-bold text-white" data-base="0.25">0.5</span> saurer Apfel (Granny Smith)</div>
+                                <div>• Sahnemeerrettich &amp; frischer Dill</div>
+                            </div>
+                        </div>
+                        <p class="text-xs font-light text-gray-400 pt-3 border-t border-white/5"><strong class="text-white">Zubereitung:</strong> Forelle zupfen, Apfel stifteln. Nori mit Reis f&uuml;llen, feine Meerrettich-Spur ziehen, Fisch und saure Apfelstifte einrollen.</p>
+                    </div>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
-                    <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </a>
+            </div>
+        </div>
+    </section>
 
-            <a href="./schwarzwald-pop/index.html" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide transition-colors group-hover:text-zinc-200">Schwarzwald-Pop</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Moderne Heimatklänge und kreative Audioprojekte. Ein frischer Mix aus traditionellen Einflüssen und modernen Beats.</p>
-                </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
-                    <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                </div>
-            </a>
-
+    <!-- GOURMET STUDIO -->
+    <section id="ideas" class="py-20 max-w-7xl mx-auto px-6">
+        <div class="mb-12">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut mb-1">Maries Gourmet-Studio</h2>
+            <p class="text-3xl font-black tracking-tight text-gray-900">Exklusive Crossover-Konzepte mit detaillierter Anleitung</p>
         </div>
 
-    </main>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- 4. Der Gin-Saibling -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/gin-saibling.jpg" alt="Gin Saibling" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider">[Premium Fish]</span>
+                        <h4 class="text-xl font-black text-gray-900">Der Gin-Saibling</h4>
+                        <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-gray-100 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="60">120</span> g Saiblingsfilet (frisch)</div>
+                            <div>• <span class="data-count font-bold text-gray-900" data-base="2">4</span> Radieschen (in feine Stifte)</div>
+                            <div>• Beize: 1 EL Salz, 1 EL Zucker, 2 EL regionaler Gin</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Saibling f&uuml;r 24 Stunden in Salz, Zucker, etwas Dill und Gin im K&uuml;hlschrank beizen. Danach trocken tupfen, in d&uuml;nne Tranchen schneiden. Nori mit Reis belegen, Saibling und knackige Radieschenstifte mittig platzieren und kompakt einrollen.</p>
+                </div>
+            </div>
 
-    <footer class="border-t border-zinc-900 py-12 text-center text-[10px] uppercase tracking-widest text-zinc-600">
-        <p>&copy; 2026 Workspace Dashboard. All rights reserved.</p>
+            <!-- 5. Die Biergarten Roll -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/biergarten-roll.jpg" alt="Biergarten Sushi" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-amber-600 font-bold uppercase tracking-wider">[H&uuml;tten-Vibe]</span>
+                        <h4 class="text-xl font-black text-gray-900">Die Biergarten Roll</h4>
+                        <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-gray-100 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="50">100</span> g reifer Camembert / Obatzda</div>
+                            <div>• <span class="data-count font-bold text-gray-900" data-base="1.5">3</span> EL Salzbrezeln (fein gecrusht)</div>
+                            <div>• Fr&uuml;hlingszwiebelringe &amp; wei&szlig;er Radi</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Inside-Out Variante aufbauen: Matte mit Folie beziehen, Reis gleichm&auml;&szlig;ig auf dem Nori verteilen und andr&uuml;cken. Komplett umdrehen. Gek&uuml;hlten, festen Camembert (in dicke Streifen geschnitten) mit Fr&uuml;hlingszwiebelringen und feinem Rettich belegen. Einrollen. Die Rolle au&szlig;en in den zerkleinerten Brezelbr&ouml;seln w&auml;lzen.</p>
+                </div>
+            </div>
+
+            <!-- 6. Wurstsalat-Style Roll -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/wurstsalat-roll.jpg" alt="Wurstsalat Sushi" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-red-600 font-bold uppercase tracking-wider">[Rustikal]</span>
+                        <h4 class="text-xl font-black text-gray-900">Wurstsalat-Style Roll</h4>
+                        <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-gray-100 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="40">80</span> g feine Lyoner / Schinkenwurst</div>
+                            <div>• <span class="data-count font-bold text-gray-900" data-base="1">2</span> Essiggurken &amp; 0.5 rote Zwiebel</div>
+                            <div>• 1 TL Gurkenwasser (unter den Reis gemischt)</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Lyoner, entkernte Essiggurken und die rote Zwiebel in hauchd&uuml;nne, lange Stifte (Julienne) schneiden. Den gekochten Sushireis beim Abk&uuml;hlen mit einem Teel&ouml;ffel des s&auml;uerlichen Gurkenwassers aromatisieren. Als klassische Maki-Rolle straff formen und die Schnittkanten mit fein gehackter Petersilie garnieren.</p>
+                </div>
+            </div>
+
+            <!-- 7. Schäufele Maki Roll -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/schaufele-nigiri.jpg" alt="Sch&auml;ufele Maki Roll" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-orange-600 font-bold uppercase tracking-wider">[Warmes Soulfood]</span>
+                        <h4 class="text-xl font-black text-gray-900">Sch&auml;ufele Maki Roll</h4>
+                        <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-gray-100 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="60">120</span> g Sch&auml;ufele (ger&auml;uchert, warm)</div>
+                            <div>• <span class="data-count font-bold text-gray-900" data-base="1">2</span> gro&szlig;e Wirsingbl&auml;tter</div>
+                            <div>• Nori-Bl&auml;tter &amp; Dunkle Sch&auml;ufele-Glaze</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Wirsingb&auml;tter vom harten Strunk befreien, 2 Minuten in Salzwasser blanchieren, eisgek&uuml;hlt abschrecken und gr&uuml;ndlich trocken tupfen. Das warme Sch&auml;ufele in dicke, lange Stangen schneiden. Reis auf dem Nori-Blatt verteilen, das Wirsingblatt fl&auml;chig auflegen, die kompakten Sch&auml;ufele-Stangen in die Mitte betten. Mit der Matte zu einer gleichm&auml;&szlig;igen, kr&auml;ftigen Rolle formen. Zum Schluss reichlich mit der dunklen Glaze betr&auml;ufeln.</p>
+                </div>
+            </div>
+
+            <!-- 8. Wald & Wiese Roll -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/wald-wiese.jpg" alt="Wald Wiese Sushi" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-emerald-700 font-bold uppercase tracking-wider">[Gourmet Wild]</span>
+                        <h4 class="text-xl font-black text-gray-900">Wald &amp; Wiese Roll</h4>
+                        <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-gray-100 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="40">80</span> g Wildschwein- oder Hirschschinken</div>
+                            <div>• <span class="data-count font-bold text-gray-900" data-base="0.25">0.5</span> saftige Birne (in feinen Stiften)</div>
+                            <div>• Preiselbeeren, Sahnemeerrettich, gehackte Waln&uuml;sse</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Als Inside-Out-Rolle vorbereiten. Den feinen Wildschinken flächig auf dem Nori auslegen und mit den s&uuml;&szlig;en Birnenstiften belegen. Straff rollen, sodass der Reis au&szlig;en liegt. Die Rolle komplett in feingehackten, in einer Pfanne ohne Fett ger&ouml;steten Waln&uuml;ssen w&auml;lzen. Vor dem Servieren jedes St&uuml;ck mit Preiselbeer-Meerrettich toppen.</p>
+                </div>
+            </div>
+
+            <!-- 9. Schwarzwälder Kirsch Roll -->
+            <div class="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                <div class="h-48 w-full overflow-hidden">
+                    <img src="img/recipes/kirsch-roll.jpg" alt="Schwarzw&auml;lder Kirsch Dessert" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono text-bollenhut font-bold uppercase tracking-wider">[Dessert-Finale]</span>
+                        <h4 class="text-xl font-black text-gray-900">Schwarzw&auml;lder Kirsch Roll</h4>
+                        <div class="bg-white/80 p-3 rounded-xl text-xs space-y-1 text-gray-600 font-light border border-bollenhut/10 mb-3">
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="100">200</span> g Milchreis (mit Vanille gekocht, kalt)</div>
+                            <div>• <span class="data-weight font-bold text-gray-900" data-base="50">100</span> g Sauerkirschen (mit 1 Schuss Kirschwasser)</div>
+                            <div>• Feste Schlagsahne &amp; geraspelte Herrenschokolade</div>
+                        </div>
+                    </div>
+                    <p class="text-xs font-light text-gray-500 border-t border-gray-100 pt-3"><strong class="text-gray-900">Anleitung:</strong> Auf der Sushimatte eine Frischhaltefolie auslegen. Den kalten, cremigen Vanille-Milchreis gleichm&auml;&szlig;ig flach darauf andr&uuml;cken (ca. 0,5 cm dick). Die abgetropften Sauerkirschen (vorher kurz in Kirschwasser geschwenkt) und einen festen Streifen steif geschlagene Sahne als Kern einlegen. Mithilfe der Folie vorsichtig, aber stramm aufrollen. Die Rolle in feinen, dunklen Schokoraspeln w&auml;lzen und kalt stellen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAUCES & DIPS HUB -->
+    <section id="sauces" class="bg-gray-900 text-white py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut mb-1">Feinschliff f&uuml;r den Gaumen</h2>
+                <p class="text-3xl font-black tracking-tight">Maries Saucen- &amp; Dip-Manufaktur</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Sauce 1 -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden">
+                        <img src="img/sauces/sauce-senfdill.jpg" alt="Senf-Dill-Sauce" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-emerald-400">1. S&uuml;&szlig;-herbe Senf-Dill-Sauce</h3>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light my-3">
+                                <div>• <span class="data-weight font-bold text-white" data-base="1">2</span> EL mittelscharfer Senf &amp; <span class="data-weight font-bold text-white" data-base="0.5">1</span> EL s&uuml;&szlig;er Senf</div>
+                                <div>• <span class="data-weight font-bold text-white" data-base="0.5">1</span> EL fl&uuml;ssiger Honig</div>
+                                <div>• <span class="data-weight font-bold text-white" data-base="1">2</span> EL Pflanzen&ouml;l</div>
+                                <div>• <span class="data-count font-bold text-white" data-base="0.25">0.5</span> Bund frischer Dill (fein gehackt)</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed"><strong class="text-white">Anleitung:</strong> Beide Senfsorten in einer kleinen Schale eng mit dem Honig verr&uuml;hren. Das Pflanzen&ouml;l anschlie&szlig;end ganz langsam unter st&auml;ndigem R&uuml;hren einlaufen lassen, bis eine homogene, cremige Emulsion entsteht. Zum Schluss den frisch gehackten Dill unterheben.</p>
+                    </div>
+                </div>
+
+                <!-- Sauce 2 -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden">
+                        <img src="img/sauces/sauce-schmand.jpg" alt="Zitronen-Meerrettich-Schmand" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-400">2. Zitronen-Meerrettich-Schmand</h3>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light my-3">
+                                <div>• <span class="data-weight font-bold text-white" data-base="75">150</span> g frischer Schmand oder Sauerrahm</div>
+                                <div>• <span class="data-weight font-bold text-white" data-base="1">2</span> EL Tafelmeerrettich (scharf, aus dem Glas)</div>
+                                <div>• <span class="data-count font-bold text-white" data-base="0.5">1</span> Spritzer frischer Zitronensaft</div>
+                                <div>• Eine kr&auml;ftige Prise Salz &amp; wei&szlig;er Pfeffer</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed"><strong class="text-white">Anleitung:</strong> Den Schmand in einer Sch&uuml;ssel glattr&uuml;hren. Den Tafelmeerrettich stufenweise unterr&uuml;hren, um die Sch&auml;rfe nach Geschmack anzupassen. Mit Zitrone, Salz und feinem wei&szlig;en Pfeffer abschmecken. Passt &uuml;berragend zur Fluss-Maki!</p>
+                    </div>
+                </div>
+
+                <!-- Sauce 3 -->
+                <div class="bg-[#1a1716] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-bollenhut/40 transition">
+                    <div class="h-48 w-full overflow-hidden">
+                        <img src="img/sauces/sauce-preiselbeer.jpg" alt="Wild-Preiselbeer-Meerrettich" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-bollenhut">3. Wild-Preiselbeer-Meerrettich</h3>
+                            <div class="bg-white/5 p-3 rounded-xl text-xs space-y-1 text-gray-300 font-light my-3">
+                                <div>• <span class="data-weight font-bold text-white" data-base="2">4</span> EL Sahnemeerrettich (mild)</div>
+                                <div>• <span class="data-weight font-bold text-white" data-base="1">2</span> EL Wildpreiselbeeren (aus dem Glas)</div>
+                                <div>• 1 Prise Cayennepfeffer</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed"><strong class="text-white">Anleitung:</strong> Den Sahnemeerrettich fl&auml;chig mit den Wildpreiselbeeren in einer kleinen Schale vermengen. Nicht zu stark schlagen, damit die Preiselbeeren im Dip optisch sch&ouml;n marmoriert bleiben. Mit einer winzigen Prise Cayennepfeffer abrunden. Perfekt f&uuml;r Wildschinken.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOUND LABOR SEKTION (EIGENE SONGS INTEGRATION) -->
+    <section id="sound" class="py-20 bg-gradient-to-b from-[#fcfbfa] to-[#f4f2f0] border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-bollenhut mb-1">Maries Sound-Labor</h2>
+                    <p class="text-3xl font-black tracking-tight text-gray-900 uppercase">Modern Schwarzwald Pop</p>
+                    <p class="text-gray-500 font-light text-sm max-w-xl mt-2">
+                        Brechen mit alten Klischees. Entdecke progressive Rhythmen und zeitgemäße Klangwelten, die staubige Traditionen komplett auf den Kopf stellen.
+                    </p>
+                </div>
+                <div class="text-xs font-mono uppercase tracking-wider text-gray-400 bg-gray-200/50 px-3 py-1 rounded-full">
+                    [ Official Tracks ]
+                </div>
+            </div>
+
+            <!-- Tracks Container -->
+            <div class="flex flex-col gap-3">
+                
+                <!-- Track 1 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Ich bin eure Marie', 'audio/ich bin eure marie.mp3', 'img/cover/cover-ichbineuremarie.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/cover-ichbineuremarie.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Ich bin eure Marie</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="https://open.spotify.com/intl-de/track/2y8W1em7RqvoBAh2LuvuXN?si=2d1fec1c4ce546cc" target="_blank" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="https://www.youtube.com/watch?v=Z-0wE6CHdjs&list=OLAK5uy_m7akVZ1sPnVvWJRWH8Kb6YYJcEE5O8SHY" target="_blank" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Schwarzwaldmarie', 'audio/Schwarzwaldmarie.mp3', 'img/cover/Cover-schwarzwaldmarie-original.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/Cover-schwarzwaldmarie-original.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Schwarzwaldmarie</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="https://open.spotify.com/intl-de/track/4p4BQi1QvINxN8e39lOMWl?si=faa21d29c94e4f6c" target="_blank" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="https://www.youtube.com/watch?v=zIaH0q0wYfU" target="_blank" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Sonderedition SBW', 'audio/Schwarzwaldmarie-sbw.mp3', 'img/cover/Cover-schwarzwaldmarie-sbw.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/Cover-schwarzwaldmarie-sbw.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Sonderedition SBW</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="https://open.spotify.com/intl-de/track/1qm7eJcmgeETLNR18MrBjG?si=554d997c20544708" target="_blank" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="https://www.youtube.com/watch?v=4hArfTwc5po" target="_blank" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 4 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Schwarzwaldmarie Kids', 'audio/schwarzwaldmarie-kids.mp3', 'img/cover/Cover-marie-kids.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/Cover-marie-kids.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Schwarzwaldmarie Kids</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="https://open.spotify.com/intl-de/album/60kUK2VQ5xbCDcXShS8cDF?si=xRM7lIwcQHiEX2HBlzTG0g" target="_blank" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="https://www.youtube.com/watch?v=FmZjxqvhEcA&list=OLAK5uy_lfLyft8jgkoMjabi0YNheIf1OEGkntSwA" target="_blank" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 5 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Tannennadel-Techno', 'audio/tannennadel-techno.mp3', 'img/cover/covertechno.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/covertechno.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Tannennadel-Techno</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="#" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="#" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 6 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Das Erwachen des Tals', 'audio/das Erwachen des Tals 118bpm.mp3', 'img/cover/cover-erwachen.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/cover-erwachen.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Das Erwachen des Tals</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="#" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="#" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+                <!-- Track 7 -->
+                <div class="track-card p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer" onclick="triggerAudio('Nur Dich', 'audio/Nur_dich.mp3', 'img/cover/cover-nurdich.jpg')">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        <div class="w-14 h-14 rounded-xl bg-cover bg-center border border-white/10 flex-shrink-0" style="background-image: url('img/cover/cover-nurdich.jpg');"></div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Nur Dich</h3>
+                            <p class="text-xs text-gray-500 font-medium">Bollenhut Marie</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-200/40 pt-2 sm:pt-0">
+                        <div class="flex gap-4 text-lg text-gray-400" onclick="event.stopPropagation();">
+                            <a href="#" class="hover:text-[#1DB954] transition"><i class="fab fa-spotify"></i></a>
+                            <a href="#" class="hover:text-bollenhut transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="card-play-btn w-9 h-9 rounded-full border border-gray-300 text-gray-700 flex items-center justify-center font-bold text-xs bg-white shadow-sm transition">▶</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PERSISTENT STICKY LUXURY AUDIO PLAYER -->
+    <div id="bottom-player" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-2xl bg-gray-900/90 border border-bollenhut/20 backdrop-blur-xl rounded-full px-6 py-3 flex items-center justify-between gap-6 z-50 shadow-2xl transition-all duration-300 opacity-0 pointer-events-none">
+        <div class="flex items-center gap-4 flex-1 min-w-0">
+            <button id="master-play" class="bg-white text-gray-900 hover:bg-bollenhut hover:text-white w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition" onclick="controlPlayback()">▶</button>
+            <div class="flex flex-col min-w-0">
+                <span id="player-title" class="text-sm font-bold text-white truncate">Wähle einen Track</span>
+                <span class="text-xs text-bollenhut uppercase font-bold tracking-wider mt-0.5">Bollenhut Marie</span>
+            </div>
+        </div>
+        <div class="text-gray-500 text-base">
+            <i class="fas fa-music animate-pulse text-bollenhut/60"></i>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE COMMENT & RATING INTERFACE -->
+    <section id="community" class="bg-gray-100 py-20 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-5 gap-12">
+            <div class="md:col-span-2 space-y-4">
+                <h3 class="text-xl font-black tracking-tight text-gray-900">Maries Feedback-Ecke</h3>
+                <form id="comment-form" onsubmit="submitComment(event)" class="space-y-3 text-sm">
+                    <div>
+                        <input type="text" id="comment-name" placeholder="Dein Name..." required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-bollenhut bg-white text-gray-800">
+                    </div>
+                    <div>
+                        <select id="comment-rating" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-bollenhut bg-white text-gray-800 font-medium">
+                            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
+                            <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <textarea id="comment-text" rows="3" placeholder="Wie lief das Rollen?..." required class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-bollenhut bg-white text-gray-800"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-bollenhut hover:bg-[#c51f2e] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition">Kommentar senden</button>
+                </form>
+            </div>
+
+            <div class="md:col-span-3 space-y-4">
+                <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400">Live-Kommentare (<span id="comment-count">2</span>)</h4>
+                <div id="comments-container" class="space-y-4 max-h-[350px] overflow-y-auto pr-2">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 text-xs space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-900">Heiko_94</span>
+                            <span class="text-amber-500">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        </div>
+                        <p class="text-gray-600 font-light font-sans">Das mit den Fl&auml;dle ist der absolute Gamechanger! Hatte erst Schiss, dass mir der Spargel alles einsaut, aber bombenfest beim Schneiden.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 text-xs space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-900">K&uuml;chenfee_Schapbach</span>
+                            <span class="text-amber-500">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                        </div>
+                        <p class="text-gray-600 font-light font-sans">Die Senf-Dill So&szlig;e harmoniert wunderbar mit dem salzigen Schinkenspeck. Tolle Idee von Marie!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#110f0e] text-gray-500 text-xs py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="font-bold tracking-wider text-bollenhut mb-2">MARIE<span class="text-white/40">.AI</span></div>
+            <p class="font-light">&copy; 2026 Bollenhut Marie. Powered by AI &amp; Heimatliebe.</p>
+        </div>
     </footer>
 
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // PRELOADER LOGIC
-        window.addEventListener('DOMContentLoaded', () => {
-            const words = document.querySelectorAll('.preloader-word');
-            const preloader = document.getElementById('preloader');
-            let currentWord = 0;
-
-            const showWord = () => {
-                if (currentWord > 0) {
-                    words[currentWord - 1].classList.remove('active');
-                }
-                
-                if (currentWord < words.length) {
-                    words[currentWord].classList.add('active');
-                    currentWord++;
-                    setTimeout(showWord, 600);
-                } else {
-                    setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        preloader.style.transform = 'scale(1.02)';
-                        setTimeout(() => {
-                            preloader.style.display = 'none';
-                        }, 600);
-                    }, 400);
-                }
-            };
-
-            setTimeout(showWord, 200);
-        });
-
-        // CUSTOM CURSOR LOGIC
-        const dot = document.getElementById('custom-cursor-dot');
-        const circle = document.getElementById('custom-cursor-circle');
-
-        if(dot && circle) {
-            window.addEventListener('mousemove', (e) => {
-                const { clientX: x, clientY: y } = e;
-                dot.style.left = `${x}px`;
-                dot.style.top = `${y}px`;
-                
-                setTimeout(() => {
-                    circle.style.left = `${x}px`;
-                    circle.style.top = `${y}px`;
-                }, 30);
+        // === 1. ZUTATEN-RECHNER LOGIK ===
+        let currentPortions = 2;
+        
+        function changePortions(amount) {
+            let target = currentPortions + amount;
+            if (target < 1 || target > 20) return;
+            currentPortions = target;
+            document.querySelectorAll('#portions-count').forEach(el => el.innerText = currentPortions);
+            const factor = currentPortions / 2;
+            
+            document.querySelectorAll('.data-weight').forEach(el => {
+                const baseValue = parseFloat(el.getAttribute('data-base'));
+                el.innerText = Math.round(baseValue * factor);
             });
-
-            document.querySelectorAll('a, .hub-card').forEach(el => {
-                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            
+            document.querySelectorAll('.data-count').forEach(el => {
+                const baseValue = parseFloat(el.getAttribute('data-base'));
+                let calculated = baseValue * factor;
+                el.innerText = calculated % 1 === 0 ? calculated : calculated.toFixed(2);
             });
         }
 
-        // CARD HOVER GLOW EFFECT
-        window.addEventListener('mousemove', e => {
-            document.querySelectorAll('.hub-card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
+        // === 2. INTERAKTIVE MUSIK-PLAYER LOGIK ===
+        const audioEngine = document.getElementById('audio-engine');
+        const masterPlay = document.getElementById('master-play');
+        const titleDisplay = document.getElementById('player-title');
+        const bottomPlayer = document.getElementById('bottom-player');
+        let currentCardBtn = null;
+
+        function resetAllCardButtons() {
+            document.querySelectorAll('.card-play-btn').forEach(btn => {
+                btn.innerText = '▶';
             });
-        });
+        }
+
+        function triggerAudio(title, src, coverUrl) {
+            // Player einblenden beim ersten Klick
+            bottomPlayer.classList.remove('opacity-0', 'pointer-events-none');
+
+            if (audioEngine.src.includes(encodeURIComponent(src)) || audioEngine.src.endsWith(src)) {
+                controlPlayback();
+                return;
+            }
+
+            resetAllCardButtons();
+
+            titleDisplay.innerText = title;
+            audioEngine.src = src;
+            audioEngine.play();
+            
+            masterPlay.innerText = '⏸';
+
+            const clickedCard = event.currentTarget;
+            currentCardBtn = clickedCard.querySelector('.card-play-btn');
+            if (currentCardBtn) currentCardBtn.innerText = '⏸';
+        }
+
+        function controlPlayback() {
+            if (!audioEngine.src || audioEngine.src.endsWith('/')) {
+                const firstCard = document.querySelector('.track-card');
+                if (firstCard) firstCard.click();
+                return;
+            }
+
+            if (audioEngine.paused) {
+                audioEngine.play();
+                masterPlay.innerText = '⏸';
+                if (currentCardBtn) currentCardBtn.innerText = '⏸';
+            } else {
+                audioEngine.pause();
+                masterPlay.innerText = '▶';
+                if (currentCardBtn) currentCardBtn.innerText = '▶';
+            }
+        }
+
+        audioEngine.onended = () => {
+            masterPlay.innerText = '▶';
+            resetAllCardButtons();
+        };
+
+        // === 3. FEEDBACK-ECKE LOGIK ===
+        let commentCounter = 2;
+        function submitComment(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('comment-name');
+            const ratingInput = document.getElementById('comment-rating');
+            const textInput = document.getElementById('comment-text');
+            const container = document.getElementById('comments-container');
+            
+            let stars = '';
+            for(let i = 1; i <= 5; i++) {
+                stars += i <= parseInt(ratingInput.value) ? '&#9733;' : '&#9734;';
+            }
+            
+            const newComment = document.createElement('div');
+            newComment.className = 'bg-white p-4 rounded-xl shadow-sm border border-gray-200 text-xs space-y-2';
+            newComment.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-gray-900">${escapeHTML(nameInput.value)}</span>
+                    <span class="text-amber-500">${stars}</span>
+                </div>
+                <p class="text-gray-600 font-light font-sans">${escapeHTML(textInput.value)}</p>
+            `;
+            
+            container.insertBefore(newComment, container.firstChild);
+            commentCounter++;
+            document.getElementById('comment-count').innerText = commentCounter;
+            nameInput.value = '';
+            textInput.value = '';
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
     </script>
 </body>
 </html>
