@@ -10,32 +10,52 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; opacity: 0; transition: opacity 0.5s ease; }
+        body { font-family: 'Inter', sans-serif; background-color: #050507; opacity: 0; transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         body.loaded { opacity: 1; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .text-glow { text-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
+        .text-glow { text-shadow: 0 0 40px rgba(212, 175, 55, 0.08); }
 
-        /* CLEANER PRELOADER */
+        /* EDLER, MODERNER PRELOADER */
         #preloader {
             position: fixed;
             inset: 0;
-            background-color: #09090b;
+            background-color: #050507;
             z-index: 10000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .preloader-word {
             position: absolute;
             opacity: 0;
-            transform: translateY(8px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            filter: blur(10px);
+            transform: scale(0.95);
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .preloader-word.active {
             opacity: 1;
-            transform: translateY(0);
+            filter: blur(0);
+            transform: scale(1);
+        }
+        .loader-bar-container {
+            width: 100px;
+            height: 1px;
+            background-color: rgba(39, 39, 42, 0.3);
+            margin-top: 24px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 1px;
+        }
+        .loader-bar-progress {
+            position: absolute;
+            inset-y: 0;
+            left: 50%;
+            width: 0;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            transform: translateX(-50%);
+            transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* CUSTOM CURSOR (LG+) */
@@ -43,48 +63,51 @@
             body { cursor: none; }
             a, button, .hub-card { cursor: none; }
             #custom-cursor-dot { position: fixed; width: 6px; height: 6px; background-color: #d4af37; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s; }
-            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.2s, height 0.2s, background-color 0.2s; }
-            body.cursor-hover #custom-cursor-circle { width: 48px; height: 48px; background-color: rgba(212, 175, 55, 0.05); border-color: rgba(212, 175, 55, 0.6); }
+            #custom-cursor-circle { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.08s ease-out, width 0.2s, height 0.2s, background-color 0.2s; }
+            body.cursor-hover #custom-cursor-circle { width: 48px; height: 48px; background-color: rgba(212, 175, 55, 0.04); border-color: rgba(212, 175, 55, 0.5); }
         }
 
-        /* PREMIUM HOVER FOR CARDS */
+        /* CARD STYLE & HOVER GLOW */
         .hub-card {
             position: relative;
-            background: rgba(24, 24, 27, 0.25);
-            border: 1px solid rgba(39, 39, 42, 0.5);
+            background: rgba(18, 18, 20, 0.3);
+            border: 1px solid rgba(39, 39, 42, 0.4);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .hub-card::before {
             content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0) 70%);
+            background: radial-gradient(circle 200px at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0) 70%);
             opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
         }
         .hub-card:hover {
-            background-color: rgba(24, 24, 27, 0.6);
-            border-color: rgba(212, 175, 55, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px -15px rgba(212, 175, 55, 0.1);
+            background-color: rgba(24, 24, 27, 0.4);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.7);
         }
         .hub-card:hover::before { opacity: 1; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-400 antialiased flex flex-col min-h-screen">
 
+    <!-- PRELOADER -->
     <div id="preloader">
-        <div class="relative w-full h-12 flex justify-center items-center text-center">
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-500 tracking-wider">Bollenhut-Marie</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-zinc-400 tracking-wider">Kulinarik</span>
-            <span class="preloader-word font-serif text-xl md:text-2xl text-white tracking-wider">Polarlichter</span>
+        <div class="relative w-full h-16 flex justify-center items-center text-center">
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-600 tracking-widest font-light italic">Bollenhut-Marie</span>
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-zinc-400 tracking-widest font-light italic">Kulinarik</span>
+            <span class="preloader-word font-serif text-2xl md:text-3xl text-white tracking-widest font-medium">Polarlichter</span>
         </div>
-        <div class="w-12 h-[1px] bg-zinc-900 mt-4 overflow-hidden relative">
-            <div class="absolute inset-y-0 left-0 bg-[#d4af37] w-1/2 animate-[pulse_1.2s_infinite]"></div>
+        <div class="loader-bar-container">
+            <div id="loader-progress" class="loader-bar-progress"></div>
         </div>
     </div>
 
+    <!-- CURSOR -->
     <div id="custom-cursor-dot" class="hidden lg:block"></div>
     <div id="custom-cursor-circle" class="hidden lg:block"></div>
 
+    <!-- MAIN PORTAL -->
     <main class="relative z-10 flex-grow max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center items-center w-full space-y-16">
         
         <div class="text-center space-y-4 max-w-2xl">
@@ -95,41 +118,45 @@
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 w-full max-w-4xl">
+        <!-- 3-Spalten-Grid für absolute Symmetrie und identische Kachelgrößen -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
             
-            <a href="./bollenhut-marie/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-red-500 font-mono text-[10px] tracking-widest uppercase block">Live & Aktiv</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie</h2>
+            <!-- Kachel 1: Bollenhut Marie -->
+            <a href="./bollenhut-marie/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
+                <div class="space-y-4">
+                    <span class="text-red-500 font-mono text-[9px] tracking-widest uppercase block">Live & Aktiv</span>
+                    <h2 class="text-xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Exklusive Schwarzwaldhochzeiten auf dem Weingut. Ein modulares, edles Bausteinsystem mit integriertem Audioplayer.</p>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-[10px] tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                    <i class="fas fa-chevron-right text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </a>
 
-            <a href="./bollenhut-marie-kulinarik/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group">
-                <div class="space-y-3">
-                    <span class="text-emerald-500 font-mono text-[10px] tracking-widest uppercase block">Neu</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie-Kulinarik</h2>
+            <!-- Kachel 2: Kulinarik -->
+            <a href="./bollenhut-marie-kulinarik/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
+                <div class="space-y-4">
+                    <span class="text-emerald-500 font-mono text-[9px] tracking-widest uppercase block">Neu</span>
+                    <h2 class="text-xl font-serif text-white tracking-wide group-hover:text-zinc-200">Bollenhut-Marie-Kulinarik</h2>
                     <p class="text-zinc-500 text-xs font-light leading-relaxed">Das kulinarische Begleitkonzept für erlesene Events, Catering-Auswahl und regionale Schwarzwald-Spezialitäten.</p>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-[10px] tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                    <i class="fas fa-chevron-right text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </a>
 
-            <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-64 group md:col-span-2">
-                <div class="space-y-3">
-                    <span class="text-amber-500 font-mono text-[10px] tracking-widest uppercase block">In Vorbereitung</span>
-                    <h2 class="text-2xl font-serif text-white tracking-wide group-hover:text-zinc-200">Polarlichter</h2>
-                    <p class="text-zinc-500 text-xs font-light leading-relaxed max-w-xl">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
+            <!-- Kachel 3: Polarlichter -->
+            <a href="./polarlichter/" class="hub-card p-8 rounded-sm flex flex-col justify-between h-72 group">
+                <div class="space-y-4">
+                    <span class="text-amber-500 font-mono text-[9px] tracking-widest uppercase block">In Vorbereitung</span>
+                    <h2 class="text-xl font-serif text-white tracking-wide group-hover:text-zinc-200">Polarlichter</h2>
+                    <p class="text-zinc-500 text-xs font-light leading-relaxed">Nächstes Showcase-Modul für Musik-Releases, atmosphärische Soundscapes und multimediale Konzepte.</p>
                 </div>
-                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-xs tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
+                <div class="flex items-center justify-between pt-4 border-t border-zinc-900/60 text-[10px] tracking-widest uppercase font-medium text-zinc-500 group-hover:text-white transition-colors">
                     <span>Projekt öffnen</span>
-                    <i class="fas fa-chevron-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                    <i class="fas fa-chevron-right text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
                 </div>
             </a>
 
@@ -137,16 +164,22 @@
 
     </main>
 
-    <footer class="border-t border-zinc-900 py-12 text-center text-[10px] uppercase tracking-widest text-zinc-600">
+    <footer class="border-t border-zinc-900/50 py-12 text-center text-[10px] uppercase tracking-widest text-zinc-600">
         <p>&copy; 2026 Workspace Dashboard. All rights reserved.</p>
     </footer>
 
     <script>
-        // CORE PRELOADER LOGIC
+        // IMPROVED PRELOADER TIMING & ANIMATION
         window.addEventListener('DOMContentLoaded', () => {
             const words = document.querySelectorAll('.preloader-word');
             const preloader = document.getElementById('preloader');
+            const progressBar = document.getElementById('loader-progress');
             let currentWord = 0;
+
+            // Fortschrittsbalken startet sanft aus der Mitte
+            setTimeout(() => {
+                if(progressBar) progressBar.style.width = '100%';
+            }, 100);
 
             const cycleWords = () => {
                 if (currentWord > 0) {
@@ -156,23 +189,22 @@
                 if (currentWord < words.length) {
                     words[currentWord].classList.add('active');
                     currentWord++;
-                    setTimeout(cycleWords, 450); 
+                    setTimeout(cycleWords, 550); // Genug Zeit, um den Blur-In-Effekt zu bewundern
                 } else {
                     setTimeout(() => {
                         preloader.style.opacity = '0';
-                        preloader.style.transform = 'scale(1.01)';
                         document.body.classList.add('loaded');
                         setTimeout(() => {
                             preloader.style.display = 'none';
-                        }, 400);
-                    }, 200);
+                        }, 800);
+                    }, 250);
                 }
             };
 
-            setTimeout(cycleWords, 150);
+            setTimeout(cycleWords, 200);
         });
 
-        // SMOOTH INTER-PAGE TRANSITION (Fadet die alte Seite sauber aus)
+        // PAGE TRANSITION (Fadet die Seite flüssig aus beim Verlassen)
         document.querySelectorAll('a.hub-card').forEach(link => {
             link.addEventListener('click', function(e) {
                 const targetUrl = this.getAttribute('href');
@@ -181,12 +213,12 @@
                     document.body.style.opacity = '0'; 
                     setTimeout(() => {
                         window.location.href = targetUrl;
-                    }, 250);
+                    }, 300);
                 }
             });
         });
 
-        // HOVER GLOW EFFECT EFFECT FOR CARDS
+        // HOVER GLOW EFFECT FOR CARDS
         window.addEventListener('mousemove', e => {
             document.querySelectorAll('.hub-card').forEach(card => {
                 const rect = card.getBoundingClientRect();
@@ -197,7 +229,7 @@
             });
         });
 
-        // CUSTOM CURSOR SMOOTHNESS
+        // CUSTOM CURSOR SMOOTH ANIMATE
         const dot = document.getElementById('custom-cursor-dot');
         const circle = document.getElementById('custom-cursor-circle');
 
