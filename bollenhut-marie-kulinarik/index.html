@@ -88,27 +88,29 @@
     <!-- Zentrales Audio-Element für die Musik-Logik -->
     <audio id="audio-engine" src=""></audio>
 
-    <!-- STICKY HEADER NAVIGATION -->
-    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-extrabold tracking-tighter text-white flex items-center gap-2 whitespace-nowrap">
-    <span class="bg-bollenhut w-3 h-3 rounded-full inline-block animate-pulse"></span>
-    BOLLENHUT-MARIE<span class="text-bollenhut">.de</span>
-</div>
-            <div class="hidden lg:flex space-x-6 font-semibold tracking-wide text-xs uppercase text-gray-300">
-                <a href="#story" class="hover:text-bollenhut transition-colors py-2">Die Story</a>
-                <a href="#dashboard" class="hover:text-bollenhut transition-colors py-2">Rezept-Zentrale</a>
-                <a href="#sauces" class="hover:text-bollenhut transition-colors py-2">Saucen-Labor</a>
-                <a href="#bar" class="hover:text-bollenhut transition-colors py-2">Maries Bar</a>
-                <a href="#sound" class="hover:text-bollenhut transition-colors py-2">Sound-Labor</a>
-                <a href="#community" class="hover:text-bollenhut transition-colors py-2">Community</a>
-                <a href="#contact" class="hover:text-bollenhut transition-colors py-2">Kontakt</a>
-            </div>
-            <a href="#dashboard" class="bg-bollenhut hover:bg-bollenhut-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-bollenhut/20">
-                Rezepte ansehen
-            </a>
+    <!-- STICKY HEADER NAVIGATION WITH FIXES -->
+<nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center gap-4">
+        <div class="text-xl font-extrabold tracking-tighter text-white flex items-center gap-2 whitespace-nowrap">
+            <span class="bg-bollenhut w-3 h-3 rounded-full inline-block animate-pulse"></span>
+            BOLLENHUT-MARIE<span class="text-bollenhut">.de</span>
         </div>
-    </nav>
+        <div class="hidden lg:flex space-x-6 font-semibold tracking-wide text-xs uppercase text-gray-300">
+            <a href="#story" class="hover:text-bollenhut transition-colors py-2">Die Story</a>
+            <a href="#dashboard" class="hover:text-bollenhut transition-colors py-2">Rezept-Zentrale</a>
+            <a href="#sauces" class="hover:text-bollenhut transition-colors py-2">Saucen-Labor</a>
+            <a href="#bar" class="hover:text-bollenhut transition-colors py-2">Maries Bar</a>
+            <a href="#sound" class="hover:text-bollenhut transition-colors py-2">Sound-Labor</a>
+            <a href="#community" class="hover:text-bollenhut transition-colors py-2">Community</a>
+            <a href="#contact" class="hover:text-bollenhut transition-colors py-2">Kontakt</a>
+        </div>
+        <!-- Dieses Element drückt den Button auf Handys ganz nach rechts weg vom Logo -->
+        <div class="flex-grow lg:hidden"></div>
+        <a href="#dashboard" class="bg-bollenhut hover:bg-bollenhut-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-bollenhut/20 whitespace-nowrap">
+            Rezepte ansehen
+        </a>
+    </div>
+</nav>
 
     <!-- HERO SECTION -->
     <header class="relative min-h-screen bg-wood flex flex-col justify-between text-white overflow-hidden pt-24">
@@ -1144,21 +1146,40 @@
             return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
         }
 
-        // === 4. KATEGORIEN-FILTER LOGIK ===
+        // === 4. KATEGORIEN-FILTER LOGIK (REPARIERT FÜR MOBIL & DESKTOP) ===
         function filterRecipes(category) {
             const items = document.querySelectorAll('.recipe-item');
             const buttons = ['all', 'fish', 'meat', 'veggie'];
             
+            // 1. Button-Aktivierung visuell umschalten
             buttons.forEach(btn => {
                 const el = document.getElementById(`btn-filter-${btn}`);
-                if(btn === category) {
-                    el.classList.add('bg-bollenhut', 'text-white');
-                    el.classList.remove('text-gray-400');
-                } else {
-                    el.classList.remove('bg-bollenhut', 'text-white');
-                    el.classList.add('text-gray-400');
+                if (el) {
+                    if (btn === category) {
+                        el.classList.add('bg-bollenhut', 'text-white');
+                        el.classList.remove('text-gray-400');
+                    } else {
+                        el.classList.remove('bg-bollenhut', 'text-white');
+                        el.classList.add('text-gray-400');
+                    }
                 }
             });
+
+            // 2. Rezepte basierend auf Klassen ein- oder ausblenden
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (category === 'all' || itemCategory === category) {
+                    // Zeigt das Element wieder als Flex-Card an und entfernt die Ausblend-Klasse
+                    item.classList.remove('hidden');
+                    item.style.display = 'flex';
+                } else {
+                    // Versteckt das Element bombenfest für alle Browser
+                    item.classList.add('hidden');
+                    item.style.style.display = 'none';
+                }
+            });
+        }
 
             items.forEach(item => {
                 if(category === 'all' || item.getAttribute('data-category') === category) {
